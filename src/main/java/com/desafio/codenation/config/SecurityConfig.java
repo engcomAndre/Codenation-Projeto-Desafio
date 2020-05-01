@@ -28,8 +28,8 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] PUBLIC_MATCHERS = {};
-    private static final String[] PUBLIC_MATCHERS_GET = {};
+    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
+    private static final String[] PUBLIC_MATCHERS_GET = {"/user"};
     private static final String[] PUBLIC_MATCHERS_POST = {};
 
     @Autowired
@@ -55,7 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService()));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
     }
 
     @Override

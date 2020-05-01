@@ -1,11 +1,9 @@
 package com.desafio.codenation.repositories;
 
-import com.desafio.codenation.domain.user.User;
+import com.desafio.codenation.domain.eventos.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepositorie extends JpaRepository<User,Integer> {
-    User findByEmail(String email);
-
+public interface EventoRepositorie extends JpaRepository<Evento, Long> {
 }
