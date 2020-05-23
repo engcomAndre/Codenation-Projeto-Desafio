@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 public class UserSS implements UserDetails {	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	private Long id;
 	private String email;
 	private String senha;	
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public UserSS() {}
 	
-	public UserSS(Integer id, String email, String senha, Set<TypeUser>typeUsers) {
+	public UserSS(Long id, String email, String senha, Set<TypeUser>typeUsers) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -29,7 +29,7 @@ public class UserSS implements UserDetails {
 								 .collect(Collectors.toList());
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

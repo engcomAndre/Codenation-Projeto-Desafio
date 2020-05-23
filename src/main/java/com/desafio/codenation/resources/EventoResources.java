@@ -17,13 +17,13 @@ public class EventoResources {
     @Autowired
     private EventoService eventoService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public ResponseEntity<Evento> getContacts(@PathVariable Long id) {
         Evento evento = eventoService.getEvento(id);
         return ResponseEntity.ok().body(evento);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<Evento>> getUsers() {
         List<Evento> eventos = eventoService.getEventos();
         return ResponseEntity.ok().body(eventos);
@@ -39,6 +39,5 @@ public class EventoResources {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
-
 
 }

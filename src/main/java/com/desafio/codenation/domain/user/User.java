@@ -1,6 +1,7 @@
 package com.desafio.codenation.domain.user;
 
 import com.desafio.codenation.domain.user.enums.TypeUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,7 +18,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Email(message = "Email inválido")
     @NotEmpty(message = "Um email deve ser informado")
@@ -44,11 +45,11 @@ public class User implements Serializable {
         perfis.addAll(perfis);
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

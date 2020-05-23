@@ -1,46 +1,56 @@
 package com.desafio.codenation.resources;
 
-import com.desafio.codenation.domain.user.User;
+import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.dto.UserDto;
+import com.desafio.codenation.dto.UserDtoExpose;
 import com.desafio.codenation.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("user")
 public class UserResources {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<UserDto> getContacts(@PathVariable Integer id) {
-        UserDto userDto = userService.getUser(id);
-        return ResponseEntity.ok().body(userDto);
+    public UserResources(UserService userService) {
+        this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<UserDto>> getUsers(){
-        List<UserDto>userDtos = userService.getUsers();
-        return ResponseEntity.ok().body(userDtos);
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDtoExpose> getUsersById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new UserDtoExpose(userService.getUser(id)));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insertUser(@RequestBody UserDto userDto){
-        User user = userService.insert(userDto);
-        URI uri = ServletUriComponentsBuilder
+    @GetMapping
+    public ResponseEntity<Page<UserDtoExpose>> getUsers(Pageable page) {
+        return ResponseEntity.ok().body(userService.getUsers(page).map(UserDtoExpose::new));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDtoExpose> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+        return ResponseEntity.ok().body(new UserDtoExpose(userService.updateUser(id, userDto)));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insertUser(@RequestBody UserDto userDto) {
+        return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(user.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
+                .buildAndExpand(userService.insert(userDto))
+                .toUri()).build();
+
     }
 
-
-
+    @GetMapping("/perfil")
+    public ResponseEntity<Map<String, TypeUser[]>> getAllDisposeblePerfis() {
+        return ResponseEntity.ok().body(Map.of("perfis", TypeUser.values()));
+    }
 }
