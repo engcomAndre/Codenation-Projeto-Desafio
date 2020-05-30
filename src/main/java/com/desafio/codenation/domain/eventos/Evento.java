@@ -1,13 +1,14 @@
 package com.desafio.codenation.domain.eventos;
 
 import com.desafio.codenation.domain.eventos.enums.TypeLevel;
+import com.desafio.codenation.domain.logs.Log;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,7 +21,9 @@ public class Evento implements Serializable {
 
     private String descricao;
 
-    private String log;
+    @JsonIgnore
+    @OneToMany(mappedBy="evento",cascade = CascadeType.ALL)
+    private List<Log> logs = new ArrayList<>();
 
     private TypeLevel level;
 
@@ -33,9 +36,9 @@ public class Evento implements Serializable {
     public Evento() {
     }
 
-    public Evento(String descricao, String log, TypeLevel level, String origem, LocalDate data, Integer quantidade) {
+    public Evento(String descricao, List<Log> logs, TypeLevel level, String origem, LocalDate data, Integer quantidade) {
         this.descricao = descricao;
-        this.log = log;
+        this.logs = logs;
         this.level = level;
         this.origem = origem;
         this.data = data;
@@ -58,12 +61,12 @@ public class Evento implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getLog() {
-        return log;
+    public List<Log> getLogs() {
+        return logs;
     }
 
-    public void setLog(String log) {
-        this.log = log;
+    public void setLog(List<Log> logs) {
+        this.logs = logs;
     }
 
     public TypeLevel getLevel() {

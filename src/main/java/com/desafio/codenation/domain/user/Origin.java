@@ -1,16 +1,19 @@
 package com.desafio.codenation.domain.user;
 
 import com.desafio.codenation.domain.eventos.Evento;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Origin {
+public class Origin implements UserDetails {
     private static final long serialVersionUUID = 1L;
 
     @Id
@@ -20,17 +23,40 @@ public abstract class Origin {
     private LocalDate dtInscricao;
     private String descricao;
 
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    private String identificador;
+    private String chave;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Evento> eventos;
 
-    public Origin(String nome, LocalDate dtInscricao, String descricao) {
+    public Origin(String nome, LocalDate dtInscricao, String descricao, String identificador, String chave) {
         this.nome = nome;
         this.dtInscricao = dtInscricao;
         this.descricao = descricao;
         this.eventos = new ArrayList<>();
+
+        this.identificador = identificador;
+        this.chave = chave;
     }
 
-    public Origin(){}
+    public Origin() {
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
+    public String getChave() {
+        return chave;
+    }
+
+    public void setChave(String chave) {
+        this.chave = chave;
+    }
 
     public Long getId() {
         return id;
@@ -91,5 +117,40 @@ public abstract class Origin {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.identificador;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.identificador;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

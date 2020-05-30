@@ -30,7 +30,5 @@ public enum TypeLevel{
             }
         }
         throw new IllegalArgumentException("Id Inválido" + cod);
-
     }
-
 }

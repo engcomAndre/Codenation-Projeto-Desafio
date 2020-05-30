@@ -1,10 +1,7 @@
 package com.desafio.codenation.resources;
 
 import com.desafio.codenation.domain.user.Sistema;
-import com.desafio.codenation.domain.user.User;
-import com.desafio.codenation.dto.UserDto;
 import com.desafio.codenation.services.SistemaService;
-import com.desafio.codenation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

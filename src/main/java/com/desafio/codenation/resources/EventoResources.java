@@ -3,41 +3,41 @@ package com.desafio.codenation.resources;
 import com.desafio.codenation.domain.eventos.Evento;
 import com.desafio.codenation.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("evento")
 public class EventoResources {
 
+    private final EventoService eventoService;
+
     @Autowired
-    private EventoService eventoService;
+    public EventoResources(EventoService eventoService) {
+        this.eventoService = eventoService;
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Evento> getContacts(@PathVariable Long id) {
-        Evento evento = eventoService.getEvento(id);
-        return ResponseEntity.ok().body(evento);
+    public ResponseEntity<Evento> getEventoById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(eventoService.getEvento(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<Evento>> getUsers() {
-        List<Evento> eventos = eventoService.getEventos();
-        return ResponseEntity.ok().body(eventos);
+    public ResponseEntity<Page<Evento>> getEventos(Pageable pageable) {
+        return ResponseEntity.ok().body(eventoService.getEventos(pageable));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insertUser(@RequestBody Evento evento) {
+    @PostMapping
+    public ResponseEntity<Void> insertEvento(@RequestBody Evento evento) {
         Evento _evento = eventoService.insert(evento);
-        URI uri = ServletUriComponentsBuilder
+        return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(_evento.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
+                .toUri()).build();
     }
 
 }

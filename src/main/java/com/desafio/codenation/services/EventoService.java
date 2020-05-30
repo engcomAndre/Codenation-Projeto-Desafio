@@ -3,10 +3,9 @@ package com.desafio.codenation.services;
 import com.desafio.codenation.domain.eventos.Evento;
 import com.desafio.codenation.repositories.EventoRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class EventoService {
@@ -18,8 +17,8 @@ public class EventoService {
         return eventoRepositorie.findById(id).orElse(null);
     }
 
-    public List<Evento> getEventos() {
-        return eventoRepositorie.findAll();
+    public Page<Evento> getEventos(Pageable pageable) {
+        return eventoRepositorie.findAll(pageable);
     }
 
 
