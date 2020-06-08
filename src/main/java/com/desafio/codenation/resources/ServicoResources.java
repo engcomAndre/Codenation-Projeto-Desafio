@@ -1,7 +1,6 @@
 package com.desafio.codenation.resources;
 
-import com.desafio.codenation.domain.user.Servico;
-import com.desafio.codenation.domain.user.Sistema;
+import com.desafio.codenation.domain.origem.Servico;
 import com.desafio.codenation.services.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

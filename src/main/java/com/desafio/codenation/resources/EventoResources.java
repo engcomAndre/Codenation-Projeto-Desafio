@@ -1,13 +1,17 @@
 package com.desafio.codenation.resources;
 
+import com.desafio.codenation.domain.eventos.DTO.EventoDTO;
 import com.desafio.codenation.domain.eventos.Evento;
 import com.desafio.codenation.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("evento")
@@ -26,8 +30,14 @@ public class EventoResources {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Evento>> getEventos(Pageable pageable) {
-        return ResponseEntity.ok().body(eventoService.getEventos(pageable));
+    public ResponseEntity<Page<EventoDTO>> getEventos(Pageable pageable) {
+        return ResponseEntity
+                .ok()
+                .body(new PageImpl<>(
+                        eventoService
+                                .getEventos(pageable)
+                                .stream()
+                                .map(EventoDTO::new).collect(Collectors.toList())));
     }
 
     @PostMapping

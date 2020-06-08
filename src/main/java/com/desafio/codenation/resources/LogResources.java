@@ -1,6 +1,7 @@
 package com.desafio.codenation.resources;
 
 import com.desafio.codenation.domain.logs.Log;
+import com.desafio.codenation.domain.logs.dto.LogDTO;
 import com.desafio.codenation.services.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,8 @@ public class LogResources {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Log> getLogById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(logService.getLog(id));
+    public ResponseEntity<LogDTO> getLogById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new LogDTO(logService.getLog(id)));
     }
 
     @GetMapping

@@ -2,6 +2,7 @@ package com.desafio.codenation.domain.eventos;
 
 import com.desafio.codenation.domain.eventos.enums.TypeLevel;
 import com.desafio.codenation.domain.logs.Log;
+import com.desafio.codenation.domain.origem.Origem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -21,13 +22,15 @@ public class Evento implements Serializable {
 
     private String descricao;
 
-    @JsonIgnore
-    @OneToMany(mappedBy="evento",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
     private List<Log> logs = new ArrayList<>();
 
     private TypeLevel level;
 
-    private String origem;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "origem_id")
+    private Origem origem;
 
     private LocalDate data;
 
@@ -36,7 +39,7 @@ public class Evento implements Serializable {
     public Evento() {
     }
 
-    public Evento(String descricao, List<Log> logs, TypeLevel level, String origem, LocalDate data, Integer quantidade) {
+    public Evento(String descricao, List<Log> logs, TypeLevel level, Origem origem, LocalDate data, Integer quantidade) {
         this.descricao = descricao;
         this.logs = logs;
         this.level = level;
@@ -44,6 +47,7 @@ public class Evento implements Serializable {
         this.data = data;
         this.quantidade = quantidade;
     }
+
 
     public Long getId() {
         return id;
@@ -77,11 +81,11 @@ public class Evento implements Serializable {
         this.level = level;
     }
 
-    public String getOrigem() {
+    public Origem getOrigem() {
         return origem;
     }
 
-    public void setOrigem(String origem) {
+    public void setOrigem(Origem origem) {
         this.origem = origem;
     }
 

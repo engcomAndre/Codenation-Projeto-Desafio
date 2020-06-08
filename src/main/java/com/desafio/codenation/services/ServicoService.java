@@ -1,6 +1,6 @@
 package com.desafio.codenation.services;
 
-import com.desafio.codenation.domain.user.Servico;
+import com.desafio.codenation.domain.origem.Servico;
 import com.desafio.codenation.repositories.ServicoRepositorie;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

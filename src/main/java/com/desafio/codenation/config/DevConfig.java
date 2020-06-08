@@ -13,20 +13,20 @@ import java.text.ParseException;
 @Configuration
 @Profile("dev")
 public class DevConfig {
-	
-	@Autowired
-	private DBService dbService;
-	
-	@Value("${spring.jpa.hibernate.ddl-auto}")
-	private String stratetgy;
-	
-	@Bean
-	public boolean instateateDatabase() throws ParseException{
-		if(!"create".equals(stratetgy)) {
-			return false;			
-		}
-		dbService.instantiateTestDatabase();
-		return true;
-	}
+
+    @Autowired
+    private DBService dbService;
+
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String stratetgy;
+
+    @Bean
+    public boolean instateateDatabase() throws ParseException {
+        if (!"create".equals(stratetgy)) {
+            return false;
+        }
+        dbService.instantiateTestDatabase();
+        return true;
+    }
 
 }

@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity webSecurity) throws Exception {
         webSecurity.ignoring().antMatchers(
                 "/evento/**",
+                "/log/**",
                 "/h2-console/**"
         );
     }

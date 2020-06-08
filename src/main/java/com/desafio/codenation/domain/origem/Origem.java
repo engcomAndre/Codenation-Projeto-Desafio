@@ -1,6 +1,7 @@
-package com.desafio.codenation.domain.user;
+package com.desafio.codenation.domain.origem;
 
 import com.desafio.codenation.domain.eventos.Evento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Origin implements UserDetails {
+public class Origem implements UserDetails {
     private static final long serialVersionUUID = 1L;
 
     @Id
@@ -22,28 +23,27 @@ public class Origin implements UserDetails {
     private String nome;
     private LocalDate dtInscricao;
     private String descricao;
-
-    public String getIdentificador() {
-        return identificador;
-    }
-
     private String identificador;
     private String chave;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "origem")
     private List<Evento> eventos;
 
-    public Origin(String nome, LocalDate dtInscricao, String descricao, String identificador, String chave) {
+    public Origem(String nome, LocalDate dtInscricao, String descricao, String identificador, String chave) {
         this.nome = nome;
         this.dtInscricao = dtInscricao;
         this.descricao = descricao;
         this.eventos = new ArrayList<>();
-
         this.identificador = identificador;
         this.chave = chave;
     }
 
-    public Origin() {
+    public Origem() {
+    }
+
+    public String getIdentificador() {
+        return identificador;
     }
 
     public void setIdentificador(String identificador) {
@@ -109,9 +109,9 @@ public class Origin implements UserDetails {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Origin)) return false;
-        Origin origin = (Origin) o;
-        return getId().equals(origin.getId());
+        if (!(o instanceof Origem)) return false;
+        Origem origem = (Origem) o;
+        return getId().equals(origem.getId());
     }
 
     @Override
