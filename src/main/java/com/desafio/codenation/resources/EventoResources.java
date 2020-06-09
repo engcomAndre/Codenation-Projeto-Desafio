@@ -1,7 +1,10 @@
 package com.desafio.codenation.resources;
 
 import com.desafio.codenation.domain.eventos.DTO.EventoDTO;
+import com.desafio.codenation.domain.eventos.DTO.NovoEventoDTO;
 import com.desafio.codenation.domain.eventos.Evento;
+import com.desafio.codenation.domain.eventos.mapper.EventoMapper;
+import com.desafio.codenation.domain.eventos.mapper.NovoEventoMapper;
 import com.desafio.codenation.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,9 +22,15 @@ public class EventoResources {
 
     private final EventoService eventoService;
 
+    private final EventoMapper eventoMapper;
+
+    private final NovoEventoMapper novoEventoMapper;
+
     @Autowired
-    public EventoResources(EventoService eventoService) {
+    public EventoResources(EventoService eventoService, EventoMapper eventoMapper, NovoEventoMapper novoEventoMapper) {
         this.eventoService = eventoService;
+        this.eventoMapper = eventoMapper;
+        this.novoEventoMapper = novoEventoMapper;
     }
 
     @GetMapping("/{id}")
@@ -31,22 +40,23 @@ public class EventoResources {
 
     @GetMapping
     public ResponseEntity<Page<EventoDTO>> getEventos(Pageable pageable) {
+
         return ResponseEntity
                 .ok()
                 .body(new PageImpl<>(
                         eventoService
-                                .getEventos(pageable)
-                                .stream()
-                                .map(EventoDTO::new).collect(Collectors.toList())));
+                                .getEventos(pageable).stream()
+                                .map(eventoMapper::map)
+                                .collect(Collectors.toList())));
     }
 
     @PostMapping
-    public ResponseEntity<Void> insertEvento(@RequestBody Evento evento) {
-        Evento _evento = eventoService.insert(evento);
+    public ResponseEntity<Void> insertEvento(@RequestBody NovoEventoDTO novoEventoDTO) {
+        Evento evento = eventoService.insert(novoEventoMapper.map(novoEventoDTO));
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(_evento.getId())
+                .buildAndExpand(evento.getId())
                 .toUri()).build();
     }
 
