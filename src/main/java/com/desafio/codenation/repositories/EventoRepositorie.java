@@ -9,5 +9,5 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
-public interface EventoRepositorie extends JpaRepository<Evento, Long> {
+public interface EventoRepositorie extends BaseRepository<Evento, Long> {
 }

@@ -13,6 +13,6 @@ import java.time.LocalDate;
 public class ServicoDTO {
     private Long id;
     private String nome;
-    private LocalDate dtInscricao;
+    private LocalDate createdAt;
     private String descricao;
 }

@@ -15,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.awt.print.Pageable;
 import java.net.URI;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -50,8 +49,6 @@ public class ServicoResources {
                                 .getServicos(pageable).stream()
                                 .map(servicoMapper::map)
                                 .collect(Collectors.toList())));
-
-
     }
 
     @RequestMapping(method = RequestMethod.POST)
