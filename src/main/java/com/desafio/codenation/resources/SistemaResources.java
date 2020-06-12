@@ -31,12 +31,15 @@ public class SistemaResources {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insertUser(@RequestBody Sistema _sistema){
+
         Sistema sistema = sistemaService.insert(_sistema);
+
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(sistema.getId())
                 .toUri();
+
         return ResponseEntity.created(uri).build();
     }
 

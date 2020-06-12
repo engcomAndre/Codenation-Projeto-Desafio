@@ -11,11 +11,11 @@ import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class OriginSS implements UserDetails {
+public class UserSS implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String identificador;
+    private String email;
     private String password;
 
     public Long getId() {
@@ -34,7 +34,7 @@ public class OriginSS implements UserDetails {
 
     @Override
     public String getUsername() {
-        return identificador;
+        return email;
     }
 
     @Override

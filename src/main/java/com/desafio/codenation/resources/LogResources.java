@@ -1,7 +1,7 @@
 package com.desafio.codenation.resources;
 
 import com.desafio.codenation.domain.logs.Log;
-import com.desafio.codenation.domain.logs.dto.LogDTO;
+import com.desafio.codenation.domain.logs.DTO.LogDTO;
 import com.desafio.codenation.domain.logs.mapper.LogMapper;
 import com.desafio.codenation.services.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ public class LogResources {
 
     private final LogMapper logMapper;
 
-    @Autowired
     public LogResources(LogService logService, LogMapper logMapper) {
         this.logService = logService;
         this.logMapper = logMapper;

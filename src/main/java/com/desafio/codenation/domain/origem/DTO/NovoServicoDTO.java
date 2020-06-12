@@ -1,5 +1,4 @@
-package com.desafio.codenation.domain.origem.dto;
-
+package com.desafio.codenation.domain.origem.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,12 +6,16 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServicoDTO {
-    private Long id;
+@Data
+public class NovoServicoDTO {
+
     private String nome;
     private LocalDate createdAt;
     private String descricao;
+
+    private String identificador;
+    private String chave;
 }
+

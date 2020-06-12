@@ -1,19 +1,19 @@
 package com.desafio.codenation.resources;
 
 import com.desafio.codenation.domain.origem.Servico;
-import com.desafio.codenation.domain.origem.dto.NovoServicoDTO;
-import com.desafio.codenation.domain.origem.dto.ServicoDTO;
+import com.desafio.codenation.domain.origem.DTO.NovoServicoDTO;
+import com.desafio.codenation.domain.origem.DTO.ServicoDTO;
 import com.desafio.codenation.domain.origem.mapper.NovoServicoMapper;
 import com.desafio.codenation.domain.origem.mapper.ServicoMapper;
 import com.desafio.codenation.services.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.awt.print.Pageable;
 import java.net.URI;
 import java.util.stream.Collectors;
 

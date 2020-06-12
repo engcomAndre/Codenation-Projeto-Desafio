@@ -6,7 +6,8 @@ import com.desafio.codenation.domain.eventos.Evento;
 import com.desafio.codenation.domain.eventos.mapper.EventoMapper;
 import com.desafio.codenation.domain.eventos.mapper.NovoEventoMapper;
 import com.desafio.codenation.services.EventoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,6 @@ public class EventoResources {
 
     private final NovoEventoMapper novoEventoMapper;
 
-    @Autowired
     public EventoResources(EventoService eventoService, EventoMapper eventoMapper, NovoEventoMapper novoEventoMapper) {
         this.eventoService = eventoService;
         this.eventoMapper = eventoMapper;
@@ -34,8 +34,8 @@ public class EventoResources {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Evento> getEventoById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(eventoService.getEvento(id));
+    public ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(eventoMapper.map(eventoService.getEvento(id)));
     }
 
     @GetMapping

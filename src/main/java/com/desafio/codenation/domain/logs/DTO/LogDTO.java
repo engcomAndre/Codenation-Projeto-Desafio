@@ -1,6 +1,5 @@
-package com.desafio.codenation.domain.logs.dto;
+package com.desafio.codenation.domain.logs.DTO;
 
-import com.desafio.codenation.domain.eventos.DTO.EventoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
