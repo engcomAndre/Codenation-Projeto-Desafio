@@ -1,5 +1,6 @@
 package com.desafio.codenation.domain.user;
 
+import com.desafio.codenation.domain.security.SecurityEntity;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import lombok.*;
 
@@ -17,7 +18,7 @@ import java.util.Set;
 @Data
 @Builder
 @Entity
-public class User implements Serializable {
+public class User  extends SecurityEntity implements Serializable {
     private static final long serialVersionUUID = 1L;
 
     @Id
@@ -26,7 +27,7 @@ public class User implements Serializable {
 
     @Email(message = "Email inválido")
     @NotEmpty(message = "Um email deve ser informado")
-    private String email;
+    private String username;
 
     @NotEmpty(message = "Uma senha deve ser informada")
     private String password;

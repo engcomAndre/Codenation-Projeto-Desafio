@@ -1,7 +1,7 @@
 package com.desafio.codenation.config;
 
 
-import com.desafio.codenation.services.UserSecurityService;
+import com.desafio.codenation.services.SecurityEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
     @Autowired
-    public SecurityConfig(UserSecurityService userSecurityService) {
-        this.userDetailsService = userSecurityService;
+    public SecurityConfig(SecurityEntityService securityEntityService) {
+        this.userDetailsService = securityEntityService;
     }
 
     @Bean

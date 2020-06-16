@@ -20,8 +20,8 @@ public class Sistema extends Origem implements Serializable {
     private static final long serialVersionUUID = 1L;
 
     @Builder(builderMethodName = "builder")
-    public Sistema(Long id, String nome, String descricao, String identificador, String chave, List<Evento> eventos, LocalDate createdAt) {
-        super(id, nome, descricao, identificador, chave, eventos, createdAt);
+    public Sistema(Long id, String nome, String descricao, String username, String password, List<Evento> eventos, LocalDate createdAt) {
+        super(id, nome, descricao, username, password, eventos, createdAt);
     }
 
 }

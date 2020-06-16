@@ -1,5 +1,6 @@
 package com.desafio.codenation.domain.origem;
 
+import com.desafio.codenation.domain.security.SecurityEntity;
 import com.desafio.codenation.domain.eventos.Evento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +20,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @EntityListeners(AuditingEntityListener.class)
-public class Origem {
+public class Origem  extends SecurityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,8 @@ public class Origem {
 
     private String descricao;
 
-    private String identificador;
-    private String chave;
+    private String username;
+    private String password;
 
     @JsonIgnore
     @OneToMany(mappedBy = "origem")
