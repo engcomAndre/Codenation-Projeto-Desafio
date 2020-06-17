@@ -11,7 +11,6 @@ import org.mapstruct.Mappings;
 public interface NovoUserMapper {
 
     @Mappings({
-            @Mapping(source = "id", target = "id"),
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "password", target = "password"),
             @Mapping(source = "perfis", target = "perfis")
