@@ -17,8 +17,7 @@ public class Servico extends Origem implements Serializable {
     private static final long serialVersionUUID = 1L;
 
     @Builder(builderMethodName = "builder")
-    public Servico(Long id, String nome, String descricao, String username, String password, List<Evento> eventos, LocalDate createdAt) {
-        super(id, nome, descricao, username, password, eventos, createdAt);
+    public Servico(Long id, String nome, String descricao, String chave, List<Evento> eventos, LocalDate createdAt) {
+        super(id, nome, descricao, chave, eventos, createdAt);
     }
-
 }

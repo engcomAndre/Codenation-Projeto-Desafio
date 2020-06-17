@@ -35,13 +35,13 @@ public class DBService {
     public void instantiateTestDatabase() throws ParseException {
 
         User userA = User.builder()
-                .username("menino@gmail.com")
+                .email("menino@gmail.com")
                 .password("123456")
                 .perfis(new HashSet(Arrays.asList(TypeUser.ADMIN, TypeUser.COMMON_USER)))
                 .build();
 
         User userB = User.builder()
-                .username("menino2@gmail.com")
+                .email("menino2@gmail.com")
                 .password("654321")
                 .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
                 .build();
@@ -61,23 +61,20 @@ public class DBService {
         Sistema sistemaA = Sistema.builder()
                 .nome("Nome Sistema " + ++i)
                 .descricao("Descrição do Sistema " + i)
-                .username("35347144-f328-49fd-a1d2-e325c9d81adc")
-                .password("123456")
+                .chave("35347144-f328-49fd-a1d2-e325c9d81adc")
                 .build();
 
 
         Servico serviceA = Servico.builder()
                 .nome("Nome Servico " + ++i)
                 .descricao("Descrição do Servico " + i)
-                .username("15347144-f328-49fd-a1d2-e325c9d81adc")
-                .password("123456")
+                .chave("15347144-f328-49fd-a1d2-e325c9d81adc")
                 .build();
 
         Sistema sistemaC = Sistema.builder()
                 .nome("Nome Sistema " + ++i)
                 .descricao("Descrição do Sistema " + i)
-                .username("25347144-f328-49fd-a1d2-e325c9d81adc")
-                .password("123456")
+                .chave("25347144-f328-49fd-a1d2-e325c9d81adc")
                 .build();
 
 

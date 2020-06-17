@@ -5,8 +5,6 @@ import com.desafio.codenation.domain.eventos.Evento;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -20,8 +18,7 @@ public class Sistema extends Origem implements Serializable {
     private static final long serialVersionUUID = 1L;
 
     @Builder(builderMethodName = "builder")
-    public Sistema(Long id, String nome, String descricao, String username, String password, List<Evento> eventos, LocalDate createdAt) {
-        super(id, nome, descricao, username, password, eventos, createdAt);
+    public Sistema(Long id, String nome, String descricao, String chave, List<Evento> eventos, LocalDate createdAt) {
+        super(id, nome, descricao, chave, eventos, createdAt);
     }
-
 }

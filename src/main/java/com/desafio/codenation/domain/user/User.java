@@ -1,13 +1,15 @@
 package com.desafio.codenation.domain.user;
 
-import com.desafio.codenation.domain.security.SecurityEntity;
 import com.desafio.codenation.domain.user.enums.TypeUser;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +20,7 @@ import java.util.Set;
 @Data
 @Builder
 @Entity
-public class User  extends SecurityEntity implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUUID = 1L;
 
     @Id
@@ -27,7 +29,7 @@ public class User  extends SecurityEntity implements Serializable {
 
     @Email(message = "Email inválido")
     @NotEmpty(message = "Um email deve ser informado")
-    private String username;
+    private String email;
 
     @NotEmpty(message = "Uma senha deve ser informada")
     private String password;
@@ -35,5 +37,9 @@ public class User  extends SecurityEntity implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
     private Set<TypeUser> perfis = new HashSet<>();
+
+    @CreatedDate
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime createdAt;
 
 }

@@ -1,31 +1,46 @@
 package com.desafio.codenation.domain.security;
 
+import com.desafio.codenation.domain.user.enums.TypeUser;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.mapping.Set;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Builder
 @Inheritance(strategy = InheritanceType.JOINED)
-public class SecurityEntity implements UserDetails{
+public class SecurityEntity implements UserDetails, Serializable {
+    private static final long serialVersionUUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
+
+    private String email;
+
     private String password;
+
+    private Collection<TypeUser> perfis;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return perfis.stream()
+                .map(x -> new SimpleGrantedAuthority(x.getDesc()))
+                .collect(Collectors.toList());
+
     }
 
     @Override
@@ -35,7 +50,7 @@ public class SecurityEntity implements UserDetails{
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

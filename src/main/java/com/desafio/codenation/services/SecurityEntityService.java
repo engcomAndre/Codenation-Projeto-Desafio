@@ -1,12 +1,9 @@
 package com.desafio.codenation.services;
 
 import com.desafio.codenation.domain.security.SecurityEntity;
-import com.desafio.codenation.repositories.OriginRepositorie;
-import com.desafio.codenation.repositories.SecurityRepositorie;
+import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.repositories.UserRepositorie;
-import com.desafio.codenation.security.OriginSS;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,19 +14,27 @@ import org.springframework.stereotype.Service;
 public class SecurityEntityService implements UserDetailsService {
 
     @Autowired
-    private SecurityRepositorie securityRepositorie;
+    private UserRepositorie userRepositorie;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return securityRepositorie.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username ou Identificador inválido"));
-    }
-
-    public static SecurityEntity authenticated(){
-        try{
+    public static SecurityEntity authenticated() {
+        try {
             return (SecurityEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepositorie.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email ou Identificador inválido"));
+
+        return SecurityEntity.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .perfis(user.getPerfis())
+                .build();
+    }
+
+
 }

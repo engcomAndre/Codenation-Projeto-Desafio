@@ -1,10 +1,9 @@
 package com.desafio.codenation.resources;
 
-import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.domain.logs.DTO.LogDTO;
+import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.domain.logs.mapper.LogMapper;
 import com.desafio.codenation.services.LogService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
