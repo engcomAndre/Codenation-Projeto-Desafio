@@ -3,18 +3,20 @@ package com.desafio.codenation.resources;
 import com.desafio.codenation.domain.eventos.DTO.EventoDTO;
 import com.desafio.codenation.domain.eventos.DTO.NovoEventoDTO;
 import com.desafio.codenation.domain.eventos.Evento;
+import com.desafio.codenation.domain.eventos.enums.TypeLevel;
 import com.desafio.codenation.domain.eventos.mapper.EventoMapper;
 import com.desafio.codenation.domain.eventos.mapper.NovoEventoMapper;
-import com.desafio.codenation.domain.security.SecurityEntity;
 import com.desafio.codenation.services.EventoService;
-import com.desafio.codenation.services.SecurityEntityService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,6 +35,7 @@ public class EventoResources {
         this.novoEventoMapper = novoEventoMapper;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id) {
         return ResponseEntity.ok().body(eventoMapper.map(eventoService.getEvento(id)));
@@ -60,4 +63,12 @@ public class EventoResources {
                 .toUri()).build();
     }
 
+    @GetMapping("/event-level")
+    public ResponseEntity<List<TypeLevel>> getTypeLevelResponseEntity() {
+        return ResponseEntity
+                .ok()
+                .body(Arrays.asList(TypeLevel.values()));
+
+
+    }
 }

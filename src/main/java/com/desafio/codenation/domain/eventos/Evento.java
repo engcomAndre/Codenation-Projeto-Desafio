@@ -6,6 +6,7 @@ import com.desafio.codenation.domain.origem.Origem;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -30,8 +31,8 @@ public class Evento implements Serializable {
 
     private String descricao;
 
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    private List<Log> logs = new ArrayList<>();
+    @OneToOne(mappedBy = "evento", cascade = CascadeType.ALL)
+    private Log log;
 
     private TypeLevel level;
 
@@ -44,5 +45,9 @@ public class Evento implements Serializable {
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime modifiedData;
 
 }

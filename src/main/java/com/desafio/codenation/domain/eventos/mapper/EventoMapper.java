@@ -15,8 +15,10 @@ public interface EventoMapper {
             @Mapping(source = "descricao", target = "descricao"),
             @Mapping(source = "level", target = "level"),
             @Mapping(source = "origem.id", target = "origemId"),
+            @Mapping(source = "log", target = "log"),
+            @Mapping(source = "quantidade", target = "quantidade"),
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm"),
-            @Mapping(source = "quantidade", target = "quantidade")
+            @Mapping(source = "modifiedData", target = "modifiedData", dateFormat = "yyyy-MM-dd HH:mm")
     })
     EventoDTO map(Evento evento);
 

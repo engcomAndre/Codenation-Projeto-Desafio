@@ -1,6 +1,8 @@
 package com.desafio.codenation.resources;
 
+import com.desafio.codenation.domain.origem.DTO.SistemaDTO;
 import com.desafio.codenation.domain.origem.Sistema;
+import com.desafio.codenation.domain.origem.mapper.SistemaMapper;
 import com.desafio.codenation.services.SistemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,20 +19,23 @@ public class SistemaResources {
     @Autowired
     private SistemaService sistemaService;
 
+    @Autowired
+    private SistemaMapper sistemaMapper;
+
+
+
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<Sistema> getContacts(@PathVariable Integer id) {
-        Sistema sistema = sistemaService.getSistema(id);
-        return ResponseEntity.ok().body(sistema);
+    public ResponseEntity<SistemaDTO> getSistemaById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(sistemaMapper.map(sistemaService.getSistema(id)));
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Sistema>> getUsers(){
-        List<Sistema>sistemas = sistemaService.getSistemas();
-        return ResponseEntity.ok().body(sistemas);
+    public ResponseEntity<List<SistemaDTO>> getSistemas(){
+        return ResponseEntity.ok().body(sistemaMapper.map(sistemaService.getSistemas()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insertUser(@RequestBody Sistema _sistema){
+    public ResponseEntity<Void> insertSistema(@RequestBody Sistema _sistema){
 
         Sistema sistema = sistemaService.insert(_sistema);
 

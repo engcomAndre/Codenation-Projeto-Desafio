@@ -16,7 +16,6 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 
 @Service
 public class DBService {
@@ -47,15 +46,9 @@ public class DBService {
                 .build();
 
         Log logA = Log.builder().descricao("descrição log A").build();
-        Log logB1 = Log.builder().descricao("descrição log B").build();
-        Log logB2 = Log.builder().descricao("descrição log B").build();
-        Log logC1 = Log.builder().descricao("descrição log C").build();
-        Log logC2 = Log.builder().descricao("descrição log C").build();
-        Log logC3 = Log.builder().descricao("descrição log C").build();
-
-        List<Log> logsA = Arrays.asList(logA);
-        List<Log> logsB = Arrays.asList(logB1, logB2);
-        List<Log> logsC = Arrays.asList(logC1, logC2, logC3);
+        Log logB = Log.builder().descricao("descrição log B").build();
+        Log logC = Log.builder().descricao("descrição log C").build();
+        Log logD = Log.builder().descricao("descrição log D").build();
 
         int i = 0;
         Sistema sistemaA = Sistema.builder()
@@ -71,6 +64,13 @@ public class DBService {
                 .chave("15347144-f328-49fd-a1d2-e325c9d81adc")
                 .build();
 
+        Servico serviceB = Servico.builder()
+                .nome("Nome Servico " + ++i)
+                .descricao("Descrição do Servico " + i)
+                .chave("25347144-f328-49fd-a1d2-e325c9d81adc")
+                .build();
+
+
         Sistema sistemaC = Sistema.builder()
                 .nome("Nome Sistema " + ++i)
                 .descricao("Descrição do Sistema " + i)
@@ -80,46 +80,53 @@ public class DBService {
 
         Evento eventoA = Evento.builder()
                 .descricao("Descrição de uma evento " + ++i)
-                .logs(logsA)
+                .log(logA)
                 .level(TypeLevel.ERROR)
                 .origem(sistemaA)
                 .quantidade(i)
                 .build();
 
-
-        logsA.forEach(log -> log.setEvento(eventoA));
+        logA.setEvento(eventoA);
 
         Evento eventoB = Evento.builder()
                 .descricao("Descrição de uma evento " + ++i)
-                .logs(logsB)
+                .log(logB)
                 .level(TypeLevel.WARNING)
                 .origem(sistemaC)
                 .quantidade(i)
                 .build();
 
-        logsB.forEach(log -> log.setEvento(eventoB));
+        logB.setEvento(eventoB);
 
         Evento eventoC = Evento.builder()
                 .descricao("Descrição de uma evento " + ++i)
-                .logs(logsC)
+                .log(logC)
                 .level(TypeLevel.INFO)
                 .origem(serviceA)
                 .quantidade(i)
                 .build();
 
-        logsC.forEach(log -> log.setEvento(eventoC));
+        logC.setEvento(eventoC);
+
+        Evento eventoD = Evento.builder()
+                .descricao("Descrição de uma evento " + ++i)
+                .log(logD)
+                .level(TypeLevel.INFO)
+                .origem(serviceA)
+                .quantidade(i)
+                .build();
+
+        logD.setEvento(eventoD);
 
         sistemaA.setEventos(Collections.singletonList(eventoA));
         sistemaC.setEventos(Collections.singletonList(eventoB));
         serviceA.setEventos(Collections.singletonList(eventoC));
+        serviceB.setEventos(Collections.singletonList(eventoD));
 
         userRepositorie.saveAll(Arrays.asList(userA, userB));
-        originRepositorie.saveAll(Arrays.asList(sistemaA, serviceA, sistemaC));
-        eventoRepositorie.saveAll(Arrays.asList(eventoA, eventoB, eventoC));
-        logsA.forEach(log -> logRepositorie.save(log));
-        logsB.forEach(log -> logRepositorie.save(log));
-        logsC.forEach(log -> logRepositorie.save(log));
-
+        originRepositorie.saveAll(Arrays.asList(sistemaA, serviceA, sistemaC, serviceB));
+        eventoRepositorie.saveAll(Arrays.asList(eventoA, eventoB, eventoC, eventoD));
+        logRepositorie.saveAll(Arrays.asList(logA, logB, logC, logD));
     }
 
 }

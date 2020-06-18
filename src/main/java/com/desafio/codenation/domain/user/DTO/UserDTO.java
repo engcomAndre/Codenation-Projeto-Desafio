@@ -16,6 +16,7 @@ public class UserDTO {
     private String email;
     private Set<TypeUser> perfis;
     private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }
 
 

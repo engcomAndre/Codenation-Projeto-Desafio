@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +31,7 @@ import static org.springframework.security.crypto.password.NoOpPasswordEncoder.g
 @EnableWebSecurity
 @EnableAuthorizationServer
 @EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/oauth/token"};
@@ -79,7 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers("/");
+        webSecurity.ignoring().antMatchers("/")
+        .antMatchers("/h2-console/**");
 //                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST)
 //                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET)
 //                .antMatchers(PUBLIC_MATCHERS)

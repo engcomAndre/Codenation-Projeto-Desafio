@@ -13,7 +13,7 @@ public class SistemaService {
     @Autowired
     private SistemaRepositorie sistemaRepositorie;
 
-    public Sistema getSistema(Integer id) {
+    public Sistema getSistema(Long id) {
         return sistemaRepositorie.findById(id).orElse(null);
     }
 

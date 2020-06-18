@@ -14,7 +14,8 @@ public interface UserMapper {
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "perfis", target = "perfis"),
-            @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
+            @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm"),
+            @Mapping(source = "modifiedAt", target = "modifiedAt", dateFormat = "yyyy-MM-dd HH:mm")
     })
     UserDTO map(User user);
 
