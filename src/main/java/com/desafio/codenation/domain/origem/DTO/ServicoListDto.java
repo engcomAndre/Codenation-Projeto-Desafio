@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class NovoSistemaDTO {
+public class ServicoListDto {
+    private Long id;
     private String nome;
     private String descricao;
-    private String chave;
 }

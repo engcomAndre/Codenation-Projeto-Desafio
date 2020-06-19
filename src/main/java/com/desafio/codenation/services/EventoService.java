@@ -27,18 +27,13 @@ public class EventoService {
         return eventoRepositorie.findAll(predicate, pageable);
     }
 
-    public Page<Evento> getEventos(Pageable pageable) {
-        return eventoRepositorie.findAll(pageable);
-    }
-
-
     public Evento insert(Evento evento) {
         return eventoRepositorie.save(evento);
     }
 
-    public Evento updateEvento(Long id, Evento updTEvento) {
+    public Evento updateEvento(Long id, Evento newEvento) {
         Evento evento = getEvento(id);
-        updtEvento(evento, updTEvento);
+        updtEvento(evento, newEvento);
         return eventoRepositorie.save(evento);
     }
 

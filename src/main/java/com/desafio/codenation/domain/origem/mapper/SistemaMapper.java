@@ -1,6 +1,8 @@
 package com.desafio.codenation.domain.origem.mapper;
 
+import com.desafio.codenation.domain.origem.DTO.NovoSistemaDTO;
 import com.desafio.codenation.domain.origem.DTO.SistemaDTO;
+import com.desafio.codenation.domain.origem.DTO.SistemaListDto;
 import com.desafio.codenation.domain.origem.Sistema;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
@@ -21,5 +23,9 @@ public interface SistemaMapper {
     })
     SistemaDTO map(Sistema sistema);
 
-    List<SistemaDTO> map(List<Sistema> sistemas);
+    SistemaListDto mapForFindAll(Sistema sistema);
+
+    @InheritConfiguration(name = "originDTO")
+    Sistema map(NovoSistemaDTO novoServicoDTO);
+
 }

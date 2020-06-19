@@ -47,7 +47,9 @@ public class EventoResources {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public ResponseEntity<Page<EventoListDto>> getEventos(@QuerydslPredicate(root = Evento.class) Predicate predicate, Pageable pageable) {
+    public ResponseEntity<Page<EventoListDto>> getEventos(
+            @QuerydslPredicate(root = Evento.class) Predicate predicate,
+            Pageable pageable) {
 
         return ResponseEntity
                 .ok()
@@ -93,7 +95,7 @@ public class EventoResources {
 
         eventoService.updateEvento(id, evento);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
 
     }
 
@@ -101,7 +103,7 @@ public class EventoResources {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable("id") Long id) {
         eventoService.deleteEvento(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 

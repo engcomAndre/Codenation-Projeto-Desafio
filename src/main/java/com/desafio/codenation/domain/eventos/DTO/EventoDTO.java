@@ -16,7 +16,6 @@ public class EventoDTO {
     private Long id;
     private String descricao;
     private TypeLevel level;
-    private Long origemId;
     private Log log;
     private LocalDateTime createdAt;
     private Integer quantidade;

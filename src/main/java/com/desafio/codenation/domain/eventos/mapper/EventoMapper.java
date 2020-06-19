@@ -15,7 +15,7 @@ public interface EventoMapper {
 
     @Mappings({
             @Mapping(source = "log", target = "log"),
-            @Mapping(source = "origem.id", target = "origemId")
+//            @Mapping(source = "origem.id", target = "origemId")
     })
     EventoDTO map(Evento evento);
 
