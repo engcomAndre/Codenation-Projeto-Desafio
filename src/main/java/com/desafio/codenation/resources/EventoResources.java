@@ -7,9 +7,12 @@ import com.desafio.codenation.domain.eventos.enums.TypeLevel;
 import com.desafio.codenation.domain.eventos.mapper.EventoMapper;
 import com.desafio.codenation.domain.eventos.mapper.NovoEventoMapper;
 import com.desafio.codenation.services.EventoService;
+import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,16 +44,29 @@ public class EventoResources {
         return ResponseEntity.ok().body(eventoMapper.map(eventoService.getEvento(id)));
     }
 
+    //    @GetMapping
+//    public ResponseEntity<Page<EventoDTO>> getEventos(Pageable pageable) {
+//
+//        return ResponseEntity
+//                .ok()
+//                .body(new PageImpl<>(
+//                        eventoService
+//                                .getEventos(pageable).stream()
+//                                .map(eventoMapper::map)
+//                                .collect(Collectors.toList())));
+//    }
     @GetMapping
-    public ResponseEntity<Page<EventoDTO>> getEventos(Pageable pageable) {
+    public ResponseEntity<Page<EventoDTO>> getEventos(@QuerydslPredicate(root = Evento.class) Predicate predicate, Pageable pageable) {
+
+        Page page = new PageImpl<>(
+                eventoService
+                        .getEventos(predicate, pageable).stream()
+                        .map(eventoMapper::map)
+                        .collect(Collectors.toList()));
 
         return ResponseEntity
                 .ok()
-                .body(new PageImpl<>(
-                        eventoService
-                                .getEventos(pageable).stream()
-                                .map(eventoMapper::map)
-                                .collect(Collectors.toList())));
+                .body(page);
     }
 
     @PostMapping

@@ -4,6 +4,7 @@ import com.desafio.codenation.domain.eventos.enums.TypeLevel;
 import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.domain.origem.Origem;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.querydsl.core.types.EntityPath;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
