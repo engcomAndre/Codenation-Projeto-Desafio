@@ -1,8 +1,5 @@
 package com.desafio.codenation.repositories;
 
-import com.desafio.codenation.domain.eventos.Evento;
-import com.desafio.codenation.domain.eventos.QEvento;
-import com.desafio.codenation.domain.logs.QLog;
 import com.desafio.codenation.domain.user.QUser;
 import com.desafio.codenation.domain.user.User;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;

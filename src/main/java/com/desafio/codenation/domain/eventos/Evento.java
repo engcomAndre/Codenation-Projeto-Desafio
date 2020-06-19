@@ -4,7 +4,6 @@ import com.desafio.codenation.domain.eventos.enums.TypeLevel;
 import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.domain.origem.Origem;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.querydsl.core.types.EntityPath;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,8 +12,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +29,7 @@ public class Evento implements Serializable {
 
     private String descricao;
 
-    @OneToOne(mappedBy = "evento", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "evento", cascade = CascadeType.PERSIST,orphanRemoval = true)
     private Log log;
 
     private TypeLevel level;

@@ -29,7 +29,7 @@ public class DBService {
     @Autowired
     private LogRepositorie logRepositorie;
     @Autowired
-    private OriginRepositorie originRepositorie;
+    private OrigemRepositorie origemRepositorie;
 
     public void instantiateTestDatabase() throws ParseException {
 
@@ -124,7 +124,7 @@ public class DBService {
         serviceB.setEventos(Collections.singletonList(eventoD));
 
         userRepositorie.saveAll(Arrays.asList(userA, userB));
-        originRepositorie.saveAll(Arrays.asList(sistemaA, serviceA, sistemaC, serviceB));
+        origemRepositorie.saveAll(Arrays.asList(sistemaA, serviceA, sistemaC, serviceB));
         eventoRepositorie.saveAll(Arrays.asList(eventoA, eventoB, eventoC, eventoD));
         logRepositorie.saveAll(Arrays.asList(logA, logB, logC, logD));
     }

@@ -21,37 +21,4 @@ public class LogDTO implements Serializable {
 
     private LocalDateTime createdAt;
 
-
-//    public LogDTO() {
-//    }
-//
-//    public LogDTO(Log log) {
-//        this.id = log.getId();
-//        this.descricao = log.getDescricao();
-//        this.evento = new EventoDTO(log.getEvent());
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getDescricao() {
-//        return descricao;
-//    }
-//
-//    public void setDescricao(String descricao) {
-//        this.descricao = descricao;
-//    }
-//
-//    public EventoDTO getEvento() {
-//        return evento;
-//    }
-//
-//    public void setEvento(EventoDTO evento) {
-//        this.evento = evento;
-//    }
 }
