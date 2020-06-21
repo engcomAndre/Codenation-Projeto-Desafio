@@ -9,6 +9,9 @@ import com.desafio.codenation.domain.user.mapper.UserMapper;
 import com.desafio.codenation.services.UserService;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -45,13 +48,15 @@ public class UserResources {
         this.novoUserMapper = novoUserMapper;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Busca de Usuários por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getContacts(@PathVariable Long id) {
         return ResponseEntity.ok().body(userMapper.map(userService.getUser(id)));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Busca de Usuários por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<UserDTO>> getUsers(@QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable) {
         return ResponseEntity
@@ -63,7 +68,9 @@ public class UserResources {
                                 .collect(Collectors.toList())));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+    @ApiOperation(value = "Cadastro de um novo usuário.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Void> insertUser(@Valid @RequestBody NovoUserDTO novoUser) {
 
@@ -78,6 +85,8 @@ public class UserResources {
         return ResponseEntity.created(uri).build();
     }
 
+    @ApiOperation(value = "Atualizar um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @Valid @RequestBody NovoUserDTO novoUser) {
         User user = userMapper.map(novoUser);
@@ -87,14 +96,20 @@ public class UserResources {
         return ResponseEntity.noContent().build();
     }
 
+
+    @ApiOperation(value = "Remover um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Impossível remover usuario com associações."),
+            @ApiResponse(code = 404, message = "Usuário não encontrado")})
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Obter os tipos de usuários disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/typeuser")
     public ResponseEntity<List<TypeUser>> getTypeUsers() {
         return ResponseEntity.ok().body(Arrays.asList(TypeUser.values()));

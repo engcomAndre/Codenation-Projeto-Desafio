@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@RestController
 @Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+@RestController
 @RequestMapping("evento")
 public class EventoResources {
 
@@ -100,7 +100,7 @@ public class EventoResources {
     }
 
 
-    @ApiOperation(value = "Atualizar um  Evento existente por Id")
+    @ApiOperation(value = "Atualizar um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateEvento(@PathVariable("id") Long id, @Valid @RequestBody NovoEventoDTO novoEventoDTO) {
@@ -119,7 +119,7 @@ public class EventoResources {
 
     }
 
-    @ApiOperation(value = "Remover um  Evento existente por Id")
+    @ApiOperation(value = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover eventos co associações."),
             @ApiResponse(code = 404, message = "Evento não encontrado")})
@@ -131,7 +131,7 @@ public class EventoResources {
     }
 
 
-    @ApiOperation(value = "Obter os tipos de Eventos disponíveis.")
+    @ApiOperation(value = "Obter os tipos de Eventos disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/event-level")
     public ResponseEntity<List<TypeLevel>> getTypeLevelResponseEntity() {
