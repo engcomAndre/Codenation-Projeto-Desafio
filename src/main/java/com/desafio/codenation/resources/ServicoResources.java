@@ -7,6 +7,7 @@ import com.desafio.codenation.domain.origem.Servico;
 import com.desafio.codenation.domain.origem.mapper.ServicoMapper;
 import com.desafio.codenation.services.ServicoService;
 import com.querydsl.core.types.Predicate;
+import io.swagger.annotations.Api;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,10 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+
+@Api(tags = {"Serviços"},value = "Recursos de Serviços",hidden = true,produces = APPLICATION_JSON_VALUE,consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("servico")
 public class ServicoResources {

@@ -11,7 +11,10 @@ import com.desafio.codenation.domain.origem.Origem;
 import com.desafio.codenation.services.EventoService;
 import com.desafio.codenation.services.OrigemService;
 import com.querydsl.core.types.Predicate;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +32,7 @@ import java.util.stream.Collectors;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@Api(tags = {"Eventos"})
+@Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RequestMapping("evento")
 public class EventoResources {
 
@@ -45,20 +48,16 @@ public class EventoResources {
         this.eventoMapper = eventoMapper;
     }
 
-    @ApiOperation(
-            value = "Get All",
-            produces = APPLICATION_JSON_VALUE
-            , authorizations = {@Authorization(value = "Authorization", scopes =
-            {@AuthorizationScope(scope = "password", description = "password")})}
-    )
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id) {
         return ResponseEntity.ok().body(eventoMapper.map(eventoService.getEvento(id)));
     }
 
-    @ApiOperation(value = "Obter Eventos por parâmetros de URL e Paginação. ")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+    @ApiOperation(value = "Busca de Eventos por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<EventoListDto>> getEventos(
             @QuerydslPredicate(root = Evento.class) Predicate predicate,
@@ -73,8 +72,9 @@ public class EventoResources {
                                 .collect(Collectors.toList())));
     }
 
-    @ApiOperation(value = "Cadastro um novo Evento")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+    @ApiOperation(value = "Cadastro de um novo evento.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Void> insertEvento(@Valid @RequestBody NovoEventoDTO novoEventoDTO) {
 
@@ -101,7 +101,7 @@ public class EventoResources {
 
 
     @ApiOperation(value = "Atualizar um  Evento existente por Id")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateEvento(@PathVariable("id") Long id, @Valid @RequestBody NovoEventoDTO novoEventoDTO) {
         Evento evento = eventoMapper.map(novoEventoDTO);
@@ -121,9 +121,9 @@ public class EventoResources {
 
     @ApiOperation(value = "Remover um  Evento existente por Id")
     @ApiResponses(value = {
-//            @ApiResponse(code = 400, message = "Não é possível excluir uma Evento que possui produtos"),
-            @ApiResponse(code = 404, message = "Código inexistente")})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+            @ApiResponse(code = 400, message = "Impossível remover eventos co associações."),
+            @ApiResponse(code = 404, message = "Evento não encontrado")})
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable("id") Long id) {
         eventoService.deleteEvento(id);
@@ -132,7 +132,7 @@ public class EventoResources {
 
 
     @ApiOperation(value = "Obter os tipos de Eventos disponíveis.")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/event-level")
     public ResponseEntity<List<TypeLevel>> getTypeLevelResponseEntity() {
         return ResponseEntity

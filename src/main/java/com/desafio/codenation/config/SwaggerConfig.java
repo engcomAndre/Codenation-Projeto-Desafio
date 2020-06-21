@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
-import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
@@ -35,10 +34,10 @@ public class SwaggerConfig {
     private static String CLIENT_SECRET;
     private final String RESOURCES_PACK = "com.desafio.codenation.resources";
     private final ResponseMessage m201 = customMessage1();
-    private final ResponseMessage m204put = simpleMessage(204, "Atualização ok");
-    private final ResponseMessage m204del = simpleMessage(204, "Deleção ok");
-    private final ResponseMessage m403 = simpleMessage(403, "Não autorizado");
-    private final ResponseMessage m404 = simpleMessage(404, "Não encontrado");
+    private final ResponseMessage m204put = simpleMessage(204, "Atualização ocorreu com sucesso");
+    private final ResponseMessage m204del = simpleMessage(204, "Deleção ocorreu com sucesso");
+    private final ResponseMessage m403 = simpleMessage(403, "Não autorizado.");
+    private final ResponseMessage m404 = simpleMessage(404, "Recurso buscado não encontrado");
     private final ResponseMessage m422 = simpleMessage(422, "Erro de validação");
     private final ResponseMessage m500 = simpleMessage(500, "Erro inesperado");
     @Value("${host.full.dns.auth.link}")
@@ -57,15 +56,18 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo())
-                .securitySchemes(Arrays.asList(securitySchema(),apiKey()))
-                .securityContexts(Arrays.asList(securityContext()));
-                /*.globalOperationParameters(Collections.singletonList(new ParameterBuilder()
-                        .name("Authorization")
-                        .description("Acess Token")
-                        .modelRef(new ModelRef("string"))
-                        .parameterType("header")
-                        .required(false)
-                        .build()));*/
+                .securitySchemes(Collections.singletonList(new ApiKey("JWT", "Authorization", "header")))
+                .securityContexts(Collections.singletonList(
+                        SecurityContext.builder()
+                                .securityReferences(
+                                        Collections.singletonList(SecurityReference.builder()
+                                                .reference("JWT")
+                                                .scopes(new AuthorizationScope[0])
+                                                .build()
+                                        )
+                                )
+                                .build())
+                );
 
     }
 
@@ -75,24 +77,25 @@ public class SwaggerConfig {
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("Access Token", "Authorization", "header");
+        return new ApiKey("Authorization", "Authorization", "header");
     }
 
     @Bean
     public SecurityConfiguration securityInfo() {
-        return new SecurityConfiguration(CLIENT_ID, CLIENT_SECRET, "", "Desafio Codenation", "Token", ApiKeyVehicle.HEADER, "Token Access", " ,");
+        return new SecurityConfiguration(CLIENT_ID, CLIENT_SECRET, "", "", "", ApiKeyVehicle.HEADER, "", " ");
     }
 
     private OAuth securitySchema() {
-        List<AuthorizationScope> authorizationScopeList = new ArrayList();
-        authorizationScopeList.add(new AuthorizationScope("password", "all aceess"));
-        List<GrantType> grantTypes = new ArrayList();
 
+        List<AuthorizationScope> authorizationScopeList = new ArrayList();
+        authorizationScopeList.add(new AuthorizationScope("password", "read all"));
+        List<GrantType> grantTypes = new ArrayList();
         GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(authLink);
 
         grantTypes.add(creGrant);
 
         return new OAuth("oauth2schema", authorizationScopeList, grantTypes);
+
     }
 
     private List<SecurityReference> defaultAuth() {
@@ -128,7 +131,7 @@ public class SwaggerConfig {
         map.put("location", new Header("location", "URI do novo recurso", new ModelRef("string")));
         return new ResponseMessageBuilder()
                 .code(201)
-                .message("Recurso criado")
+                .message("Recurso criado com sucesso.")
                 .headersWithDescription(map)
                 .build();
     }

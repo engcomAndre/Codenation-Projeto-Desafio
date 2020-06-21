@@ -8,6 +8,7 @@ import com.desafio.codenation.domain.user.mapper.NovoUserMapper;
 import com.desafio.codenation.domain.user.mapper.UserMapper;
 import com.desafio.codenation.services.UserService;
 import com.querydsl.core.types.Predicate;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +25,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+@Api(tags = {"Usuários"}, value = "Recursos de Usuários", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("user")
 public class UserResources {

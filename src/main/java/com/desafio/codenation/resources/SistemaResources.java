@@ -7,6 +7,7 @@ import com.desafio.codenation.domain.origem.Sistema;
 import com.desafio.codenation.domain.origem.mapper.SistemaMapper;
 import com.desafio.codenation.services.SistemaService;
 import com.querydsl.core.types.Predicate;
+import io.swagger.annotations.Api;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.stream.Collectors;
 
+@Api(tags = {"Sistema"},value = "Recursos de Sistema",hidden = true,produces = "application/json")
 @RestController
 @RequestMapping("sistema")
 public class SistemaResources {
