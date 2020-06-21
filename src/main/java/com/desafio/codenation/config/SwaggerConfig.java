@@ -19,7 +19,10 @@ import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Configuration
@@ -27,12 +30,14 @@ import java.util.*;
 @Import({SpringDataRestConfiguration.class, BeanValidatorPluginsConfiguration.class})
 public class SwaggerConfig {
 
-    private static final String AUTH_SERVER = "http://localhost:8080/app";
+
     @Value("${security.oauth2.client.clientId}")
     private static String CLIENT_ID = "desafio";
     @Value("${security.oauth2.client.clientSecret}")
     private static String CLIENT_SECRET;
+
     private final String RESOURCES_PACK = "com.desafio.codenation.resources";
+
     private final ResponseMessage m201 = customMessage1();
     private final ResponseMessage m204put = simpleMessage(204, "Atualização ocorreu com sucesso");
     private final ResponseMessage m204del = simpleMessage(204, "Deleção ocorreu com sucesso");
@@ -40,8 +45,6 @@ public class SwaggerConfig {
     private final ResponseMessage m404 = simpleMessage(404, "Recurso buscado não encontrado");
     private final ResponseMessage m422 = simpleMessage(422, "Erro de validação");
     private final ResponseMessage m500 = simpleMessage(500, "Erro inesperado");
-    @Value("${host.full.dns.auth.link}")
-    private String authLink;
 
     @Bean
     public Docket api() {
@@ -71,41 +74,9 @@ public class SwaggerConfig {
 
     }
 
-    private SecurityContext securityContext() {
-        return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.ant("/user/**"))
-                .build();
-    }
-
-    private ApiKey apiKey() {
-        return new ApiKey("Authorization", "Authorization", "header");
-    }
-
     @Bean
     public SecurityConfiguration securityInfo() {
         return new SecurityConfiguration(CLIENT_ID, CLIENT_SECRET, "", "", "", ApiKeyVehicle.HEADER, "", " ");
-    }
-
-    private OAuth securitySchema() {
-
-        List<AuthorizationScope> authorizationScopeList = new ArrayList();
-        authorizationScopeList.add(new AuthorizationScope("password", "read all"));
-        List<GrantType> grantTypes = new ArrayList();
-        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(authLink);
-
-        grantTypes.add(creGrant);
-
-        return new OAuth("oauth2schema", authorizationScopeList, grantTypes);
-
-    }
-
-    private List<SecurityReference> defaultAuth() {
-
-        final AuthorizationScope[] authorizationScopes = new AuthorizationScope[3];
-        authorizationScopes[0] = new AuthorizationScope("read", "read all");
-        authorizationScopes[1] = new AuthorizationScope("trust", "trust all");
-        authorizationScopes[2] = new AuthorizationScope("write", "write all");
-
-        return Collections.singletonList(new SecurityReference("oauth2schema", authorizationScopes));
     }
 
 
