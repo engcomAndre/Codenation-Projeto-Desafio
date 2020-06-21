@@ -4,8 +4,6 @@ package com.desafio.codenation.config;
 import com.desafio.codenation.services.SecurityEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -21,26 +20,22 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-
-import static org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance;
-
 @EnableWebSecurity
 @EnableAuthorizationServer
 @EnableResourceServer
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/oauth/token"};
-    private static final String[] PUBLIC_MATCHERS_GET = {"/evento/**", "/log/**"};
-    private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**", "/log/**"};
-    private final Environment env;
+    //
+//    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/oauth/token"};
+//    private static final String[] PUBLIC_MATCHERS_GET = {"/evento/**", "/log/**"};
+//    private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**", "/log/**"};
+//    private final Environment env;
     private final UserDetailsService userDetailsService;
 
 
     @Autowired
-    public SecurityConfig(SecurityEntityService securityEntityService, Environment env) {
+    public SecurityConfig(SecurityEntityService securityEntityService/*, Environment env*/) {
         this.userDetailsService = securityEntityService;
-        this.env = env;
+//        this.env = env;
     }
 
     @Bean
@@ -79,11 +74,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) {
         webSecurity.ignoring().antMatchers("/")
-        .antMatchers("/h2-console/**");
-//                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST)
-//                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET)
-//                .antMatchers(PUBLIC_MATCHERS)
-        ;
+                .antMatchers("/h2-console/**")
+                .antMatchers("/v2/api-docs",
+                                        "/configuration/ui",
+                                        "/swagger-resources/**",
+                                        "/configuration/**",
+                                        "/swagger-ui.html",
+                                        "/webjars/**");;
+
 
     }
 
@@ -106,7 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return getInstance();
+        return NoOpPasswordEncoder.getInstance();
     }
 
 }

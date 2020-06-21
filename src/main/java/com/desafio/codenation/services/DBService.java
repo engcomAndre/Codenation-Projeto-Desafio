@@ -54,27 +54,31 @@ public class DBService {
         Sistema sistemaA = Sistema.builder()
                 .nome("Nome Sistema " + ++i)
                 .descricao("Descrição do Sistema " + i)
-                .chave("35347144-f328-49fd-a1d2-e325c9d81adc")
+                .chave("15347144-f328-49fd-a1d2-e325c9d81adc")
+                .ativo(true)
                 .build();
 
 
         Servico serviceA = Servico.builder()
                 .nome("Nome Servico " + ++i)
                 .descricao("Descrição do Servico " + i)
-                .chave("15347144-f328-49fd-a1d2-e325c9d81adc")
+                .chave("25347144-f328-49fd-a1d2-e325c9d81adc")
+                .ativo(true)
                 .build();
 
         Servico serviceB = Servico.builder()
                 .nome("Nome Servico " + ++i)
                 .descricao("Descrição do Servico " + i)
-                .chave("25347144-f328-49fd-a1d2-e325c9d81adc")
+                .chave("35347144-f328-49fd-a1d2-e325c9d81adc")
+                .ativo(true)
                 .build();
 
 
         Sistema sistemaC = Sistema.builder()
                 .nome("Nome Sistema " + ++i)
                 .descricao("Descrição do Sistema " + i)
-                .chave("25347144-f328-49fd-a1d2-e325c9d81adc")
+                .chave("45347144-f328-49fd-a1d2-e325c9d81adc")
+                .ativo(true)
                 .build();
 
 

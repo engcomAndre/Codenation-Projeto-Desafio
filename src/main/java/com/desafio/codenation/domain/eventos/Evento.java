@@ -5,11 +5,13 @@ import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.domain.origem.Origem;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -27,17 +29,21 @@ public class Evento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Descrição é um campo obrigatório.")
+    @Length(min = 10, max = 250, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     private String descricao;
 
-    @OneToOne(mappedBy = "evento", cascade = CascadeType.PERSIST,orphanRemoval = true)
+    @OneToOne(mappedBy = "evento", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Log log;
 
+    @NotNull(message = "Level do evento é um campo obrigatório.")
     private TypeLevel level;
 
     @ManyToOne
     @JoinColumn(name = "origem_id")
     private Origem origem;
 
+    @NotNull(message = "Quantidade do evento é um campo obrigatório.")
     private Integer quantidade;
 
     @CreatedDate

@@ -2,6 +2,7 @@ package com.desafio.codenation.services;
 
 import com.desafio.codenation.domain.origem.Servico;
 import com.desafio.codenation.repositories.ServicoRepositorie;
+import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class ServicoService {
     }
 
     public Page<Servico> getServicos(Predicate predicate, Pageable pageable) {
+        Page<Servico> servicoPage = servicoRepositorie.findAll(predicate, pageable);
+        if (servicoPage.isEmpty()) throw new ObjectNotFoundException("Servico(s) não encontrado(s) para os parâmetros informados.");
         return servicoRepositorie.findAll(predicate, pageable);
     }
 
@@ -34,8 +37,13 @@ public class ServicoService {
     }
 
     public void deleteUser(Long id) {
-        getServicoById(id);
-        servicoRepositorie.deleteById(id);
+        try {
+            getServicoById(id);
+            servicoRepositorie.deleteById(id);
+        }
+        catch (DataIntegrityException die){
+            throw new DataIntegrityException("Não é possível excluir um Serviço que possui registros de evento atrelados.");
+        }
     }
 
     public void updateServico(Long id, Servico newServico) {

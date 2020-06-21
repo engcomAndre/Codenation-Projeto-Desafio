@@ -2,47 +2,62 @@ package com.desafio.codenation.services;
 
 import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.repositories.UserRepositorie;
+import com.desafio.codenation.services.exception.DataIntegrityException;
+import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepositorie userRepositorie;
+    private final UserRepositorie userRepositorie;
+
+    public UserService(UserRepositorie userRepositorie) {
+        this.userRepositorie = userRepositorie;
+    }
 
     public User getUser(Long id) {
-        return userRepositorie.findById(id).orElse(null);
+        return userRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Serviço com identificador " + id + " não encontrado."));
     }
 
     public Page<User> getUsers(Predicate predicate, Pageable pageable) {
-        return userRepositorie.findAll(predicate, pageable);
+        Page<User> userPage = userRepositorie.findAll(predicate, pageable);
+        if (userPage.isEmpty()) {
+            throw new ObjectNotFoundException("Usuários (s) não encontrado(s) para os parâmetros informados.");
+        }
+        return userPage;
     }
 
     public User insert(User user) {
         return userRepositorie.save(user);
     }
 
-    public User updateUser(Long id, User newUser) {
+    public void updateUser(Long id, User newUser) {
         User user = getUser(id);
         updtUser(user, newUser);
-        return userRepositorie.save(user);
+        userRepositorie.save(user);
     }
 
     public void deleteUser(Long id) {
-        User user = getUser(id);
-        userRepositorie.deleteById(id);
+        getUser(id);
+        try {
+            userRepositorie.deleteById(id);
+        } catch (
+                DataIntegrityException die) {
+            throw new DataIntegrityException("Não é possível excluir um Sistema que possui registros de evento atrelados.");
+        }
     }
 
     private void updtUser(User user, User newUser) {
-        if (user.getEmail() != newUser.getEmail()) {
+        if (!Objects.equals(user.getEmail(), newUser.getEmail())) {
             user.setEmail(newUser.getEmail());
         }
-        if (user.getPassword() != newUser.getPassword()) {
+        if (!Objects.equals(user.getPassword(), newUser.getPassword())) {
             user.setPassword(newUser.getPassword());
         }
         user.setPerfis(newUser.getPerfis());

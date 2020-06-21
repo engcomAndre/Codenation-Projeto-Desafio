@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,7 +30,7 @@ public class LogResources {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<LogDTO> getLogById(@PathVariable Long id) {
+    public ResponseEntity<LogDTO> getLogById( @PathVariable Long id) {
         return ResponseEntity.ok().body(logMapper.map(logService.getLog(id)));
     }
 
@@ -47,7 +48,7 @@ public class LogResources {
 
 
     @PostMapping
-    public ResponseEntity<Void> insertEvento(@RequestBody Log log) {
+    public ResponseEntity<Void> insertLog(@Valid @RequestBody Log log) {
         Log _log = logService.insert(log);
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()

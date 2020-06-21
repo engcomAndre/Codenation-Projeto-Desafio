@@ -1,8 +1,10 @@
 package com.desafio.codenation.domain.user;
 
 import com.desafio.codenation.domain.user.enums.TypeUser;
+import com.desafio.codenation.validation.UserInsert;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,15 +32,20 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Email inválido")
-    @NotEmpty(message = "Um email deve ser informado")
+    @Email(message = "Campo email com formato incorreto.")
+    @NotEmpty(message = "Um email valido deve ser informado.")
+    @Length(min = 5, max = 50, message = "Email possui tamanho mínimo de 5 e máximo de 50 caracteres.")
+    @Column(unique = true)
     private String email;
 
-    @NotEmpty(message = "Uma senha deve ser informada")
+    @NotEmpty(message = "Uma senha valida deve ser informada.")
+    @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
     private String password;
 
+
+    @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PERFIS")
+    @CollectionTable(name = "perfis")
     private Set<TypeUser> perfis = new HashSet<>();
 
     @CreatedDate

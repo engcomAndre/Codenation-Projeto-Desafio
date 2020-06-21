@@ -13,7 +13,7 @@ public interface EventoRepositorie extends BaseRepository<Evento, Long>, Queryds
     @SuppressWarnings("NullableProblems")
     @Override
     default void customize(QuerydslBindings bindings, QEvento queryEvento) {
-        bindings.bind(queryEvento);
+//        bindings.bind(queryEvento);
     }
 }
 

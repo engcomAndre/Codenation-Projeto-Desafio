@@ -1,16 +1,17 @@
 package com.desafio.codenation.resources.exception;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class StandardError implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Integer status;
-    private Long timeStamp;
+    private LocalDateTime timeStamp;
     private String msg;
 
-    public StandardError(Integer status, Long timeStamp, String msg) {
+    public StandardError(Integer status, LocalDateTime timeStamp, String msg) {
         super();
         this.status = status;
         this.timeStamp = timeStamp;
@@ -25,11 +26,11 @@ public class StandardError implements Serializable {
         this.status = status;
     }
 
-    public Long getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Long timeStamp) {
+    public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 

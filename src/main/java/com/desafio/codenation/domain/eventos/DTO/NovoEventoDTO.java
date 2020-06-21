@@ -14,6 +14,7 @@ public class NovoEventoDTO {
     private String descricao;
     private String level;
     private String origemId;
+    private String chave;
     private Integer quantidade;
     private String logDescricao;
 }

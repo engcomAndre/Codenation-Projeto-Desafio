@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.stream.Collectors;
 
@@ -51,7 +52,7 @@ public class SistemaResources {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insertSistema(@RequestBody NovoSistemaDTO novoSistemaDTO) {
+    public ResponseEntity<Void> insertSistema(@Valid @RequestBody NovoSistemaDTO novoSistemaDTO) {
         Sistema sistema = sistemaService.insert(sistemaMapper.map(novoSistemaDTO));
 
         URI uri = ServletUriComponentsBuilder
@@ -64,9 +65,8 @@ public class SistemaResources {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateSistema(@PathVariable("id") Long id, @RequestBody NovoSistemaDTO novoSistemaDTO) {
+    public ResponseEntity<Void> updateSistema(@Valid @PathVariable("id") Long id, @RequestBody NovoSistemaDTO novoSistemaDTO) {
         sistemaService.updateSistema(id, sistemaMapper.map(novoSistemaDTO));
-
         return ResponseEntity.noContent().build();
     }
 

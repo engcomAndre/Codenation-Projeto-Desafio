@@ -1,7 +1,9 @@
 package com.desafio.codenation.resources.exception;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ValidationError extends StandardError {
 
@@ -10,7 +12,7 @@ public class ValidationError extends StandardError {
 
     private List<FieldMessage> errors = new ArrayList<>();
 
-    public ValidationError(Integer status, Long timeStamp, String msg) {
+    public ValidationError(Integer status, LocalDateTime timeStamp, String msg) {
         super(status, timeStamp, msg);
     }
 
@@ -21,5 +23,4 @@ public class ValidationError extends StandardError {
     public void addError(String fieldName, String message) {
         this.errors.add(new FieldMessage(fieldName, message));
     }
-
 }

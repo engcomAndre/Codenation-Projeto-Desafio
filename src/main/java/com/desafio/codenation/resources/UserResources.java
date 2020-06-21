@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +61,7 @@ public class UserResources {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public ResponseEntity<Void> insertUser(@RequestBody NovoUserDTO novoUser) {
+    public ResponseEntity<Void> insertUser(@Valid @RequestBody NovoUserDTO novoUser) {
 
         User user = userService.insert(novoUserMapper.map(novoUser));
 
@@ -74,7 +75,7 @@ public class UserResources {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @RequestBody NovoUserDTO novoUser) {
+    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @Valid @RequestBody NovoUserDTO novoUser) {
         User user = userMapper.map(novoUser);
 
         userService.updateUser(id, user);

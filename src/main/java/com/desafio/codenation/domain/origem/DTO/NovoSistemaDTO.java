@@ -1,15 +1,6 @@
 package com.desafio.codenation.domain.origem.DTO;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public class NovoSistemaDTO extends NovaOrigemDto {
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class NovoSistemaDTO {
-    private String nome;
-    private String descricao;
-    private String chave;
 }

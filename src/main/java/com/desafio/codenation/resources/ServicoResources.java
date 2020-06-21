@@ -7,7 +7,6 @@ import com.desafio.codenation.domain.origem.Servico;
 import com.desafio.codenation.domain.origem.mapper.ServicoMapper;
 import com.desafio.codenation.services.ServicoService;
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.stream.Collectors;
 
@@ -27,8 +27,6 @@ public class ServicoResources {
 
     private final ServicoMapper servicoMapper;
 
-
-    @Autowired
     public ServicoResources(ServicoService servicoService, ServicoMapper servicoMapper) {
         this.servicoService = servicoService;
         this.servicoMapper = servicoMapper;
@@ -55,7 +53,7 @@ public class ServicoResources {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insertService(@RequestBody NovoServicoDTO novoServicoDTO) {
+    public ResponseEntity<Void> insertService(@Valid @RequestBody NovoServicoDTO novoServicoDTO) {
         Servico servico = servicoService.insert(servicoMapper.map(novoServicoDTO));
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -66,7 +64,7 @@ public class ServicoResources {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @RequestBody NovoServicoDTO novoServicoDTO) {
+    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id,@Valid @RequestBody NovoServicoDTO novoServicoDTO) {
 
         servicoService.updateServico(id, servicoMapper.map(novoServicoDTO));
 
