@@ -48,14 +48,14 @@ public class UserResources {
         this.novoUserMapper = novoUserMapper;
     }
 
-    @ApiOperation(value = "Busca de Usuários por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Usuário", notes = "Busca de Usuários por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> getContacts(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return ResponseEntity.ok().body(userMapper.map(userService.getUser(id)));
     }
 
-    @ApiOperation(value = "Busca de Usuários por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Usuários", notes = "Busca de Usuários por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<UserDTO>> getUsers(@QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable) {
@@ -69,7 +69,7 @@ public class UserResources {
     }
 
 
-    @ApiOperation(value = "Cadastro de um novo usuário.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Cadastrar Usuários", notes = "Cadastro de um novo usuário.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Void> insertUser(@Valid @RequestBody NovoUserDTO novoUser) {
@@ -85,7 +85,8 @@ public class UserResources {
         return ResponseEntity.created(uri).build();
     }
 
-    @ApiOperation(value = "Atualizar um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+
+    @ApiOperation(value = "Atualizar Usuário", notes = "Atualizar um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @Valid @RequestBody NovoUserDTO novoUser) {
@@ -97,7 +98,7 @@ public class UserResources {
     }
 
 
-    @ApiOperation(value = "Remover um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Remover Usuário", notes = "Remover um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover usuario com associações."),
             @ApiResponse(code = 404, message = "Usuário não encontrado")})

@@ -59,6 +59,7 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo())
+                .pathMapping("/")
                 .securitySchemes(Collections.singletonList(new ApiKey("JWT", "Authorization", "header")))
                 .securityContexts(Collections.singletonList(
                         SecurityContext.builder()

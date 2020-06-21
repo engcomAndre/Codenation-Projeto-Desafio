@@ -11,10 +11,7 @@ import com.desafio.codenation.domain.origem.Origem;
 import com.desafio.codenation.services.EventoService;
 import com.desafio.codenation.services.OrigemService;
 import com.querydsl.core.types.Predicate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +45,8 @@ public class EventoResources {
         this.eventoMapper = eventoMapper;
     }
 
-    @ApiOperation(value = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Eventos",notes = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiParam()
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id) {
@@ -56,7 +54,7 @@ public class EventoResources {
     }
 
 
-    @ApiOperation(value = "Busca de Eventos por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Eventos",notes = "Busca de Eventos por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<EventoListDto>> getEventos(
@@ -73,7 +71,7 @@ public class EventoResources {
     }
 
 
-    @ApiOperation(value = "Cadastro de um novo evento.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Cadastrar Eventos",notes = "Cadastro de um novo evento.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Void> insertEvento(@Valid @RequestBody NovoEventoDTO novoEventoDTO) {
@@ -100,7 +98,7 @@ public class EventoResources {
     }
 
 
-    @ApiOperation(value = "Atualizar um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Atualizar Eventos",notes = "Atualizar um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateEvento(@PathVariable("id") Long id, @Valid @RequestBody NovoEventoDTO novoEventoDTO) {
@@ -119,7 +117,7 @@ public class EventoResources {
 
     }
 
-    @ApiOperation(value = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Remover Eventos",notes = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover eventos co associações."),
             @ApiResponse(code = 404, message = "Evento não encontrado")})
@@ -131,7 +129,7 @@ public class EventoResources {
     }
 
 
-    @ApiOperation(value = "Obter os tipos de Eventos disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Tipos de Eventos",notes = "Obter os tipos de Eventos disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/event-level")
     public ResponseEntity<List<TypeLevel>> getTypeLevelResponseEntity() {

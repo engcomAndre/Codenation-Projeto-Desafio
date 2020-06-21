@@ -40,13 +40,13 @@ public class ServicoResources {
         this.servicoMapper = servicoMapper;
     }
 
-    @ApiOperation(value = "Busca de Serviços por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Serviço",notes = "Busca de Serviços por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ServicoDTO> getServicoById(@PathVariable Long id) {
         return ResponseEntity.ok().body(servicoMapper.map(servicoService.getServicoById(id)));
     }
 
-    @ApiOperation(value = "Busca de Serviços por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Serviços",notes = "Busca de Serviços por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<ServicoListDto>> getServicos(
             @QuerydslPredicate(root = Servico.class) Predicate predicate,
@@ -61,7 +61,7 @@ public class ServicoResources {
                                 .collect(Collectors.toList())));
     }
 
-    @ApiOperation(value = "Cadastro de um novo Serviço.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Cadastrar Serviços",notes = "Cadastro de um novo Serviço.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insertService(@Valid @RequestBody NovoServicoDTO novoServicoDTO) {
         Servico servico = servicoService.insert(servicoMapper.map(novoServicoDTO));
@@ -73,16 +73,16 @@ public class ServicoResources {
         return ResponseEntity.created(uri).build();
     }
 
-    @ApiOperation(value = "Atualizar um  Serviço existente por Id")
+    @ApiOperation(value = "Atualizar Servico",notes = "Atualizar um  Serviço existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @Valid @RequestBody NovoServicoDTO novoServicoDTO) {
+    public ResponseEntity<Void> updateServico(@PathVariable("id") Long id, @Valid @RequestBody NovoServicoDTO novoServicoDTO) {
 
         servicoService.updateServico(id, servicoMapper.map(novoServicoDTO));
 
         return ResponseEntity.noContent().build();
     }
 
-    @ApiOperation(value = "Remover um  Serviço existente por Id")
+    @ApiOperation(value = "Buscar Tipos de Servico",notes = "Remover um  Serviço existente por Id")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover serviços com associações."),
             @ApiResponse(code = 404, message = "Serviço não encontrado")})

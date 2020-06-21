@@ -39,14 +39,15 @@ public class SistemaResources {
         this.sistemaService = sistemaService;
         this.sistemaMapper = sistemaMapper;
     }
-    @ApiOperation(value = "Busca de Sistema por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+
+    @ApiOperation(value = "Buscar Sistemas",notes = "Busca de Sistema por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<SistemaDTO> getSistemaById(@PathVariable Long id) {
         return ResponseEntity.ok().body(sistemaMapper.map(sistemaService.getSistema(id)));
     }
 
-    @ApiOperation(value = "Busca de Sistemas por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Sistemas",notes = "Busca de Sistemas por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<SistemaListDto>> getSistemas(
@@ -62,7 +63,8 @@ public class SistemaResources {
                                 .collect(Collectors.toList())));
     }
 
-    @ApiOperation(value = "Cadastro de um novo Sistema.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+
+    @ApiOperation(value = "Cadastrar Sistemas",notes = "Cadastro de um novo Sistema.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insertSistema(@Valid @RequestBody NovoSistemaDTO novoSistemaDTO) {
@@ -76,7 +78,7 @@ public class SistemaResources {
 
         return ResponseEntity.created(uri).build();
     }
-    @ApiOperation(value = "Atualizar um  Sistema existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Atualizar Sistemas",notes = "Atualizar um  Sistema existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateSistema(@Valid @PathVariable("id") Long id, @RequestBody NovoSistemaDTO novoSistemaDTO) {
@@ -84,7 +86,7 @@ public class SistemaResources {
         return ResponseEntity.noContent().build();
     }
 
-    @ApiOperation(value = "Remover um  Sistema existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Remover Sistemas",notes = "Remover um  Sistema existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover sistemas com associações."),
             @ApiResponse(code = 404, message = "Sistema não encontrado")})
