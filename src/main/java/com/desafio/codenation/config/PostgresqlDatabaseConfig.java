@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.text.ParseException;
 
 @Configuration
-public class DatabaseConfig {
+public class PostgresqlDatabaseConfig {
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
