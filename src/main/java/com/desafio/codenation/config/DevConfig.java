@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Profile;
 
 import java.text.ParseException;
 
-
 @Configuration
 @Profile("dev")
 public class DevConfig {
