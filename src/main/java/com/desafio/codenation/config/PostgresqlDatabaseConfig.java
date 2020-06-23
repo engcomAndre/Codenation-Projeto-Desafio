@@ -20,7 +20,6 @@ public class PostgresqlDatabaseConfig {
     public DataSource dataSource() throws ParseException {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
-
         return new HikariDataSource(config);
     }
 }
