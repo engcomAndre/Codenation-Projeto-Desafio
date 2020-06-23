@@ -28,7 +28,7 @@ public class PostgresqlDatabaseConfig {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
 
-        dbService.instantiateTestDatabase();
+//        dbService.instantiateTestDatabase();
         return new HikariDataSource(config);
     }
 }
