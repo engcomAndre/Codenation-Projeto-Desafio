@@ -14,9 +14,6 @@ import java.text.ParseException;
 @Profile("prod")
 public class ProdConfig {
 
-    @Autowired
-    private DBService dbService;
-
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String stratetgy;
 
@@ -25,7 +22,7 @@ public class ProdConfig {
         if (!"create".equals(stratetgy)) {
             return false;
         }
-        dbService.instantiateTestDatabase();
+
         return true;
     }
 
