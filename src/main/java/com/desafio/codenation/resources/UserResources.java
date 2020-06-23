@@ -49,14 +49,12 @@ public class UserResources {
     }
 
     @ApiOperation(value = "Buscar Usuário", notes = "Busca de Usuários por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         return ResponseEntity.ok().body(userMapper.map(userService.getUser(id)));
     }
 
     @ApiOperation(value = "Buscar Usuários", notes = "Busca de Usuários por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<UserDTO>> getUsers(@QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable) {
         return ResponseEntity
@@ -86,7 +84,6 @@ public class UserResources {
 
 
     @ApiOperation(value = "Atualizar Usuário", notes = "Atualizar um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @Valid @RequestBody NovoUserDTO novoUser) {
         User user = userMapper.map(novoUser);
