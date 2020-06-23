@@ -70,7 +70,6 @@ public class UserResources {
 
 
     @ApiOperation(value = "Cadastrar Usuários", notes = "Cadastro de um novo usuário.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Void> insertUser(@Valid @RequestBody NovoUserDTO novoUser) {
 
