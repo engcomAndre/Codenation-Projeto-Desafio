@@ -75,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers("/us")
+        webSecurity.ignoring().antMatchers("/user/**")
                 .antMatchers("/h2-console/**")
                 .antMatchers("/v2/api-docs",
                                         "/configuration/ui",
