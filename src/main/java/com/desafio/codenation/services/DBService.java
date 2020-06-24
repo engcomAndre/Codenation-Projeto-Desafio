@@ -34,13 +34,13 @@ public class DBService {
     public void instantiateTestDatabase() throws ParseException {
 
         User userA = User.builder()
-                .email("menino@gmail.com")
+                .email("admin@admin.com")
                 .password("123456")
                 .perfis(new HashSet(Arrays.asList(TypeUser.ADMIN, TypeUser.COMMON_USER)))
                 .build();
 
         User userB = User.builder()
-                .email("menino2@gmail.com")
+                .email("meninobom@gmail.com")
                 .password("654321")
                 .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
                 .build();
@@ -51,33 +51,41 @@ public class DBService {
         Log logD = Log.builder().descricao("descrição log D").build();
 
         int i = 0;
-        Sistema sistemaA = Sistema.builder()
+        Sistema sistemaA = Sistema.builderSistema()
                 .nome("Nome Sistema " + ++i)
                 .descricao("Descrição do Sistema " + i)
+                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
                 .chave("15347144-f328-49fd-a1d2-e325c9d81adc")
+                .password("123456")
                 .ativo(true)
                 .build();
 
 
-        Servico serviceA = Servico.builder()
+        Servico serviceA = Servico.builderServico()
                 .nome("Nome Servico " + ++i)
                 .descricao("Descrição do Servico " + i)
                 .chave("25347144-f328-49fd-a1d2-e325c9d81adc")
+                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
+                .password("123456")
                 .ativo(true)
                 .build();
 
-        Servico serviceB = Servico.builder()
+        Servico serviceB = Servico.builderServico()
                 .nome("Nome Servico " + ++i)
                 .descricao("Descrição do Servico " + i)
                 .chave("35347144-f328-49fd-a1d2-e325c9d81adc")
+                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
+                .password("123456")
                 .ativo(true)
                 .build();
 
 
-        Sistema sistemaC = Sistema.builder()
+        Sistema sistemaC = Sistema.builderSistema()
                 .nome("Nome Sistema " + ++i)
                 .descricao("Descrição do Sistema " + i)
                 .chave("45347144-f328-49fd-a1d2-e325c9d81adc")
+                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
+                .password("123456")
                 .ativo(true)
                 .build();
 

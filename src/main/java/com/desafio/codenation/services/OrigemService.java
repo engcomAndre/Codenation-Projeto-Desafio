@@ -14,8 +14,9 @@ public class OrigemService {
     @Autowired
     private OrigemRepositorie origemRepositorie;
 
+
     public Origem findByIdAndAndChaveAndAtivo(Long id, String chave) {
-        return origemRepositorie.findByIdAndChaveAndAtivo(id, chave, true).orElseThrow(() -> new ObjectNotFoundException("Origem não encontrada para os parametros informados."));
+        return origemRepositorie.findByIdAndChaveAndAtivo(id, chave, true).orElse(null);
     }
 
     public Origem findById(Long id) {

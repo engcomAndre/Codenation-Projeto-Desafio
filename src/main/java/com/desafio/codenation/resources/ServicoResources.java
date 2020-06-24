@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -63,6 +64,7 @@ public class ServicoResources {
 
     @ApiOperation(value = "Cadastrar Serviços",notes = "Cadastro de um novo Serviço.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> insertService(@Valid @RequestBody NovoServicoDTO novoServicoDTO) {
         Servico servico = servicoService.insert(servicoMapper.map(novoServicoDTO));
         URI uri = ServletUriComponentsBuilder
@@ -74,6 +76,7 @@ public class ServicoResources {
     }
 
     @ApiOperation(value = "Atualizar Servico",notes = "Atualizar um  Serviço existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateServico(@PathVariable("id") Long id, @Valid @RequestBody NovoServicoDTO novoServicoDTO) {
 

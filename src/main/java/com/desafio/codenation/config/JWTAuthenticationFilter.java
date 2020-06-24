@@ -60,6 +60,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         responseMap.put(TOKEN_PREFIX, bearerToken);
 
         response.getWriter().write(new Gson().toJson(responseMap));
+
         response.addHeader(HEADER_STRING, bearerToken);
     }
+
+
 }

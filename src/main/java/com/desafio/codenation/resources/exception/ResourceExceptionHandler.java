@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.naming.OperationNotSupportedException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -64,7 +65,11 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> authorization(AuthorizationException e) {
         StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), LocalDateTime.now(), e.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
-
+    }
+    @ExceptionHandler(OperationNotSupportedException.class)
+    public ResponseEntity<StandardError> authorization(OperationNotSupportedException e) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), e.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
 }

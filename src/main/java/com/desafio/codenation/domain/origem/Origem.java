@@ -2,6 +2,7 @@ package com.desafio.codenation.domain.origem;
 
 import com.desafio.codenation.domain.eventos.Evento;
 import com.desafio.codenation.domain.security.SecurityEntity;
+import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +27,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @EntityListeners(AuditingEntityListener.class)
-public class Origem extends SecurityEntity {
+public class Origem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +41,8 @@ public class Origem extends SecurityEntity {
     @Length(min = 10, max = 250, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     private String descricao;
 
-    @NotNull(message = "Password é um campo obrigatório.")
-    @Length(min = 5, max = 2, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
+    @NotNull(message = "Chave é um campo obrigatório.")
+    @Length(min = 5, max = 60, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     private String chave;
 
     @NotEmpty(message = "Uma senha valida deve ser informada.")
@@ -46,6 +50,10 @@ public class Origem extends SecurityEntity {
     private String password;
 
     private Boolean ativo;
+
+    @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<TypeUser> perfis = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "origem")

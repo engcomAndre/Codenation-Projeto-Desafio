@@ -74,10 +74,10 @@ public class SwaggerConfig {
 
     }
 
-    @Bean
-    public SecurityConfiguration securityInfo() {
-        return new SecurityConfiguration(CLIENT_ID, CLIENT_SECRET, "", "", "", ApiKeyVehicle.HEADER, "", " ");
-    }
+//    @Bean
+//    public SecurityConfiguration securityInfo() {
+//        return new SecurityConfiguration(CLIENT_ID, CLIENT_SECRET, "", "", "", ApiKeyVehicle.HEADER, "", " ");
+//    }
 
 
     private ApiInfo apiInfo() {

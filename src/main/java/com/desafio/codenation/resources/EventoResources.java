@@ -7,7 +7,7 @@ import com.desafio.codenation.domain.eventos.Evento;
 import com.desafio.codenation.domain.eventos.enums.TypeLevel;
 import com.desafio.codenation.domain.eventos.mapper.EventoMapper;
 import com.desafio.codenation.domain.logs.Log;
-import com.desafio.codenation.domain.origem.Origem;
+import com.desafio.codenation.resources.interfaces.EventoResourcesContract;
 import com.desafio.codenation.services.EventoService;
 import com.desafio.codenation.services.OrigemService;
 import com.querydsl.core.types.Predicate;
@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,7 +32,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("evento")
-public class EventoResources {
+public class EventoResources implements EventoResourcesContract {
 
     private final EventoService eventoService;
 
@@ -45,24 +46,17 @@ public class EventoResources {
         this.eventoMapper = eventoMapper;
     }
 
-    @ApiOperation(value = "Buscar Eventos",notes = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @GetMapping("/{id}")
+
     public ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id) {
         return ResponseEntity.ok().body(eventoMapper.map(eventoService.getEvento(id)));
     }
 
-
-    @ApiOperation(value = "Buscar Eventos",notes = "Busca de Eventos por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @GetMapping
     public ResponseEntity<Page<EventoListDto>> getEventos(
-            @QuerydslPredicate(root = Evento.class) Predicate predicate,
-            @ApiParam @RequestParam(name = "id",required = false) Long id,
-            @ApiParam @RequestParam(name = "descricao",required = false) Long descricao,
-            @ApiParam @RequestParam(name = "log",required = false) Long log,
-            @ApiParam @RequestParam(name = "level",required = false) Long level,
-            @ApiParam @RequestParam(name = "quantidade",required = false) Long quantidade,
+            Predicate predicate,
+            Long id,
+            Long descricao,
+            Long level,
+            Long quantidade,
             Pageable pageable) {
 
         return ResponseEntity
@@ -74,37 +68,16 @@ public class EventoResources {
                                 .collect(Collectors.toList())));
     }
 
-
-    @ApiOperation(value = "Cadastrar Eventos",notes = "Cadastro de um novo evento.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @PostMapping
     public ResponseEntity<Void> insertEvento(@Valid @RequestBody NovoEventoDTO novoEventoDTO) {
-
-        Evento evento = eventoMapper.map(novoEventoDTO);
-
-        Origem origem = origemService.findByIdAndAndChaveAndAtivo(
-                Long.valueOf(novoEventoDTO.getOrigemId()),
-                novoEventoDTO.getChave());
-
-        evento.setOrigem(origem);
-
-        evento.setLog(Log.builder()
-                .evento(evento)
-                .descricao(novoEventoDTO.getLogDescricao())
-                .build());
-
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(eventoService
-                        .insert(evento).getId())
+                        .insertEvento(novoEventoDTO).getId())
                 .toUri()).build();
     }
 
-
-    @ApiOperation(value = "Atualizar Eventos",notes = "Atualizar um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @PutMapping("/{id}")
+    @Override
     public ResponseEntity<Void> updateEvento(@PathVariable("id") Long id, @Valid @RequestBody NovoEventoDTO novoEventoDTO) {
         Evento evento = eventoMapper.map(novoEventoDTO);
 
@@ -121,7 +94,7 @@ public class EventoResources {
 
     }
 
-    @ApiOperation(value = "Remover Eventos",notes = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Remover Eventos", notes = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover eventos com associações."),
             @ApiResponse(code = 404, message = "Evento não encontrado")})
@@ -133,7 +106,7 @@ public class EventoResources {
     }
 
 
-    @ApiOperation(value = "Buscar Tipos de Eventos",notes = "Obter os tipos de Eventos disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Buscar Tipos de Eventos", notes = "Obter os tipos de Eventos disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/event-level")
     public ResponseEntity<List<TypeLevel>> getTypeLevelResponseEntity() {

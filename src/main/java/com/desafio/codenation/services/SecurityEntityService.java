@@ -3,13 +3,18 @@ package com.desafio.codenation.services;
 import com.desafio.codenation.domain.origem.Origem;
 import com.desafio.codenation.domain.security.SecurityEntity;
 import com.desafio.codenation.domain.user.User;
+import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.repositories.OrigemRepositorie;
 import com.desafio.codenation.repositories.UserRepositorie;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class SecurityEntityService implements UserDetailsService {
@@ -24,10 +29,20 @@ public class SecurityEntityService implements UserDetailsService {
         this.origemRepositorie = origemRepositorie;
     }
 
-    public static SecurityEntity authenticated() {
+
+    public static Collection<? extends GrantedAuthority> authenticatedGrants() {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+    }
+
+    public static Boolean hasGrant(TypeUser typeUser) {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(typeUser.getDesc()));
+    }
+
+    public static String authenticatedUsername() {
         try {
-            return (SecurityEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        } catch (Exception e) {
+            return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        catch (Exception e){
             return null;
         }
     }
@@ -44,7 +59,7 @@ public class SecurityEntityService implements UserDetailsService {
                     .build();
 
         }
-        Origem origem = origemRepositorie.findByChave(username)
+        Origem origem = origemRepositorie.findByChaveAndAtivo(username, true)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encotrado para o parâmetros informados."));
 
         return SecurityEntity.builder()
