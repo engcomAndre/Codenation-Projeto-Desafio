@@ -58,6 +58,11 @@ public class EventoResources {
     @GetMapping
     public ResponseEntity<Page<EventoListDto>> getEventos(
             @QuerydslPredicate(root = Evento.class) Predicate predicate,
+            @ApiParam @RequestParam(name = "id",required = false) Long id,
+            @ApiParam @RequestParam(name = "descricao",required = false) Long descricao,
+            @ApiParam @RequestParam(name = "log",required = false) Long log,
+            @ApiParam @RequestParam(name = "level",required = false) Long level,
+            @ApiParam @RequestParam(name = "quantidade",required = false) Long quantidade,
             Pageable pageable) {
 
         return ResponseEntity
@@ -118,7 +123,7 @@ public class EventoResources {
 
     @ApiOperation(value = "Remover Eventos",notes = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Impossível remover eventos co associações."),
+            @ApiResponse(code = 400, message = "Impossível remover eventos com associações."),
             @ApiResponse(code = 404, message = "Evento não encontrado")})
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
