@@ -30,9 +30,9 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/login/**"};
-    private static final String[] PUBLIC_MATCHERS_GET = {"/evento/**", "/log/**"};
-    private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**", "/log/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
+    private static final String[] PUBLIC_MATCHERS_GET = {"/evento/**"};
+    private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**"};
     private final Environment env;
 
     private final UserDetailsService userDetailsService;
@@ -77,12 +77,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().antMatchers("/user/**")
                 .antMatchers("/h2-console/**")
                 .antMatchers("/v2/api-docs",
-                        "/auth/token/**",
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/**",
-                        "/swagger-ui.html",
-                        "/webjars/**");      ;
+                                        "/auth/token/**",
+                                        "/configuration/ui",
+                                        "/swagger-resources/**",
+                                        "/configuration/**",
+                                        "/swagger-ui.html",
+                                        "/webjars/**");
 
 
     }

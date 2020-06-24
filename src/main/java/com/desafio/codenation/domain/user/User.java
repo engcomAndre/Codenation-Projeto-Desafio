@@ -1,10 +1,8 @@
 package com.desafio.codenation.domain.user;
 
 import com.desafio.codenation.domain.user.enums.TypeUser;
-import com.desafio.codenation.validation.UserInsert;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

@@ -1,6 +1,6 @@
 package com.desafio.codenation.domain.user.mapper;
 
-import com.desafio.codenation.domain.user.DTO.NovoUserDTO;
+import com.desafio.codenation.domain.user.DTO.NewUserDTO;
 import com.desafio.codenation.domain.user.DTO.UserDTO;
 import com.desafio.codenation.domain.user.User;
 import org.mapstruct.Mapper;
@@ -22,5 +22,5 @@ public interface UserMapper {
 
     List<UserDTO> map(List<User> userList);
 
-    User map(NovoUserDTO novoUserDTO);
+    User map(NewUserDTO newUserDTO);
 }

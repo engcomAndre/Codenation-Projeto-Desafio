@@ -1,8 +1,15 @@
 package com.desafio.codenation.resources.exception;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class StandardError implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -10,37 +17,6 @@ public class StandardError implements Serializable {
     private Integer status;
     private LocalDateTime timeStamp;
     private String msg;
-
-    public StandardError(Integer status, LocalDateTime timeStamp, String msg) {
-        super();
-        this.status = status;
-        this.timeStamp = timeStamp;
-        this.msg = msg;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(LocalDateTime timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
 
 }

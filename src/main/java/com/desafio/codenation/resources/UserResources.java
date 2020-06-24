@@ -1,10 +1,10 @@
 package com.desafio.codenation.resources;
 
-import com.desafio.codenation.domain.user.DTO.NovoUserDTO;
+import com.desafio.codenation.domain.user.DTO.NewUserDTO;
 import com.desafio.codenation.domain.user.DTO.UserDTO;
 import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.domain.user.enums.TypeUser;
-import com.desafio.codenation.domain.user.mapper.NovoUserMapper;
+import com.desafio.codenation.domain.user.mapper.NewUserMapper;
 import com.desafio.codenation.domain.user.mapper.UserMapper;
 import com.desafio.codenation.services.UserService;
 import com.querydsl.core.types.Predicate;
@@ -39,13 +39,13 @@ public class UserResources {
 
     private final UserMapper userMapper;
 
-    private final NovoUserMapper novoUserMapper;
+    private final NewUserMapper newUserMapper;
 
     @Autowired
-    public UserResources(UserService userService, UserMapper userMapper, NovoUserMapper novoUserMapper) {
+    public UserResources(UserService userService, UserMapper userMapper, NewUserMapper newUserMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
-        this.novoUserMapper = novoUserMapper;
+        this.newUserMapper = newUserMapper;
     }
 
     @ApiOperation(value = "Buscar Usuário", notes = "Busca de Usuários por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
@@ -69,9 +69,9 @@ public class UserResources {
 
     @ApiOperation(value = "Cadastrar Usuários", notes = "Cadastro de um novo usuário.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PostMapping
-    public ResponseEntity<Void> insertUser(@Valid @RequestBody NovoUserDTO novoUser) {
+    public ResponseEntity<Void> insertUser(@Valid @RequestBody NewUserDTO novoUser) {
 
-        User user = userService.insert(novoUserMapper.map(novoUser));
+        User user = userService.insert(newUserMapper.map(novoUser));
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -85,7 +85,7 @@ public class UserResources {
 
     @ApiOperation(value = "Atualizar Usuário", notes = "Atualizar um  Usuário existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @Valid @RequestBody NovoUserDTO novoUser) {
+    public ResponseEntity<Void> updateUser(@PathVariable("id") Long id, @Valid @RequestBody NewUserDTO novoUser) {
         User user = userMapper.map(novoUser);
 
         userService.updateUser(id, user);

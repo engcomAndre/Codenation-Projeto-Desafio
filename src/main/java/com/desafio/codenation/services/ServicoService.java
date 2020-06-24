@@ -1,7 +1,7 @@
 package com.desafio.codenation.services;
 
-import com.desafio.codenation.domain.origem.Servico;
-import com.desafio.codenation.repositories.ServicoRepositorie;
+import com.desafio.codenation.domain.origin.Services;
+import com.desafio.codenation.repositories.ServicesRepositorie;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import com.querydsl.core.types.Predicate;
@@ -21,53 +21,53 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ServicoService {
 
     @Autowired
-    private ServicoRepositorie servicoRepositorie;
+    private ServicesRepositorie servicesRepositorie;
 
-    public Servico getServicoById(Long id) {
-        return servicoRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Serviço com identificador " + id + " não encontrado."));
+    public Services getServicoById(Long id) {
+        return servicesRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Serviço com identificador " + id + " não encontrado."));
     }
 
-    public Page<Servico> getServicos(Predicate predicate, Pageable pageable) {
-        Page<Servico> servicoPage = servicoRepositorie.findAll(predicate, pageable);
+    public Page<Services> getServicos(Predicate predicate, Pageable pageable) {
+        Page<Services> servicoPage = servicesRepositorie.findAll(predicate, pageable);
         if (servicoPage.isEmpty()) throw new ObjectNotFoundException("Servico(s) não encontrado(s) para os parâmetros informados.");
-        return servicoRepositorie.findAll(predicate, pageable);
+        return servicesRepositorie.findAll(predicate, pageable);
     }
 
-    public Servico insert(Servico servico) {
-        if(servico.getChave() == null || servico.getChave().isEmpty() ) {
-            servico.setChave(UUID.randomUUID().toString().replace("-", ""));
+    public Services insert(Services services) {
+        if(services.getChave() == null || services.getChave().isEmpty() ) {
+            services.setChave(UUID.randomUUID().toString().replace("-", ""));
         }
-        return servicoRepositorie.save(servico);
+        return servicesRepositorie.save(services);
     }
 
     public void deleteUser(Long id) {
         try {
             getServicoById(id);
-            servicoRepositorie.deleteById(id);
+            servicesRepositorie.deleteById(id);
         }
         catch (DataIntegrityException die){
             throw new DataIntegrityException("Não é possível excluir um Serviço que possui registros de evento atrelados.");
         }
     }
 
-    public void updateServico(Long id, Servico newServico) {
-        Servico service = getServicoById(id);
+    public void updateServico(Long id, Services newServices) {
+        Services service = getServicoById(id);
 
-        updtServico(service, newServico);
+        updtServico(service, newServices);
 
-        servicoRepositorie.save(service);
+        servicesRepositorie.save(service);
 
     }
 
-    private void updtServico(Servico servico, Servico newServico) {
-        if (!Objects.equals(servico.getNome(), newServico.getNome())) {
-            servico.setNome(newServico.getNome());
+    private void updtServico(Services services, Services newServices) {
+        if (!Objects.equals(services.getNome(), newServices.getNome())) {
+            services.setNome(newServices.getNome());
         }
-        if (!Objects.equals(servico.getDescricao(), newServico.getDescricao())) {
-            servico.setDescricao(newServico.getDescricao());
+        if (!Objects.equals(services.getDescricao(), newServices.getDescricao())) {
+            services.setDescricao(newServices.getDescricao());
         }
-        if (!Objects.equals(servico.getChave(), newServico.getChave())) {
-            servico.setChave(newServico.getChave());
+        if (!Objects.equals(services.getChave(), newServices.getChave())) {
+            services.setChave(newServices.getChave());
         }
     }
 }

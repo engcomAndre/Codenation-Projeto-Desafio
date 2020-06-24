@@ -1,10 +1,10 @@
 package com.desafio.codenation.resources;
 
-import com.desafio.codenation.domain.origem.DTO.NovoServicoDTO;
-import com.desafio.codenation.domain.origem.DTO.ServicoDTO;
-import com.desafio.codenation.domain.origem.DTO.ServicoListDto;
-import com.desafio.codenation.domain.origem.Servico;
-import com.desafio.codenation.domain.origem.mapper.ServicoMapper;
+import com.desafio.codenation.domain.origin.DTO.NewServiceDTO;
+import com.desafio.codenation.domain.origin.DTO.ServicesDTO;
+import com.desafio.codenation.domain.origin.DTO.ServicesListDto;
+import com.desafio.codenation.domain.origin.Services;
+import com.desafio.codenation.domain.origin.mapper.ServicesMapper;
 import com.desafio.codenation.services.ServicoService;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
@@ -34,23 +34,23 @@ public class ServicoResources {
 
     private final ServicoService servicoService;
 
-    private final ServicoMapper servicoMapper;
+    private final ServicesMapper servicesMapper;
 
-    public ServicoResources(ServicoService servicoService, ServicoMapper servicoMapper) {
+    public ServicoResources(ServicoService servicoService, ServicesMapper servicesMapper) {
         this.servicoService = servicoService;
-        this.servicoMapper = servicoMapper;
+        this.servicesMapper = servicesMapper;
     }
 
     @ApiOperation(value = "Buscar Serviço",notes = "Busca de Serviços por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<ServicoDTO> getServicoById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(servicoMapper.map(servicoService.getServicoById(id)));
+    public ResponseEntity<ServicesDTO> getServicoById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(servicesMapper.map(servicoService.getServicoById(id)));
     }
 
     @ApiOperation(value = "Buscar Serviços",notes = "Busca de Serviços por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Page<ServicoListDto>> getServicos(
-            @QuerydslPredicate(root = Servico.class) Predicate predicate,
+    public ResponseEntity<Page<ServicesListDto>> getServicos(
+            @QuerydslPredicate(root = Services.class) Predicate predicate,
             Pageable pageable) {
 
         return ResponseEntity
@@ -58,19 +58,19 @@ public class ServicoResources {
                 .body(new PageImpl<>(
                         servicoService
                                 .getServicos(predicate, pageable).stream()
-                                .map(servicoMapper::mapForFindAll)
+                                .map(servicesMapper::mapForFindAll)
                                 .collect(Collectors.toList())));
     }
 
     @ApiOperation(value = "Cadastrar Serviços",notes = "Cadastro de um novo Serviço.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> insertService(@Valid @RequestBody NovoServicoDTO novoServicoDTO) {
-        Servico servico = servicoService.insert(servicoMapper.map(novoServicoDTO));
+    public ResponseEntity<Void> insertService(@Valid @RequestBody NewServiceDTO newServiceDTO) {
+        Services services = servicoService.insert(servicesMapper.map(newServiceDTO));
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(servico.getId())
+                .buildAndExpand(services.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -78,9 +78,9 @@ public class ServicoResources {
     @ApiOperation(value = "Atualizar Servico",notes = "Atualizar um  Serviço existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateServico(@PathVariable("id") Long id, @Valid @RequestBody NovoServicoDTO novoServicoDTO) {
+    public ResponseEntity<Void> updateServico(@PathVariable("id") Long id, @Valid @RequestBody NewServiceDTO newServiceDTO) {
 
-        servicoService.updateServico(id, servicoMapper.map(novoServicoDTO));
+        servicoService.updateServico(id, servicesMapper.map(newServiceDTO));
 
         return ResponseEntity.noContent().build();
     }

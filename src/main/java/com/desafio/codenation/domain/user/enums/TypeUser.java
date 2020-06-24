@@ -7,7 +7,7 @@ public enum TypeUser {
     private int cod;
     private String desc;
 
-    private TypeUser(int cod, String desc) {
+    TypeUser(int cod, String desc) {
         this.cod = cod;
         this.desc = desc;
     }

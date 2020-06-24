@@ -1,10 +1,10 @@
 package com.desafio.codenation.resources.interfaces;
 
-import com.desafio.codenation.domain.eventos.DTO.EventoDTO;
-import com.desafio.codenation.domain.eventos.DTO.EventoListDto;
-import com.desafio.codenation.domain.eventos.DTO.NovoEventoDTO;
-import com.desafio.codenation.domain.eventos.Evento;
-import com.desafio.codenation.domain.eventos.enums.TypeLevel;
+import com.desafio.codenation.domain.events.DTO.EventsDTO;
+import com.desafio.codenation.domain.events.DTO.EventsListDto;
+import com.desafio.codenation.domain.events.DTO.NewEventsDTO;
+import com.desafio.codenation.domain.events.Events;
+import com.desafio.codenation.domain.events.enums.TypeLevel;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
@@ -26,13 +26,13 @@ public interface EventoResourcesContract {
     @ApiOperation(value = "Buscar Eventos", notes = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
-    ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id);
+    ResponseEntity<EventsDTO> getEventoById(@PathVariable Long id);
 
     @ApiOperation(value = "Buscar Eventos", notes = "Busca de Eventos por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping
-    ResponseEntity<Page<EventoListDto>> getEventos(
-            @QuerydslPredicate(root = Evento.class) Predicate predicate,
+    ResponseEntity<Page<EventsListDto>> getEventos(
+            @QuerydslPredicate(root = Events.class) Predicate predicate,
             @ApiParam @RequestParam(name = "id", required = false) Long id,
             @ApiParam @RequestParam(name = "descricao", required = false) Long descricao,
             @ApiParam @RequestParam(name = "level", required = false) Long level,
@@ -42,13 +42,13 @@ public interface EventoResourcesContract {
     @ApiOperation(value = "Cadastrar Eventos", notes = "Cadastro de um novo evento.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN') or hasRole('ROLE_UNDEFINED')")
     @PostMapping
-    ResponseEntity<Void> insertEvento(@Valid @RequestBody NovoEventoDTO novoEventoDTO);
+    ResponseEntity<Void> insertEvento(@Valid @RequestBody NewEventsDTO newEventsDTO);
 
 
     @ApiOperation(value = "Atualizar Eventos", notes = "Atualizar um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    ResponseEntity<Void> updateEvento(@PathVariable("id") Long id, @Valid @RequestBody NovoEventoDTO novoEventoDTO);
+    ResponseEntity<Void> updateEvento(@PathVariable("id") Long id, @Valid @RequestBody NewEventsDTO newEventsDTO);
 
     @ApiOperation(value = "Remover Eventos", notes = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ApiResponses(value = {

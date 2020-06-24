@@ -1,8 +1,8 @@
 package com.desafio.codenation.services;
 
 
-import com.desafio.codenation.domain.origem.Origem;
-import com.desafio.codenation.repositories.OrigemRepositorie;
+import com.desafio.codenation.domain.origin.Origins;
+import com.desafio.codenation.repositories.OriginsRepositorie;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 public class OrigemService {
 
     @Autowired
-    private OrigemRepositorie origemRepositorie;
+    private OriginsRepositorie originsRepositorie;
 
 
-    public Origem findByIdAndAndChaveAndAtivo(Long id, String chave) {
-        return origemRepositorie.findByIdAndChaveAndAtivo(id, chave, true).orElse(null);
+    public Origins findByIdAndAndChaveAndAtivo(Long id, String chave) {
+        return originsRepositorie.findByIdAndChaveAndAtivo(id, chave, true).orElse(null);
     }
 
-    public Origem findById(Long id) {
-        return origemRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Origem não encontrada para os parametros informados."));
+    public Origins findById(Long id) {
+        return originsRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Origem não encontrada para os parametros informados."));
     }
 }

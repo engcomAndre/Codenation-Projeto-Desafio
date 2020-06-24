@@ -1,14 +1,14 @@
 package com.desafio.codenation.resources;
 
-import com.desafio.codenation.domain.eventos.DTO.EventoDTO;
-import com.desafio.codenation.domain.eventos.DTO.EventoListDto;
-import com.desafio.codenation.domain.eventos.DTO.NovoEventoDTO;
-import com.desafio.codenation.domain.eventos.Evento;
-import com.desafio.codenation.domain.eventos.enums.TypeLevel;
-import com.desafio.codenation.domain.eventos.mapper.EventoMapper;
+import com.desafio.codenation.domain.events.DTO.EventsDTO;
+import com.desafio.codenation.domain.events.DTO.EventsListDto;
+import com.desafio.codenation.domain.events.DTO.NewEventsDTO;
+import com.desafio.codenation.domain.events.Events;
+import com.desafio.codenation.domain.events.enums.TypeLevel;
+import com.desafio.codenation.domain.events.mapper.EventsMapper;
 import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.resources.interfaces.EventoResourcesContract;
-import com.desafio.codenation.services.EventoService;
+import com.desafio.codenation.services.EventsService;
 import com.desafio.codenation.services.OrigemService;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
@@ -31,24 +31,24 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("evento")
 public class EventoResources implements EventoResourcesContract {
 
-    private final EventoService eventoService;
+    private final EventsService eventsService;
 
     private final OrigemService origemService;
 
-    private final EventoMapper eventoMapper;
+    private final EventsMapper eventsMapper;
 
-    public EventoResources(EventoService eventoService, EventoMapper eventoMapper, OrigemService origemService) {
-        this.eventoService = eventoService;
+    public EventoResources(EventsService eventsService, EventsMapper eventsMapper, OrigemService origemService) {
+        this.eventsService = eventsService;
         this.origemService = origemService;
-        this.eventoMapper = eventoMapper;
+        this.eventsMapper = eventsMapper;
     }
 
 
-    public ResponseEntity<EventoDTO> getEventoById(Long id) {
-        return ResponseEntity.ok().body(eventoMapper.map(eventoService.getEvento(id)));
+    public ResponseEntity<EventsDTO> getEventoById(Long id) {
+        return ResponseEntity.ok().body(eventsMapper.map(eventsService.getEvento(id)));
     }
 
-    public ResponseEntity<Page<EventoListDto>> getEventos(
+    public ResponseEntity<Page<EventsListDto>> getEventos(
             Predicate predicate,
             Long id,
             Long descricao,
@@ -59,40 +59,40 @@ public class EventoResources implements EventoResourcesContract {
         return ResponseEntity
                 .ok()
                 .body(new PageImpl<>(
-                        eventoService
+                        eventsService
                                 .getEventos(predicate, pageable).stream()
-                                .map(eventoMapper::mapForFindAll)
+                                .map(eventsMapper::mapForFindAll)
                                 .collect(Collectors.toList())));
     }
 
-    public ResponseEntity<Void> insertEvento(NovoEventoDTO novoEventoDTO) {
+    public ResponseEntity<Void> insertEvento(NewEventsDTO newEventsDTO) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(eventoService
-                        .insertEvento(novoEventoDTO).getId())
+                .buildAndExpand(eventsService
+                        .insertEvento(newEventsDTO).getId())
                 .toUri()).build();
     }
 
 
-    public ResponseEntity<Void> updateEvento(Long id, NovoEventoDTO novoEventoDTO) {
-        Evento evento = eventoMapper.map(novoEventoDTO);
+    public ResponseEntity<Void> updateEvento(Long id, NewEventsDTO newEventsDTO) {
+        Events events = eventsMapper.map(newEventsDTO);
 
-        evento.setOrigem(origemService.findById(Long.valueOf(novoEventoDTO.getOrigemId())));
+        events.setOrigins(origemService.findById(Long.valueOf(newEventsDTO.getOrigemId())));
 
-        evento.setLog(Log.builder()
-                .evento(evento)
-                .descricao(novoEventoDTO.getLogDescricao())
+        events.setLog(Log.builder()
+                .events(events)
+                .descricao(newEventsDTO.getLogDescricao())
                 .build());
 
-        eventoService.updateEvento(id, evento);
+        eventsService.updateEvento(id, events);
 
         return ResponseEntity.noContent().build();
 
     }
 
     public ResponseEntity<Void> deleteEvento(Long id) {
-        eventoService.deleteEvento(id);
+        eventsService.deleteEvento(id);
         return ResponseEntity.noContent().build();
     }
 

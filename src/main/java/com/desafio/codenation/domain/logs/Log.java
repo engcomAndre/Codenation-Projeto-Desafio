@@ -1,10 +1,9 @@
 package com.desafio.codenation.domain.logs;
 
-import com.desafio.codenation.domain.eventos.Evento;
+import com.desafio.codenation.domain.events.Events;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -31,7 +30,7 @@ public class Log implements Serializable {
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "evento_id")
-    private Evento evento;
+    private Events events;
 
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

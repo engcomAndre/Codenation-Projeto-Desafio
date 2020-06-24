@@ -1,10 +1,10 @@
 package com.desafio.codenation.services;
 
-import com.desafio.codenation.domain.origem.Origem;
+import com.desafio.codenation.domain.origin.Origins;
 import com.desafio.codenation.domain.security.SecurityEntity;
 import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.domain.user.enums.TypeUser;
-import com.desafio.codenation.repositories.OrigemRepositorie;
+import com.desafio.codenation.repositories.OriginsRepositorie;
 import com.desafio.codenation.repositories.UserRepositorie;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,12 +21,12 @@ public class SecurityEntityService implements UserDetailsService {
 
     private final UserRepositorie userRepositorie;
 
-    private final OrigemRepositorie origemRepositorie;
+    private final OriginsRepositorie originsRepositorie;
 
 
-    public SecurityEntityService(UserRepositorie userRepositorie, OrigemRepositorie origemRepositorie) {
+    public SecurityEntityService(UserRepositorie userRepositorie, OriginsRepositorie originsRepositorie) {
         this.userRepositorie = userRepositorie;
-        this.origemRepositorie = origemRepositorie;
+        this.originsRepositorie = originsRepositorie;
     }
 
 
@@ -59,14 +59,14 @@ public class SecurityEntityService implements UserDetailsService {
                     .build();
 
         }
-        Origem origem = origemRepositorie.findByChaveAndAtivo(username, true)
+        Origins origins = originsRepositorie.findByChaveAndAtivo(username, true)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encotrado para o parâmetros informados."));
 
         return SecurityEntity.builder()
-                .id(origem.getId())
-                .username(origem.getChave())
-                .password(origem.getPassword())
-                .perfis(origem.getPerfis())
+                .id(origins.getId())
+                .username(origins.getChave())
+                .password(origins.getPassword())
+                .perfis(origins.getPerfis())
                 .build();
 
     }

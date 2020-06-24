@@ -1,6 +1,5 @@
 package com.desafio.codenation.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -14,8 +13,6 @@ import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.ApiKeyVehicle;
-import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
@@ -30,13 +27,6 @@ import java.util.Map;
 public class SwaggerConfig {
 
 
-    @Value("${security.oauth2.client.clientId}")
-    private static String CLIENT_ID = "desafio";
-    @Value("${security.oauth2.client.clientSecret}")
-    private static String CLIENT_SECRET;
-
-    private final String RESOURCES_PACK = "com.desafio.codenation.resources";
-
     private final ResponseMessage m201 = customMessage1();
     private final ResponseMessage m204put = simpleMessage(204, "Atualização ocorreu com sucesso");
     private final ResponseMessage m204del = simpleMessage(204, "Deleção ocorreu com sucesso");
@@ -47,6 +37,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
+        String RESOURCES_PACK = "com.desafio.codenation.resources";
         return new Docket(DocumentationType.SWAGGER_2)
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, Arrays.asList(m403, m404, m500))
@@ -73,11 +64,6 @@ public class SwaggerConfig {
                 );
 
     }
-
-//    @Bean
-//    public SecurityConfiguration securityInfo() {
-//        return new SecurityConfiguration(CLIENT_ID, CLIENT_SECRET, "", "", "", ApiKeyVehicle.HEADER, "", " ");
-//    }
 
 
     private ApiInfo apiInfo() {
@@ -106,7 +92,6 @@ public class SwaggerConfig {
                 .headersWithDescription(map)
                 .build();
     }
-
 
 
 }
