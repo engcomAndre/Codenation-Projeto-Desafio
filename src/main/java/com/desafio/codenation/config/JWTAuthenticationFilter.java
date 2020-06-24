@@ -2,6 +2,7 @@ package com.desafio.codenation.config;
 
 import com.desafio.codenation.domain.security.SecurityEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.desafio.codenation.config.SecurityConstants.*;
 
@@ -44,6 +47,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authResult) throws IOException {
         String username = ((SecurityEntity) authResult.getPrincipal()).getUsername();
+
         String token = Jwts
                 .builder()
                 .setSubject(username)
@@ -51,8 +55,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
         String bearerToken = TOKEN_PREFIX + token;
-//        response.getWriter().write(bearerToken);
+        Map<String, String> responseMap = new HashMap<>();
+
+        responseMap.put(TOKEN_PREFIX, bearerToken);
+
+        response.getWriter().write(new Gson().toJson(responseMap));
         response.addHeader(HEADER_STRING, bearerToken);
+
 
     }
 }
