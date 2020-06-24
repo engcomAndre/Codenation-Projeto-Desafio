@@ -1,17 +1,18 @@
 package com.desafio.codenation.domain.origem;
 
 import com.desafio.codenation.domain.eventos.Evento;
+import com.desafio.codenation.domain.security.SecurityEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @EntityListeners(AuditingEntityListener.class)
-public class Origem {
+public class Origem extends SecurityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +37,13 @@ public class Origem {
     @Length(min = 10, max = 250, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     private String descricao;
 
-    @Column(unique = true)
+    @NotNull(message = "Password é um campo obrigatório.")
+    @Length(min = 5, max = 2, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     private String chave;
+
+    @NotEmpty(message = "Uma senha valida deve ser informada.")
+    @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
+    private String password;
 
     private Boolean ativo;
 

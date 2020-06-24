@@ -28,7 +28,7 @@ public class SecurityEntity implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    private String username;
 
     private String password;
 
@@ -50,7 +50,7 @@ public class SecurityEntity implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
