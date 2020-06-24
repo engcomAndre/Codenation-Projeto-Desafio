@@ -2,13 +2,15 @@ package com.desafio.codenation.config;
 
 
 import com.desafio.codenation.services.SecurityEntityService;
+import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,23 +19,22 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+@Configuration
 @EnableWebSecurity
-@EnableAuthorizationServer
-@EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/oauth/token"};
+
+    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/login/**"};
     private static final String[] PUBLIC_MATCHERS_GET = {"/evento/**", "/log/**"};
     private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**", "/log/**"};
     private final Environment env;
+
     private final UserDetailsService userDetailsService;
 
 
@@ -47,9 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+
     }
-
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -77,12 +77,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().antMatchers("/user/**")
                 .antMatchers("/h2-console/**")
                 .antMatchers("/v2/api-docs",
-                                        "/auth/token/**",
-                                        "/configuration/ui",
-                                        "/swagger-resources/**",
-                                        "/configuration/**",
-                                        "/swagger-ui.html",
-                                        "/webjars/**");;
+                        "/auth/token/**",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/swagger-ui.html",
+                        "/webjars/**");      ;
 
 
     }

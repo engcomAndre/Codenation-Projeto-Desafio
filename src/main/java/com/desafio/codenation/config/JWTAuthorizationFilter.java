@@ -1,5 +1,6 @@
 package com.desafio.codenation.config;
 
+
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +17,7 @@ import java.io.IOException;
 
 import static com.desafio.codenation.config.SecurityConstants.*;
 
-public class JWTAuthorizationFilter  extends BasicAuthenticationFilter {
+public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private final UserDetailsService userDetailsService;
 

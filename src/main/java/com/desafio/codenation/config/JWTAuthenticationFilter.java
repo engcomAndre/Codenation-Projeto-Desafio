@@ -19,8 +19,8 @@ import java.util.Date;
 import static com.desafio.codenation.config.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
     private final AuthenticationManager authenticationManager;
+
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -28,13 +28,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        return super.attemptAuthentication(request, response);
-        try {
 
-            SecurityEntity securityEntity = new ObjectMapper().readValues(request.getInputStream(),SecurityEntity.class);
+        try {
+            SecurityEntity securityEntity = new ObjectMapper().readValue(request.getInputStream(), SecurityEntity.class);
             return this.authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(securityEntity.getUsername(), securityEntity.getPassword()));
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +51,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
         String bearerToken = TOKEN_PREFIX + token;
-        response.getWriter().write(bearerToken);
+//        response.getWriter().write(bearerToken);
         response.addHeader(HEADER_STRING, bearerToken);
+
     }
 }

@@ -1,5 +1,4 @@
 package com.desafio.codenation.config;
-
 public class SecurityConstants {
     static final String SECRET = "RoupaDeSapo";
     static final String TOKEN_PREFIX = "Bearer ";
