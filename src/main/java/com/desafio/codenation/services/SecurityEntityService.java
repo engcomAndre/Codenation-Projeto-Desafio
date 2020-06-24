@@ -5,7 +5,6 @@ import com.desafio.codenation.domain.security.SecurityEntity;
 import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.repositories.OrigemRepositorie;
 import com.desafio.codenation.repositories.UserRepositorie;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +19,7 @@ public class SecurityEntityService implements UserDetailsService {
     private final OrigemRepositorie origemRepositorie;
 
 
-    public SecurityEntityService(UserRepositorie userRepositorie,OrigemRepositorie origemRepositorie){
+    public SecurityEntityService(UserRepositorie userRepositorie, OrigemRepositorie origemRepositorie) {
         this.userRepositorie = userRepositorie;
         this.origemRepositorie = origemRepositorie;
     }
