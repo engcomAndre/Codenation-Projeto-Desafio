@@ -6,10 +6,7 @@ import com.desafio.codenation.domain.eventos.DTO.NovoEventoDTO;
 import com.desafio.codenation.domain.eventos.Evento;
 import com.desafio.codenation.domain.eventos.enums.TypeLevel;
 import com.querydsl.core.types.Predicate;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -23,6 +20,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 public interface EventoResourcesContract {
 
     @ApiOperation(value = "Buscar Eventos", notes = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)

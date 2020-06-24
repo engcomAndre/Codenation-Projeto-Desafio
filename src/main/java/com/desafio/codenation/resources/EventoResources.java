@@ -11,18 +11,15 @@ import com.desafio.codenation.resources.interfaces.EventoResourcesContract;
 import com.desafio.codenation.services.EventoService;
 import com.desafio.codenation.services.OrigemService;
 import com.querydsl.core.types.Predicate;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +44,7 @@ public class EventoResources implements EventoResourcesContract {
     }
 
 
-    public ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id) {
+    public ResponseEntity<EventoDTO> getEventoById(Long id) {
         return ResponseEntity.ok().body(eventoMapper.map(eventoService.getEvento(id)));
     }
 
@@ -68,7 +65,7 @@ public class EventoResources implements EventoResourcesContract {
                                 .collect(Collectors.toList())));
     }
 
-    public ResponseEntity<Void> insertEvento(@Valid @RequestBody NovoEventoDTO novoEventoDTO) {
+    public ResponseEntity<Void> insertEvento(NovoEventoDTO novoEventoDTO) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -77,8 +74,8 @@ public class EventoResources implements EventoResourcesContract {
                 .toUri()).build();
     }
 
-    @Override
-    public ResponseEntity<Void> updateEvento(@PathVariable("id") Long id, @Valid @RequestBody NovoEventoDTO novoEventoDTO) {
+
+    public ResponseEntity<Void> updateEvento(Long id, NovoEventoDTO novoEventoDTO) {
         Evento evento = eventoMapper.map(novoEventoDTO);
 
         evento.setOrigem(origemService.findById(Long.valueOf(novoEventoDTO.getOrigemId())));
@@ -94,21 +91,12 @@ public class EventoResources implements EventoResourcesContract {
 
     }
 
-    @ApiOperation(value = "Remover Eventos", notes = "Remover um  Evento existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Impossível remover eventos com associações."),
-            @ApiResponse(code = 404, message = "Evento não encontrado")})
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEvento(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteEvento(Long id) {
         eventoService.deleteEvento(id);
         return ResponseEntity.noContent().build();
     }
 
 
-    @ApiOperation(value = "Buscar Tipos de Eventos", notes = "Obter os tipos de Eventos disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @GetMapping("/event-level")
     public ResponseEntity<List<TypeLevel>> getTypeLevelResponseEntity() {
         return ResponseEntity
                 .ok()
