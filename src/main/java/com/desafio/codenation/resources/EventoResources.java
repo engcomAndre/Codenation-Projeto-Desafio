@@ -46,7 +46,6 @@ public class EventoResources {
     }
 
     @ApiOperation(value = "Buscar Eventos",notes = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @ApiParam()
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<EventoDTO> getEventoById(@PathVariable Long id) {
