@@ -54,6 +54,8 @@ public class EventsResources implements EventoResourcesContract {
             Long descricao,
             Long level,
             Long quantidade,
+            String sort,
+            String page,
             Pageable pageable) {
 
         return ResponseEntity

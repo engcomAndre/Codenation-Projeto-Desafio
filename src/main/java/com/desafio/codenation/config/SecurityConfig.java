@@ -2,10 +2,10 @@ package com.desafio.codenation.config;
 
 
 import com.desafio.codenation.services.SecurityEntityService;
-import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,9 +30,11 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**","/user/typeuser/**"};
-    private static final String[] PUBLIC_MATCHERS_GET = {"/evento/**"};
-    private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**",};
+    private static final String[] PUBLIC_MATCHERS_GET = {"/user/typeuser/**", "/evento/**", "/user/**", "/sistema/**", "/servico/**"};
+    private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**", "/user/**", "/servico/**", "/sistema/**"};
+    private static final String[] PUBLIC_MATCHERS_PUT = {"/evento/**", "/user/**", "/servico/**", "/sistema/**"};
+    private static final String[] PUBLIC_MATCHERS_DELETE = {"/evento/**", "/user/**", "/servico/**", "/sistema/**"};
     private final Environment env;
 
     private final UserDetailsService userDetailsService;
@@ -57,12 +59,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
-
         }
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+                .antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()
+                .antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS_DELETE).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated();
 
@@ -74,15 +77,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers("/user/**")
-                .antMatchers("/h2-console/**")
-                .antMatchers("/v2/api-docs",
-                                        "/auth/token/**",
-                                        "/configuration/ui",
-                                        "/swagger-resources/**",
-                                        "/configuration/**",
-                                        "/swagger-ui.html",
-                                        "/webjars/**");
+        webSecurity.ignoring().antMatchers()
+                .antMatchers(
+                        "/v2/api-docs",
+                        "/auth/token/**",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/swagger-ui.html",
+                        "/webjars/**");
 
 
     }

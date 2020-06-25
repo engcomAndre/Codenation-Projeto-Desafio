@@ -42,10 +42,11 @@ public class SystemsResources {
     }
 
     @ApiOperation(value = "Buscar Sistemas",notes = "Busca de Sistema por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+//    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<SystemsDTO> getSistemaById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(systemsMapper.map(systemsService.getSistema(id)));
+//        SystemsDTO systemsDTO = systemsMapper.map(systemsService.getSistema(id));
+        return ResponseEntity.ok().body(systemsMapper.mapToDetails(systemsService.getSistema(id)));
     }
 
     @ApiOperation(value = "Buscar Sistemas",notes = "Busca de Sistemas por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)

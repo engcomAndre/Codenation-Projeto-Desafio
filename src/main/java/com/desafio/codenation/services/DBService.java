@@ -14,9 +14,7 @@ import com.desafio.codenation.repositories.OriginsRepositorie;
 import com.desafio.codenation.repositories.UserRepositorie;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
 
 @Service
 public class DBService {
@@ -35,9 +33,33 @@ public class DBService {
 
     public void instantiateTestDatabase() {
 
+
+
+        int quantity = 100;
+        Random randInt = new Random();
+
+//        List<User> userList = new ArrayList<>();
+//        List<User> userList = new ArrayList<>();
+//
+//        userList.add(User.builder()
+//                .email("admin@admin.com")
+//                .password("@admin")
+//                .perfis(new HashSet<>(Collections.singletonList(TypeUser.ADMIN)))
+//                .build());
+//
+//        //instateate users
+//        int j = 0;
+//        for(int i = 0;i < quantity;i++){
+//            userList.add(User.builder()
+//                    .email("usertest_" + ++j  + "@email.com")
+//                    .password("@admin")
+//                    .perfis(new HashSet<>(Collections.singletonList(TypeUser.toEnum(randInt.nextInt(2) + 1))))
+//                    .build());
+//        }
+
         User userA = User.builder()
                 .email("admin@admin.com")
-                .password("123456")
+                .password("@admin")
                 .perfis(new HashSet(Arrays.asList(TypeUser.ADMIN, TypeUser.COMMON_USER)))
                 .build();
 
@@ -46,6 +68,19 @@ public class DBService {
                 .password("654321")
                 .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
                 .build();
+
+        User userC = User.builder()
+                .email("meninobom2@gmail.com")
+                .password("123456")
+                .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
+                .build();
+
+        User userD = User.builder()
+                .email("meninobomD@gmail.com")
+                .password("123456")
+                .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
+                .build();
+
 
         Log logA = Log.builder().descricao("descrição log A").build();
         Log logB = Log.builder().descricao("descrição log B").build();
@@ -137,7 +172,11 @@ public class DBService {
         serviceA.setEvents(Collections.singletonList(eventsC));
         serviceB.setEvents(Collections.singletonList(eventsD));
 
-        userRepositorie.saveAll(Arrays.asList(userA, userB));
+        userB.setOrigins(Arrays.asList(systemsA,systemsC));
+        userC.setOrigins(Arrays.asList(serviceA,serviceB));
+        userD.setOrigins(Arrays.asList(systemsA,serviceB));
+
+        userRepositorie.saveAll(Arrays.asList(userA, userB,userC,userD));
         originsRepositorie.saveAll(Arrays.asList(systemsA, serviceA, systemsC, serviceB));
         eventsRepositorie.saveAll(Arrays.asList(eventsA, eventsB, eventsC, eventsD));
         logsRepositorie.saveAll(Arrays.asList(logA, logB, logC, logD));

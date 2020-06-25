@@ -1,6 +1,7 @@
 package com.desafio.codenation.domain.origin;
 
 import com.desafio.codenation.domain.events.Events;
+import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,6 +16,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,28 +27,35 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "tb_origins")
 public class Origins {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "user_id")
     private Long id;
 
     @NotNull(message = "Nome é um campo obrigatório.")
     @Length(min = 5, max = 120, message = "Nome possui tamanho mínimo de 5 e máximo de 120 caracteres.")
+    @Column(name ="name")
     private String nome;
 
     @NotNull(message = "Descrição é um campo obrigatório.")
     @Length(min = 10, max = 250, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
+    @Column(name ="description")
     private String descricao;
 
     @NotNull(message = "Chave é um campo obrigatório.")
     @Length(min = 5, max = 60, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
+    @Column(name ="key")
     private String chave;
 
     @NotEmpty(message = "Uma senha valida deve ser informada.")
     @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
+    @Column(name ="password")
     private String password;
 
+    @Column(name ="active")
     private Boolean ativo = true;
 
     @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
@@ -54,10 +63,14 @@ public class Origins {
     private Set<TypeUser> perfis = new HashSet<>();
 
     @JsonIgnore
+    @ManyToMany(mappedBy="origins")
+    private List<User> users;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "origins")
     private List<Events> events;
 
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 }

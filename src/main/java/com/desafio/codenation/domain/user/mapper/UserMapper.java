@@ -2,6 +2,7 @@ package com.desafio.codenation.domain.user.mapper;
 
 import com.desafio.codenation.domain.user.DTO.NewUserDTO;
 import com.desafio.codenation.domain.user.DTO.UserDTO;
+import com.desafio.codenation.domain.user.DTO.UserListDTO;
 import com.desafio.codenation.domain.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,7 +21,7 @@ public interface UserMapper {
     })
     UserDTO map(User user);
 
-    List<UserDTO> map(List<User> userList);
+    UserListDTO mapForFindAll(User users);
 
     User map(NewUserDTO newUserDTO);
 }

@@ -15,20 +15,24 @@ public interface SystemsMapper {
     @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "nome", target = "nome"),
+            @Mapping(source = "events", target = "events"),
+            @Mapping(source = "users", target = "users"),
             @Mapping(source = "descricao", target = "descricao"),
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
-
     })
-    SystemsDTO map(Systems systems);
+    SystemsDTO mapToDetails(Systems systems);
 
     SistemaListDto mapForFindAll(Systems systems);
 
-    @InheritConfiguration(name = "originDTO")
-    @Mappings({
-            @Mapping(source = "nome", target = "nome"),
-            @Mapping(source = "descricao", target = "descricao"),
-            @Mapping(source = "password", target = "password")
-    })
+
+
+
+//    @InheritConfiguration(name = "originDTO")
+//    @Mappings({
+//            @Mapping(source = "nome", target = "nome"),
+//            @Mapping(source = "descricao", target = "descricao"),
+//            @Mapping(source = "password", target = "password")
+//    })
     Systems map(NewSystemsDTO newSystemsDTO);
 
 }

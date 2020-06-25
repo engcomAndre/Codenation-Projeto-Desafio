@@ -15,7 +15,7 @@ public interface ServicesMapper {
     @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "nome", target = "nome"),
-            @Mapping(source = "events", target = "eventos"),
+            @Mapping(source = "events", target = "events"),
             @Mapping(source = "descricao", target = "descricao"),
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
 

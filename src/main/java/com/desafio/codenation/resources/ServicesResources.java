@@ -64,7 +64,7 @@ public class ServicesResources {
 
     @ApiOperation(value = "Cadastrar Serviços",notes = "Cadastro de um novo Serviço.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+//    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> insertService(@Valid @RequestBody NewServiceDTO newServiceDTO) {
         Services services = servicesService.insert(servicesMapper.map(newServiceDTO));
         URI uri = ServletUriComponentsBuilder
@@ -76,7 +76,7 @@ public class ServicesResources {
     }
 
     @ApiOperation(value = "Atualizar Servico",notes = "Atualizar um  Serviço existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+//    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateServico(@PathVariable("id") Long id, @Valid @RequestBody NewServiceDTO newServiceDTO) {
 
