@@ -86,9 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/configuration/**",
                         "/swagger-ui.html",
                         "/webjars/**");
-
-
-    }
+ }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {

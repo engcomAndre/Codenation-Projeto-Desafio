@@ -34,11 +34,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         try {
             SecurityEntity securityEntity = new ObjectMapper().readValue(request.getInputStream(), SecurityEntity.class);
+
             return this.authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(securityEntity.getUsername(), securityEntity.getPassword()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request,
+                                              HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException {
+        makeUnsuccesfulAuthenticationResponseBody(response);
     }
 
     @Override
@@ -55,13 +63,27 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
         String bearerToken = TOKEN_PREFIX + token;
+
+        makeSuccesfulAuthenticationResponseBody(response, bearerToken);
+    }
+
+    private void makeUnsuccesfulAuthenticationResponseBody(HttpServletResponse response) throws IOException {
         Map<String, String> responseMap = new HashMap<>();
-
-        responseMap.put(TOKEN_PREFIX, bearerToken);
-
+        responseMap.put("message", "Authentication UNSUCCESFUL.");
+        response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
         response.getWriter().write(new Gson().toJson(responseMap));
 
+    }
+
+    private void makeSuccesfulAuthenticationResponseBody(HttpServletResponse response, String bearerToken) throws IOException {
+        Map<String, String> responseMap = new HashMap<>();
         response.addHeader(HEADER_STRING, bearerToken);
+        responseMap.put("message", "Authentication SUCCESFUL.");
+        responseMap.put("token_type", TOKEN_PREFIX);
+        responseMap.put("access_token", bearerToken);
+        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+        response.getWriter().write(new Gson().toJson(responseMap));
+
     }
 
 
