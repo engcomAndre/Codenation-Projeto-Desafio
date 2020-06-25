@@ -45,7 +45,6 @@ public class SystemsResources {
 //    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<SystemsDTO> getSistemaById(@PathVariable Long id) {
-//        SystemsDTO systemsDTO = systemsMapper.map(systemsService.getSistema(id));
         return ResponseEntity.ok().body(systemsMapper.mapToDetails(systemsService.getSistema(id)));
     }
 

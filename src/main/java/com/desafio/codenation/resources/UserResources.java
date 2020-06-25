@@ -9,7 +9,6 @@ import com.desafio.codenation.domain.user.mapper.UserMapper;
 import com.desafio.codenation.resources.interfaces.UserResourcesContract;
 import com.desafio.codenation.services.UserService;
 import com.querydsl.core.types.Predicate;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,8 +25,6 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("user")
