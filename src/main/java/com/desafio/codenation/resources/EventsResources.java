@@ -29,7 +29,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("evento")
-public class EventoResources implements EventoResourcesContract {
+public class EventsResources implements EventoResourcesContract {
 
     private final EventsService eventsService;
 
@@ -37,7 +37,7 @@ public class EventoResources implements EventoResourcesContract {
 
     private final EventsMapper eventsMapper;
 
-    public EventoResources(EventsService eventsService, EventsMapper eventsMapper, OrigemService origemService) {
+    public EventsResources(EventsService eventsService, EventsMapper eventsMapper, OrigemService origemService) {
         this.eventsService = eventsService;
         this.origemService = origemService;
         this.eventsMapper = eventsMapper;

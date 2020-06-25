@@ -30,13 +30,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Api(tags = {"Serviços"}, value = "Recursos de Serviços", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("servico")
-public class ServicoResources {
+public class ServicesResources {
 
     private final ServicoService servicoService;
 
     private final ServicesMapper servicesMapper;
 
-    public ServicoResources(ServicoService servicoService, ServicesMapper servicesMapper) {
+    public ServicesResources(ServicoService servicoService, ServicesMapper servicesMapper) {
         this.servicoService = servicoService;
         this.servicesMapper = servicesMapper;
     }

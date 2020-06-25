@@ -29,13 +29,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Api(tags = {"Sistemas"}, value = "Recursos de Sistemas", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("sistema")
-public class SistemaResources {
+public class SystemsResources {
 
     private final SystemsService systemsService;
 
     private final SystemsMapper systemsMapper;
 
-    public SistemaResources(SystemsService systemsService, SystemsMapper systemsMapper) {
+    public SystemsResources(SystemsService systemsService, SystemsMapper systemsMapper) {
         this.systemsService = systemsService;
         this.systemsMapper = systemsMapper;
     }
