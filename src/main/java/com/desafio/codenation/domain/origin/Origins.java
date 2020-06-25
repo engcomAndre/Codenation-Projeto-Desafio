@@ -47,7 +47,7 @@ public class Origins {
     @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
     private String password;
 
-    private Boolean ativo;
+    private Boolean ativo = true;
 
     @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)

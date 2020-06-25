@@ -23,7 +23,13 @@ public interface ServicesMapper {
     ServicesDTO map(Services services);
 
     ServicesListDto mapForFindAll(Services services);
-
+    @InheritConfiguration(name = "originDTO")
+    @Mappings({
+            @Mapping(source = "nome", target = "nome"),
+            @Mapping(source = "chave", target = "chave"),
+            @Mapping(source = "descricao", target = "descricao"),
+            @Mapping(source = "password", target = "password")
+    })
     Services map(NewServiceDTO newServiceDTO);
 
 }

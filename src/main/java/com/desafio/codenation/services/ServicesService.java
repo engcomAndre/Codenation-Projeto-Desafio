@@ -1,6 +1,7 @@
 package com.desafio.codenation.services;
 
 import com.desafio.codenation.domain.origin.Services;
+import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.repositories.ServicesRepositorie;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -34,6 +37,7 @@ public class ServicesService {
     }
 
     public Services insert(Services services) {
+        services.setPerfis(new HashSet(Collections.singleton(TypeUser.UNDEFINED)));
         if(services.getChave() == null || services.getChave().isEmpty() ) {
             services.setChave(UUID.randomUUID().toString().replace("-", ""));
         }

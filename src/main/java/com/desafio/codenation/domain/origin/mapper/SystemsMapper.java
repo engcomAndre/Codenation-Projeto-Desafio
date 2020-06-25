@@ -24,6 +24,11 @@ public interface SystemsMapper {
     SistemaListDto mapForFindAll(Systems systems);
 
     @InheritConfiguration(name = "originDTO")
-    Systems map(NewSystemsDTO novoServicoDTO);
+    @Mappings({
+            @Mapping(source = "nome", target = "nome"),
+            @Mapping(source = "descricao", target = "descricao"),
+            @Mapping(source = "password", target = "password")
+    })
+    Systems map(NewSystemsDTO newSystemsDTO);
 
 }

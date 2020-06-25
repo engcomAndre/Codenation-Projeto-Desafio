@@ -5,6 +5,7 @@ import com.desafio.codenation.domain.origin.DTO.SystemsDTO;
 import com.desafio.codenation.domain.origin.DTO.SistemaListDto;
 import com.desafio.codenation.domain.origin.Systems;
 import com.desafio.codenation.domain.origin.mapper.SystemsMapper;
+import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.services.SystemsService;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
@@ -48,7 +49,6 @@ public class SystemsResources {
     }
 
     @ApiOperation(value = "Buscar Sistemas",notes = "Busca de Sistemas por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<SistemaListDto>> getSistemas(
             @QuerydslPredicate(root = Systems.class) Predicate predicate,
@@ -65,11 +65,10 @@ public class SystemsResources {
 
 
     @ApiOperation(value = "Cadastrar Sistemas",notes = "Cadastro de um novo Sistema.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insertSistema(@Valid @RequestBody NewSystemsDTO newSystemsDTO) {
-        Systems systems = systemsService.insert(systemsMapper.map(newSystemsDTO));
-
+        Systems systems = systemsMapper.map(newSystemsDTO);
+        systems = systemsService.insert(systems);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -79,7 +78,6 @@ public class SystemsResources {
         return ResponseEntity.created(uri).build();
     }
     @ApiOperation(value = "Atualizar Sistemas",notes = "Atualizar um  Sistema existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateSistema(@Valid @PathVariable("id") Long id, @RequestBody NewSystemsDTO newSystemsDTO) {
         systemsService.updateSistema(id, systemsMapper.map(newSystemsDTO));
@@ -90,7 +88,6 @@ public class SystemsResources {
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover sistemas com associações."),
             @ApiResponse(code = 404, message = "Sistema não encontrado")})
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSistema(@PathVariable("id") Long id) {
         systemsService.deleteSistema(id);

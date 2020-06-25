@@ -11,7 +11,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@UserInsert
 public class NewUserDTO {
     private String email;
     private String password;

@@ -1,6 +1,7 @@
 package com.desafio.codenation.services;
 
 import com.desafio.codenation.domain.origin.Systems;
+import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.repositories.SystemsRepositorie;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -33,6 +36,7 @@ public class SystemsService {
     }
 
     public Systems insert(Systems systems) {
+        systems.setPerfis(new HashSet(Collections.singleton(TypeUser.UNDEFINED)));
         if (systems.getChave() == null || systems.getChave().isEmpty()) {
             systems.setChave(UUID.randomUUID().toString().replace("-", ""));
         }
@@ -49,12 +53,12 @@ public class SystemsService {
     }
 
     public void updateSistema(Long id, Systems newSystems) {
+
         Systems systems = getSistema(id);
 
         updtSistema(systems, newSystems);
 
         systemsRepositorie.save(systems);
-
     }
 
     private void updtSistema(Systems systems, Systems newSystems) {

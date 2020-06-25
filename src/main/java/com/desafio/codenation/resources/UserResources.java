@@ -98,7 +98,6 @@ public class UserResources {
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Impossível remover usuario com associações."),
             @ApiResponse(code = 404, message = "Usuário não encontrado")})
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
@@ -106,7 +105,6 @@ public class UserResources {
     }
 
     @ApiOperation(value = "Obter os tipos de usuários disponíveis.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/typeuser")
     public ResponseEntity<List<TypeUser>> getTypeUsers() {
         return ResponseEntity.ok().body(Arrays.asList(TypeUser.values()));

@@ -30,7 +30,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**","/user/typeuser/**"};
     private static final String[] PUBLIC_MATCHERS_GET = {"/evento/**"};
     private static final String[] PUBLIC_MATCHERS_POST = {"/evento/**"};
     private final Environment env;
