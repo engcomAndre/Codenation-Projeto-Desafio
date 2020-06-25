@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Api(tags = {"Serviços"}, value = "Recursos de Serviços", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+@Api(tags = {"Serviços"}, value = "Recursos de Serviços", hidden = false, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 public interface ServicesResourcesContract {
 
     @ApiOperation(value = "Buscar Serviço", notes = "Busca de Serviços por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
