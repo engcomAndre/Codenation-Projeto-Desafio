@@ -7,7 +7,7 @@ import com.desafio.codenation.domain.events.Events;
 import com.desafio.codenation.domain.events.enums.TypeLevel;
 import com.desafio.codenation.domain.events.mapper.EventsMapper;
 import com.desafio.codenation.domain.logs.Log;
-import com.desafio.codenation.resources.interfaces.EventoResourcesContract;
+import com.desafio.codenation.resources.interfaces.EventsResourcesContract;
 import com.desafio.codenation.services.EventsService;
 import com.desafio.codenation.services.OriginService;
 import com.querydsl.core.types.Predicate;
@@ -29,7 +29,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("evento")
-public class EventsResources implements EventoResourcesContract {
+public class EventsResources implements EventsResourcesContract {
 
     private final EventsService eventsService;
 

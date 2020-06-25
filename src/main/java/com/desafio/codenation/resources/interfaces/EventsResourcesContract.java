@@ -21,7 +21,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-public interface EventoResourcesContract {
+public interface EventsResourcesContract {
 
     @ApiOperation(value = "Buscar Eventos", notes = "Busca de Eventos por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 //    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
