@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class OrigemService {
+public class OriginService {
 
     @Autowired
     private OriginsRepositorie originsRepositorie;

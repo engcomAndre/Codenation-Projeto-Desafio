@@ -18,7 +18,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Api(tags = {"Serviços"}, value = "Recursos de Serviços", hidden = true, produces = APPLICATION_JSON_VALUE,consumes = APPLICATION_JSON_VALUE)
 @Service
-public class ServicoService {
+public class ServicesService {
 
     @Autowired
     private ServicesRepositorie servicesRepositorie;

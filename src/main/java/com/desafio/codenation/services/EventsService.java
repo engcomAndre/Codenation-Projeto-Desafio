@@ -21,14 +21,14 @@ public class EventsService {
 
     private final EventsRepositorie eventsRepositorie;
 
-    private final OrigemService origemService;
+    private final OriginService originService;
 
     private final EventsMapper eventsMapper;
 
-    public EventsService(EventsRepositorie eventsRepositorie, OrigemService origemService, EventsMapper eventsMapper) {
+    public EventsService(EventsRepositorie eventsRepositorie, OriginService originService, EventsMapper eventsMapper) {
 
         this.eventsRepositorie = eventsRepositorie;
-        this.origemService = origemService;
+        this.originService = originService;
         this.eventsMapper = eventsMapper;
 
     }
@@ -59,7 +59,7 @@ public class EventsService {
 
     public Events insertEvento(NewEventsDTO newEventsDTO) {
 
-        Origins origins = origemService.findByIdAndAndChaveAndAtivo(
+        Origins origins = originService.findByIdAndAndChaveAndAtivo(
                 Long.valueOf(newEventsDTO.getOrigemId()),
                 SecurityEntityService.authenticatedUsername());
 
@@ -67,7 +67,7 @@ public class EventsService {
             throw new AuthorizationException("Acesso Negado");
         }
 
-        origins = origemService.findByIdAndAndChaveAndAtivo(
+        origins = originService.findByIdAndAndChaveAndAtivo(
                 Long.valueOf(newEventsDTO.getOrigemId()),
                 newEventsDTO.getChave());
         if (origins == null) {

@@ -9,7 +9,7 @@ import com.desafio.codenation.domain.events.mapper.EventsMapper;
 import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.resources.interfaces.EventoResourcesContract;
 import com.desafio.codenation.services.EventsService;
-import com.desafio.codenation.services.OrigemService;
+import com.desafio.codenation.services.OriginService;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import org.springframework.data.domain.Page;
@@ -33,13 +33,13 @@ public class EventsResources implements EventoResourcesContract {
 
     private final EventsService eventsService;
 
-    private final OrigemService origemService;
+    private final OriginService originService;
 
     private final EventsMapper eventsMapper;
 
-    public EventsResources(EventsService eventsService, EventsMapper eventsMapper, OrigemService origemService) {
+    public EventsResources(EventsService eventsService, EventsMapper eventsMapper, OriginService originService) {
         this.eventsService = eventsService;
-        this.origemService = origemService;
+        this.originService = originService;
         this.eventsMapper = eventsMapper;
     }
 
@@ -78,7 +78,7 @@ public class EventsResources implements EventoResourcesContract {
     public ResponseEntity<Void> updateEvento(Long id, NewEventsDTO newEventsDTO) {
         Events events = eventsMapper.map(newEventsDTO);
 
-        events.setOrigins(origemService.findById(Long.valueOf(newEventsDTO.getOrigemId())));
+        events.setOrigins(originService.findById(Long.valueOf(newEventsDTO.getOrigemId())));
 
         events.setLog(Log.builder()
                 .events(events)

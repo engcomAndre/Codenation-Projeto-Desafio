@@ -5,7 +5,7 @@ import com.desafio.codenation.domain.origin.DTO.ServicesDTO;
 import com.desafio.codenation.domain.origin.DTO.ServicesListDto;
 import com.desafio.codenation.domain.origin.Services;
 import com.desafio.codenation.domain.origin.mapper.ServicesMapper;
-import com.desafio.codenation.services.ServicoService;
+import com.desafio.codenation.services.ServicesService;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,19 +32,19 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("servico")
 public class ServicesResources {
 
-    private final ServicoService servicoService;
+    private final ServicesService servicesService;
 
     private final ServicesMapper servicesMapper;
 
-    public ServicesResources(ServicoService servicoService, ServicesMapper servicesMapper) {
-        this.servicoService = servicoService;
+    public ServicesResources(ServicesService servicesService, ServicesMapper servicesMapper) {
+        this.servicesService = servicesService;
         this.servicesMapper = servicesMapper;
     }
 
     @ApiOperation(value = "Buscar Serviço",notes = "Busca de Serviços por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ServicesDTO> getServicoById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(servicesMapper.map(servicoService.getServicoById(id)));
+        return ResponseEntity.ok().body(servicesMapper.map(servicesService.getServicoById(id)));
     }
 
     @ApiOperation(value = "Buscar Serviços",notes = "Busca de Serviços por parâmetros com paginação e ordenação.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
@@ -56,7 +56,7 @@ public class ServicesResources {
         return ResponseEntity
                 .ok()
                 .body(new PageImpl<>(
-                        servicoService
+                        servicesService
                                 .getServicos(predicate, pageable).stream()
                                 .map(servicesMapper::mapForFindAll)
                                 .collect(Collectors.toList())));
@@ -66,7 +66,7 @@ public class ServicesResources {
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> insertService(@Valid @RequestBody NewServiceDTO newServiceDTO) {
-        Services services = servicoService.insert(servicesMapper.map(newServiceDTO));
+        Services services = servicesService.insert(servicesMapper.map(newServiceDTO));
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -80,7 +80,7 @@ public class ServicesResources {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateServico(@PathVariable("id") Long id, @Valid @RequestBody NewServiceDTO newServiceDTO) {
 
-        servicoService.updateServico(id, servicesMapper.map(newServiceDTO));
+        servicesService.updateServico(id, servicesMapper.map(newServiceDTO));
 
         return ResponseEntity.noContent().build();
     }
@@ -91,7 +91,7 @@ public class ServicesResources {
             @ApiResponse(code = 404, message = "Serviço não encontrado")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-        servicoService.deleteUser(id);
+        servicesService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
