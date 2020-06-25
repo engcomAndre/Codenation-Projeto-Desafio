@@ -33,14 +33,14 @@ public class Events implements Serializable {
     @Length(min = 10, max = 250, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     private String descricao;
 
-    @OneToOne(mappedBy = "evento", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToOne(mappedBy = "events", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Log log;
 
     @NotNull(message = "Level do evento é um campo obrigatório.")
     private TypeLevel level;
 
     @ManyToOne
-    @JoinColumn(name = "origem_id")
+    @JoinColumn(name = "origins_id")
     private Origins origins;
 
     @NotNull(message = "Quantidade do evento é um campo obrigatório.")

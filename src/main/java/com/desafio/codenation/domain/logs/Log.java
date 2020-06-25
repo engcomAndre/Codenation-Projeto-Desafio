@@ -29,7 +29,7 @@ public class Log implements Serializable {
 
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "evento_id")
+    @JoinColumn(name = "events_id")
     private Events events;
 
     @CreatedDate

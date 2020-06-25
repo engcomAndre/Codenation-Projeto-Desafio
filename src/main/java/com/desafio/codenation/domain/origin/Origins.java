@@ -54,7 +54,7 @@ public class Origins {
     private Set<TypeUser> perfis = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "origem")
+    @OneToMany(mappedBy = "origins")
     private List<Events> events;
 
     @CreatedDate
