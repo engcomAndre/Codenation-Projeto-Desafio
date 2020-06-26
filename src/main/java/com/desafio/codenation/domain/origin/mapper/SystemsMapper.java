@@ -14,18 +14,15 @@ public interface SystemsMapper {
     @InheritConfiguration(name = "originDTO")
     @Mappings({
             @Mapping(source = "id", target = "id"),
-            @Mapping(source = "nome", target = "nome"),
+            @Mapping(source = "name", target = "name"),
             @Mapping(source = "events", target = "events"),
             @Mapping(source = "users", target = "users"),
-            @Mapping(source = "descricao", target = "descricao"),
+            @Mapping(source = "description", target = "description"),
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
     })
     SystemsDTO mapToDetails(Systems systems);
 
     SistemaListDto mapForFindAll(Systems systems);
-
-
-
 
 //    @InheritConfiguration(name = "originDTO")
 //    @Mappings({

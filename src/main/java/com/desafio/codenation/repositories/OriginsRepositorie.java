@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface OriginsRepositorie extends BaseRepository<Origins, Long> {
 
-    Optional<Origins> findByIdAndChaveAndAtivo(Long id, String chave, Boolean ativo);
+    Optional<Origins> findByIdAndKeyAndActive(Long id, String key, Boolean active);
 
-    Optional<Origins> findByChaveAndAtivo(String chave, Boolean ativo);
+    Optional<Origins> findByKeyAndActive(String key, Boolean active);
 
 }

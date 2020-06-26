@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 public class EventsDTO {
 
     private Long id;
-    private String descricao;
+    private String description;
     private TypeLevel level;
     private Log log;
     private LocalDateTime createdAt;
-    private Integer quantidade;
+    private Integer quantity;
     private LocalDateTime modifiedData;
 
 }

@@ -4,6 +4,7 @@ package com.desafio.codenation.services;
 import com.desafio.codenation.domain.events.Events;
 import com.desafio.codenation.domain.events.enums.TypeLevel;
 import com.desafio.codenation.domain.logs.Log;
+import com.desafio.codenation.domain.origin.Origins;
 import com.desafio.codenation.domain.origin.Services;
 import com.desafio.codenation.domain.origin.Systems;
 import com.desafio.codenation.domain.user.User;
@@ -31,155 +32,96 @@ public class DBService {
         this.originsRepositorie = originsRepositorie;
     }
 
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     public void instantiateTestDatabase() {
-
-
+        insertAdmin();
 
         int quantity = 100;
-        Random randInt = new Random();
+        Random rand = new Random();
 
-//        List<User> userList = new ArrayList<>();
-//        List<User> userList = new ArrayList<>();
-//
-//        userList.add(User.builder()
-//                .email("admin@admin.com")
-//                .password("@admin")
-//                .perfis(new HashSet<>(Collections.singletonList(TypeUser.ADMIN)))
-//                .build());
-//
-//        //instateate users
-//        int j = 0;
-//        for(int i = 0;i < quantity;i++){
-//            userList.add(User.builder()
-//                    .email("usertest_" + ++j  + "@email.com")
-//                    .password("@admin")
-//                    .perfis(new HashSet<>(Collections.singletonList(TypeUser.toEnum(randInt.nextInt(2) + 1))))
-//                    .build());
-//        }
+        List<User> userList = new ArrayList<>();
+        List<Log> logs = new ArrayList<>();
+        List<Events> events = new ArrayList<>();
+        List<Origins> origins = new ArrayList<>();
 
+        //Todo one
+        for (int i = 0; i < quantity; i++) {
+
+            User user = User.builder()
+                    .email("user_" + i + "@admin.com")
+                    .password("@" + "user_" + i)
+                    .grants(new HashSet<>(Collections.singletonList(TypeUser.COMMON_USER)))
+                    .build();
+
+            userList.add(user);
+
+            int ranMin = rand.nextInt(userList.size());
+            int ranMax = rand.ints(ranMin, userList.size()).limit(1).findFirst().orElseThrow();
+
+            Origins originsEnt;
+
+            if (rand.nextBoolean()) {
+                originsEnt = Services.builderServico()
+                        .name("Nome do Servico " + i)
+                        .description("Descrição do Serviço " + i)
+                        .password("123456")
+                        .active(true)
+                        .key(UUID.randomUUID().toString().replace("-", ""))
+                        .grants(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)))
+                        .users(userList.subList(ranMin, ranMax))
+                        .build();
+            } else {
+                originsEnt = Systems.builderSistema()
+                        .name("Nome do Sistema " + i)
+                        .description("Descrição do Sistema " + i)
+                        .password("123456")
+                        .active(true)
+                        .key(UUID.randomUUID().toString().replace("-", ""))
+                        .grants(new HashSet<>(Collections.singletonList(TypeUser.UNDEFINED)))
+                        .users(userList.subList(ranMin, ranMax))
+                        .build();
+            }
+
+            origins.add(originsEnt);
+
+            Events event;
+            Log log;
+
+            if (origins.size() > 0) {
+                log = Log.builder()
+                        .description("Descrição de um log de evento " + UUID.randomUUID().toString().replace("-", ""))
+                        .build();
+
+                event = Events.builder()
+                        .description("Descrição de um evento " + UUID.randomUUID().toString().replace("-", ""))
+                        .level(TypeLevel
+                                .toEnum(1 + rand
+                                        .nextInt(TypeLevel.values().length)))
+                        .quantity(rand.nextInt(50))
+                        .log(log)
+                        .origins(origins.get(rand.nextInt(origins.size())))
+                        .build();
+
+                log.setEvents(event);
+                events.add(event);
+                logs.add(log);
+                userRepositorie.save(user);
+                originsRepositorie.save(originsEnt);
+                eventsRepositorie.save(event);
+                logsRepositorie.save(log);
+            }
+        }
+
+    }
+
+
+    private void insertAdmin() {
         User userA = User.builder()
                 .email("admin@admin.com")
                 .password("@admin")
-                .perfis(new HashSet(Arrays.asList(TypeUser.ADMIN, TypeUser.COMMON_USER)))
+                .grants(new HashSet<>(Arrays.asList(TypeUser.ADMIN, TypeUser.COMMON_USER)))
                 .build();
-
-        User userB = User.builder()
-                .email("meninobom@gmail.com")
-                .password("654321")
-                .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
-                .build();
-
-        User userC = User.builder()
-                .email("meninobom2@gmail.com")
-                .password("123456")
-                .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
-                .build();
-
-        User userD = User.builder()
-                .email("meninobomD@gmail.com")
-                .password("123456")
-                .perfis(new HashSet(Arrays.asList(TypeUser.COMMON_USER)))
-                .build();
-
-
-        Log logA = Log.builder().descricao("descrição log A").build();
-        Log logB = Log.builder().descricao("descrição log B").build();
-        Log logC = Log.builder().descricao("descrição log C").build();
-        Log logD = Log.builder().descricao("descrição log D").build();
-
-        int i = 0;
-        Systems systemsA = Systems.builderSistema()
-                .nome("Nome Sistema " + ++i)
-                .descricao("Descrição do Sistema " + i)
-                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
-                .chave("15347144-f328-49fd-a1d2-e325c9d81adc")
-                .password("123456")
-                .ativo(true)
-                .build();
-
-
-        Services serviceA = Services.builderServico()
-                .nome("Nome Servico " + ++i)
-                .descricao("Descrição do Servico " + i)
-                .chave("25347144-f328-49fd-a1d2-e325c9d81adc")
-                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
-                .password("123456")
-                .ativo(true)
-                .build();
-
-        Services serviceB = Services.builderServico()
-                .nome("Nome Servico " + ++i)
-                .descricao("Descrição do Servico " + i)
-                .chave("35347144-f328-49fd-a1d2-e325c9d81adc")
-                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
-                .password("123456")
-                .ativo(true)
-                .build();
-
-
-        Systems systemsC = Systems.builderSistema()
-                .nome("Nome Sistema " + ++i)
-                .descricao("Descrição do Sistema " + i)
-                .chave("45347144-f328-49fd-a1d2-e325c9d81adc")
-                .perfis(new HashSet(Arrays.asList(TypeUser.UNDEFINED)))
-                .password("123456")
-                .ativo(true)
-                .build();
-
-
-        Events eventsA = Events.builder()
-                .descricao("Descrição de uma evento " + ++i)
-                .log(logA)
-                .level(TypeLevel.ERROR)
-                .origins(systemsA)
-                .quantidade(i)
-                .build();
-
-        logA.setEvents(eventsA);
-
-        Events eventsB = Events.builder()
-                .descricao("Descrição de uma evento " + ++i)
-                .log(logB)
-                .level(TypeLevel.WARNING)
-                .origins(systemsC)
-                .quantidade(i)
-                .build();
-
-        logB.setEvents(eventsB);
-
-        Events eventsC = Events.builder()
-                .descricao("Descrição de uma evento " + ++i)
-                .log(logC)
-                .level(TypeLevel.INFO)
-                .origins(serviceA)
-                .quantidade(i)
-                .build();
-
-        logC.setEvents(eventsC);
-
-        Events eventsD = Events.builder()
-                .descricao("Descrição de uma evento " + ++i)
-                .log(logD)
-                .level(TypeLevel.INFO)
-                .origins(serviceA)
-                .quantidade(i)
-                .build();
-
-        logD.setEvents(eventsD);
-
-        systemsA.setEvents(Collections.singletonList(eventsA));
-        systemsC.setEvents(Collections.singletonList(eventsB));
-        serviceA.setEvents(Collections.singletonList(eventsC));
-        serviceB.setEvents(Collections.singletonList(eventsD));
-
-        userB.setOrigins(Arrays.asList(systemsA,systemsC));
-        userC.setOrigins(Arrays.asList(serviceA,serviceB));
-        userD.setOrigins(Arrays.asList(systemsA,serviceB));
-
-        userRepositorie.saveAll(Arrays.asList(userA, userB,userC,userD));
-        originsRepositorie.saveAll(Arrays.asList(systemsA, serviceA, systemsC, serviceB));
-        eventsRepositorie.saveAll(Arrays.asList(eventsA, eventsB, eventsC, eventsD));
-        logsRepositorie.saveAll(Arrays.asList(logA, logB, logC, logD));
+        userRepositorie.save(userA);
     }
 
 }

@@ -16,9 +16,9 @@ import java.util.List;
 public class OriginsDTO implements Serializable {
     private static final long serialVersionUUID = 1L;
     private Long id;
-    private String nome;
-    private String chave;
-    private String descricao;
+    private String name;
+    private String key;
+    private String description;
     private LocalDateTime createdAt;
     private List<EventsListDto> events;
     private List<UserListDTO> users;

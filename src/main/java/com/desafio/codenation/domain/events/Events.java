@@ -31,7 +31,7 @@ public class Events implements Serializable {
 
     @NotNull(message = "Descrição é um campo obrigatório.")
     @Length(min = 10, max = 250, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
-    private String descricao;
+    private String description;
 
     @OneToOne(mappedBy = "events", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Log log;
@@ -44,7 +44,7 @@ public class Events implements Serializable {
     private Origins origins;
 
     @NotNull(message = "Quantidade do evento é um campo obrigatório.")
-    private Integer quantidade;
+    private Integer quantity;
 
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

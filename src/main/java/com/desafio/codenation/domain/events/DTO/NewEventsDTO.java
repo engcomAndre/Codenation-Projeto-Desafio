@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewEventsDTO {
-    private String descricao;
+    private String description;
     private String level;
-    private String origemId;
-    private String chave;
-    private Integer quantidade;
-    private String logDescricao;
+    private String originId;
+    private String key;
+    private Integer quantity;
+    private String logDescription;
 }
 

@@ -27,10 +27,10 @@ public class UserInsertValidator implements ConstraintValidator<UserInsert, NewU
     public boolean isValid(NewUserDTO newUserDTO, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        if (newUserDTO.getPerfis().isEmpty()) {
+        if (newUserDTO.getGrants().isEmpty()) {
             list.add(new FieldMessage("perfis", "É necessário informar ao menos um perfil de usuário."));
         }
-        if (newUserDTO.getPerfis().contains(TypeUser.ADMIN) || newUserDTO.getPerfis().contains(TypeUser.COMMON_USER)) {
+        if (newUserDTO.getGrants().contains(TypeUser.ADMIN) || newUserDTO.getGrants().contains(TypeUser.COMMON_USER)) {
             list.add(new FieldMessage("perfis", "Usuário já possui algum dos perfis informados. "));
         }
         if (userRepositorie.findByEmail(newUserDTO.getEmail()).orElse(null) != null) {
@@ -38,7 +38,7 @@ public class UserInsertValidator implements ConstraintValidator<UserInsert, NewU
         }
 
         try {
-            for (TypeUser t : newUserDTO.getPerfis()) {
+            for (TypeUser t : newUserDTO.getGrants()) {
                 if (!Arrays.asList(TypeUser.values()).contains(t)) {
                     throw new Exception();
                 }

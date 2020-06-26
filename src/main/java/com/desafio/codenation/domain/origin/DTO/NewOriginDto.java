@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class NewOriginDto {
-    private String nome;
-    private String descricao;
-    private String chave;
+    private String name;
+    private String description;
+    private String key;
     private String password;
 }

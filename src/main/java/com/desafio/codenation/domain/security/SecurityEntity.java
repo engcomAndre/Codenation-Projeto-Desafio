@@ -40,7 +40,6 @@ public class SecurityEntity implements UserDetails, Serializable {
         return perfis.stream()
                 .map(x -> new SimpleGrantedAuthority(x.getDesc()))
                 .collect(Collectors.toList());
-
     }
 
     @Override

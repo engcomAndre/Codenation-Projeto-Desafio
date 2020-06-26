@@ -80,12 +80,12 @@ public class EventsResources implements EventsResourcesContract {
     public ResponseEntity<Void> updateEvento(Long id, NewEventsDTO newEventsDTO) {
         Events events = eventsMapper.map(newEventsDTO);
 
-        events.setOrigins(originService.findById(Long.valueOf(newEventsDTO.getOrigemId())));
-
-        events.setLog(Log.builder()
-                .events(events)
-                .descricao(newEventsDTO.getLogDescricao())
-                .build());
+//        events.setOrigins(originService.findById(Long.valueOf(newEventsDTO.getOrigemId())));
+//
+//        events.setLog(Log.builder()
+//                .events(events)
+//                .descricao(newEventsDTO.getLogDescricao())
+//                .build());
 
         eventsService.updateEvento(id, events);
 

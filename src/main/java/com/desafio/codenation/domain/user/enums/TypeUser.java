@@ -21,7 +21,7 @@ public enum TypeUser {
                 return t;
             }
         }
-        throw new IllegalArgumentException("Id Inválido" + cod);
+        throw new IllegalArgumentException("Invalid Id " + cod);
 
     }
 

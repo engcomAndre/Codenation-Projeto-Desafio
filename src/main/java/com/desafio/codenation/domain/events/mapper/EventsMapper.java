@@ -13,7 +13,6 @@ public interface EventsMapper {
 
     @Mappings({
             @Mapping(source = "log", target = "log"),
-//            @Mapping(source = "origem.id", target = "origemId")
     })
     EventsDTO map(Events events);
 
@@ -21,7 +20,7 @@ public interface EventsMapper {
 
 
     @Mappings({
-            @Mapping(source = "origemId", target = "origins.id")
+            @Mapping(source = "originId", target = "origins.id")
     })
     Events map(NewEventsDTO newEventsDTO);
 }

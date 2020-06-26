@@ -5,20 +5,25 @@ import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.repositories.SystemsRepositorie;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
+import com.desafio.codenation.services.utils.updtUtils;
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.UUID;
 
 
 @Service
 public class SystemsService {
 
-    @Autowired
-    private SystemsRepositorie systemsRepositorie;
+    private final SystemsRepositorie systemsRepositorie;
+
+    public SystemsService(SystemsRepositorie systemsRepositorie) {
+        this.systemsRepositorie = systemsRepositorie;
+    }
 
     public Systems getSistema(Long id) {
         return systemsRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Serviço com identificador " + id + " não encontrado."));
@@ -33,9 +38,9 @@ public class SystemsService {
     }
 
     public Systems insert(Systems systems) {
-        systems.setPerfis(new HashSet(Collections.singleton(TypeUser.UNDEFINED)));
-        if (systems.getChave() == null || systems.getChave().isEmpty()) {
-            systems.setChave(UUID.randomUUID().toString().replace("-", ""));
+        systems.setPerfis(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)));
+        if (systems.getKey() == null || systems.getKey().isEmpty()) {
+            systems.setKey(UUID.randomUUID().toString().replace("-", ""));
         }
         return systemsRepositorie.save(systems);
     }
@@ -53,22 +58,10 @@ public class SystemsService {
 
         Systems systems = getSistema(id);
 
-        updtSistema(systems, newSystems);
+        updtUtils.updtOrigins(systems, newSystems);
 
         systemsRepositorie.save(systems);
     }
 
-    private void updtSistema(Systems systems, Systems newSystems) {
-        if (!Objects.equals(systems.getNome(), newSystems.getNome())) {
-            systems.setNome(newSystems.getNome());
-        }
-        if (!Objects.equals(systems.getDescricao(), newSystems.getDescricao())) {
-            systems.setDescricao(newSystems.getDescricao());
-        }
-        if (!Objects.equals(systems.getChave(), newSystems.getChave())) {
-            systems.setChave(newSystems.getChave());
-        }
-
-    }
 
 }

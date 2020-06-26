@@ -14,9 +14,9 @@ public interface ServicesMapper {
     @InheritConfiguration(name = "originDTO")
     @Mappings({
             @Mapping(source = "id", target = "id"),
-            @Mapping(source = "nome", target = "nome"),
+            @Mapping(source = "name", target = "name"),
             @Mapping(source = "events", target = "events"),
-            @Mapping(source = "descricao", target = "descricao"),
+            @Mapping(source = "description", target = "description"),
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
 
     })
@@ -25,9 +25,9 @@ public interface ServicesMapper {
     ServicesListDto mapForFindAll(Services services);
     @InheritConfiguration(name = "originDTO")
     @Mappings({
-            @Mapping(source = "nome", target = "nome"),
-            @Mapping(source = "chave", target = "chave"),
-            @Mapping(source = "descricao", target = "descricao"),
+            @Mapping(source = "name", target = "name"),
+            @Mapping(source = "key", target = "key"),
+            @Mapping(source = "description", target = "description"),
             @Mapping(source = "password", target = "password")
     })
     Services map(NewServiceDTO newServiceDTO);

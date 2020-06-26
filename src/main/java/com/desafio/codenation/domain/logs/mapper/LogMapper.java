@@ -1,8 +1,8 @@
 package com.desafio.codenation.domain.logs.mapper;
 
+import com.desafio.codenation.domain.logs.DTO.LogDTO;
 import com.desafio.codenation.domain.logs.DTO.NewLog;
 import com.desafio.codenation.domain.logs.Log;
-import com.desafio.codenation.domain.logs.DTO.LogDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;

@@ -12,7 +12,7 @@ public interface NewUserMapper {
     @Mappings({
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "password", target = "password"),
-            @Mapping(source = "perfis", target = "perfis")
+            @Mapping(source = "grants", target = "grants")
     })
     User map(NewUserDTO newUserDTO);
 

@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class EventsListDto {
     private Long id;
-    private String descricao;
+    private String description;
     private TypeLevel level;
 }

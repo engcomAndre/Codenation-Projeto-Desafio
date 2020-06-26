@@ -4,12 +4,11 @@ import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.repositories.UserRepositorie;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
+import com.desafio.codenation.services.utils.updtUtils;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 
 @Service
@@ -39,7 +38,7 @@ public class UserService {
 
     public void updateUser(Long id, User newUser) {
         User user = getUser(id);
-        updtUser(user, newUser);
+        updtUtils.updtUser(user, newUser);
         userRepositorie.save(user);
     }
 
@@ -53,13 +52,4 @@ public class UserService {
         }
     }
 
-    private void updtUser(User user, User newUser) {
-        if (!Objects.equals(user.getEmail(), newUser.getEmail())) {
-            user.setEmail(newUser.getEmail());
-        }
-        if (!Objects.equals(user.getPassword(), newUser.getPassword())) {
-            user.setPassword(newUser.getPassword());
-        }
-        user.setPerfis(newUser.getPerfis());
-    }
 }

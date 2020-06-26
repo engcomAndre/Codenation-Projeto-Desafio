@@ -15,9 +15,9 @@ public class LogDTO implements Serializable {
 
     private Long id;
 
-    private String descricao;
+    private String description;
 
-    private Long eventoId;
+    private Long eventsId;
 
     private LocalDateTime createdAt;
 

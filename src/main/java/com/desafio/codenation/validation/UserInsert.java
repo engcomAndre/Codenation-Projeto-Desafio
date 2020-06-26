@@ -1,7 +1,6 @@
 package com.desafio.codenation.validation;
 
 import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -14,9 +13,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = UserInsertValidator.class)
 public @interface UserInsert {
-    String message()default "Erro de Validação";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default{};
+    String message() default "Erro de Validação";
+
+//    Class<?>[] groups() default {};
+
+//    Class<? extends Payload>[] payload() default {};
 }
 
 

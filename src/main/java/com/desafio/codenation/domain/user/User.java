@@ -3,7 +3,6 @@ package com.desafio.codenation.domain.user;
 import com.desafio.codenation.domain.origin.Origins;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
@@ -43,32 +42,27 @@ public class User implements Serializable {
 
     @NotEmpty(message = "Uma senha valida deve ser informada.")
     @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
-    @Column(name = "password")
     private String password;
 
 
     @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "perfis")
-    private Set<TypeUser> perfis = new HashSet<>();
+    private Set<TypeUser> grants = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "ORIGIN_USER",
-            joinColumns = @JoinColumn(name="user_id"),
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "origins_id")
     )
     private List<Origins> origins = new ArrayList<>();
 
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Column(name = "createdAt")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Column(name = "modifiedAt")
     private LocalDateTime modifiedAt;
-
-
 }

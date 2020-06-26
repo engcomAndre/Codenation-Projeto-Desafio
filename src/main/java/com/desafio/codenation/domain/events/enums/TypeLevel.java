@@ -1,23 +1,15 @@
 package com.desafio.codenation.domain.events.enums;
 
-public enum TypeLevel{
+public enum TypeLevel {
 
-    ERROR(0,"ERROR"),WARNING(1, "WARNING"), INFO(2, "INFO");
+    ERROR(1, "ERROR"), WARNING(2, "WARNING"), INFO(3, "INFO");
 
-    private int cod;
-    private String desc;
+    private final int cod;
+    private final String desc;
 
-    private TypeLevel(int cod, String desc) {
+    TypeLevel(int cod, String desc) {
         this.cod = cod;
         this.desc = desc;
-    }
-
-    public int getCod() {
-        return cod;
-    }
-
-    public String getDesc() {
-        return desc;
     }
 
     public static TypeLevel toEnum(Integer cod) {
@@ -29,6 +21,14 @@ public enum TypeLevel{
                 return t;
             }
         }
-        throw new IllegalArgumentException("Id Inválido" + cod);
+        throw new IllegalArgumentException("Invalid Id " + cod);
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

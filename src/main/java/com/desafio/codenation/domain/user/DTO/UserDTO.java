@@ -14,7 +14,7 @@ import java.util.Set;
 public class UserDTO {
     private Long id;
     private String email;
-    private Set<TypeUser> perfis;
+    private Set<TypeUser> grants;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }
