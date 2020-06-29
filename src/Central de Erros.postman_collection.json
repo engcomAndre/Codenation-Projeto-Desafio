@@ -1,0 +1,1281 @@
+{
+	"info": {
+		"_postman_id": "a825b828-e07e-49f7-8e90-28b1cccb19fe",
+		"name": "Central de Erros",
+		"description": "Central de ERROS envs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DESENV",
+			"item": [
+				{
+					"name": "Eventos",
+					"item": [
+						{
+							"name": "Buscar Eventos",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "badd6681-02be-4f70-a5c4-b15d4a51aeb1",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/evento/1",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"1"
+									]
+								},
+								"description": "Buscar todos os eventos com suporte a paginação."
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Evento",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "c1c5bb0c-c8b8-40ab-b344-663df85c9b29",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descricao\":\"Um novo evento \",\r\n    \"level\":\"INFO\",\r\n    \"origemId\":\"2\",\r\n    \"quantidade\":\"5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/evento/",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"evento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Tipos de Eventos",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "6bf358bc-cb13-4039-9738-b9da611f619d",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/evento/event-level",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"event-level"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Eventos",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "badd6681-02be-4f70-a5c4-b15d4a51aeb1",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descricao\": \"Um novo evento 2 ATUALIZADO\",\r\n    \"level\": \"INFO\",\r\n    \"logDescricao\" : \"Novo log de novo evento 2 ATUALIZADO\",\r\n    \"origemId\": \"1\",\r\n    \"quantidade\": \"1000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/evento/1",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar Evento",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "badd6681-02be-4f70-a5c4-b15d4a51aeb1",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/evento/1",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Buscar Token Aplicação",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin@admin.com\",\r\n    \"password\" : \"@admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/login",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Buscar Usuários",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/user",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Usuários",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"email\" : \"admin@admin.com\",\r\n    \"password\":\"@admin\",\r\n    \"perfis\": [\"ADMIN\"] \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/user",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Tipos de Usuários",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/user/typeuser",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"user",
+										"typeuser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Usuarios",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/user/1",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Sistemas",
+					"item": [
+						{
+							"name": "Buscar Sistemas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/sistema/1",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"sistema",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Sistemas",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "426ba192-928c-41d2-a7ab-f605c3a1a6e6",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"nome\" : \"Novo Sistema\",\r\n\t\"descricao\" : \"Descrição do Novo Sistema \",\r\n\t\"chave\" : \"nopva chave\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/sistema",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"sistema"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Sistema",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "ee468e7f-228f-4ab7-b148-8a708d30de32",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Nome Sistema 1 Atualizado\",\r\n    \"descricao\": \"Descrição do Sistema 1\",\r\n    \"chave\" : \"Nova chave\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/sistema/5",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"sistema",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Sistema",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "80210561-a95e-4dc7-88ca-4e47b63fd622",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/sistema/1",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"sistema",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Serviços",
+					"item": [
+						{
+							"name": "Buscar Serviços",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/servico/4",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"servico",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Serviços",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"nome\" : \"Novo Serviço\",\r\n\t\"descricao\" : \"Descrição do Novo Serviço \",\r\n\t\"password\" : \"Identificador\",\r\n\t\"chave\" : \"nova chave do sistema a ser inserido\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev-central de erros}}/servico",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"servico"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Servicos",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/servico/",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"servico",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Servico",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "80210561-a95e-4dc7-88ca-4e47b63fd622",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/servico/5",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"servico",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PROD",
+			"item": [
+				{
+					"name": "Eventos",
+					"item": [
+						{
+							"name": "Buscar Eventos",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "badd6681-02be-4f70-a5c4-b15d4a51aeb1",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev-central de erros}}/evento/1",
+									"host": [
+										"{{dev-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"1"
+									]
+								},
+								"description": "Buscar todos os eventos com suporte a paginação."
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Evento",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "c1c5bb0c-c8b8-40ab-b344-663df85c9b29",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descricao\":\"Um novo evento \",\r\n    \"level\":\"INFO\",\r\n    \"origemId\":\"2\",\r\n    \"quantidade\":\"5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/evento/",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"evento",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Tipos de Eventos",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "6bf358bc-cb13-4039-9738-b9da611f619d",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/evento/event-level",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"event-level"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Eventos",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "badd6681-02be-4f70-a5c4-b15d4a51aeb1",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descricao\": \"Um novo evento 2 ATUALIZADO\",\r\n    \"level\": \"INFO\",\r\n    \"logDescricao\" : \"Novo log de novo evento 2 ATUALIZADO\",\r\n    \"origemId\": \"1\",\r\n    \"quantidade\": \"1000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/evento/1",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar Evento",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "badd6681-02be-4f70-a5c4-b15d4a51aeb1",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/evento/1",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"evento",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Buscar Token Aplicação",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin@admin.com\",\r\n    \"password\" : \"@admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/login",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Buscar Usuários",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/user",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Usuários",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"email\" : \"admin@admin.com\",\r\n    \"password\":\"@admin\",\r\n    \"perfis\": [\"ADMIN\"] \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/user",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Tipos de Usuários",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/user/typeuser",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"user",
+										"typeuser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Usuarios",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/user/1",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Sistemas",
+					"item": [
+						{
+							"name": "Buscar Sistemas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/sistema/1",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"sistema",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Sistemas",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "426ba192-928c-41d2-a7ab-f605c3a1a6e6",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"nome\" : \"Novo Sistema\",\r\n\t\"descricao\" : \"Descrição do Novo Sistema \",\r\n\t\"chave\" : \"nopva chave\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/sistema",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"sistema"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Sistema",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "ee468e7f-228f-4ab7-b148-8a708d30de32",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Nome Sistema 1 Atualizado\",\r\n    \"descricao\": \"Descrição do Sistema 1\",\r\n    \"chave\" : \"Nova chave\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/sistema/5",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"sistema",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Sistema",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "80210561-a95e-4dc7-88ca-4e47b63fd622",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/sistema/1",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"sistema",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Serviços",
+					"item": [
+						{
+							"name": "Buscar Serviços",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/servico/4",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"servico",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Serviços",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"nome\" : \"Novo Serviço\",\r\n\t\"descricao\" : \"Descrição do Novo Serviço \",\r\n\t\"password\" : \"Identificador\",\r\n\t\"chave\" : \"nova chave do sistema a ser inserido\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod-central de erros}}/servico",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"servico"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Servicos",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/servico/",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"servico",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Servico",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "80210561-a95e-4dc7-88ca-4e47b63fd622",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{prod-central de erros}}/servico/5",
+									"host": [
+										"{{prod-central de erros}}"
+									],
+									"path": [
+										"servico",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6c80a8a3-5877-4966-b8bf-266df2928c86",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a58ba5eb-f1f7-4613-b65e-d42d5e68e006",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}
