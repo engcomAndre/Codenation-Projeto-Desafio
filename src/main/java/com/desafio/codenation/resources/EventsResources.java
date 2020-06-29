@@ -6,10 +6,8 @@ import com.desafio.codenation.domain.events.DTO.NewEventsDTO;
 import com.desafio.codenation.domain.events.Events;
 import com.desafio.codenation.domain.events.enums.TypeLevel;
 import com.desafio.codenation.domain.events.mapper.EventsMapper;
-import com.desafio.codenation.domain.logs.Log;
 import com.desafio.codenation.resources.interfaces.EventsResourcesContract;
 import com.desafio.codenation.services.EventsService;
-import com.desafio.codenation.services.OriginService;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import org.springframework.data.domain.Page;
@@ -26,20 +24,17 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Api(tags = {"Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+@Api(tags = {"5 - Eventos"}, value = "Recursos de Eventos", hidden = true, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping("evento")
 public class EventsResources implements EventsResourcesContract {
 
     private final EventsService eventsService;
 
-    private final OriginService originService;
-
     private final EventsMapper eventsMapper;
 
-    public EventsResources(EventsService eventsService, EventsMapper eventsMapper, OriginService originService) {
+    public EventsResources(EventsService eventsService, EventsMapper eventsMapper) {
         this.eventsService = eventsService;
-        this.originService = originService;
         this.eventsMapper = eventsMapper;
     }
 
