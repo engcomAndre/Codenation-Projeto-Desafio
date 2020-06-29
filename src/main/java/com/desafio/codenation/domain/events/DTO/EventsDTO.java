@@ -2,7 +2,6 @@ package com.desafio.codenation.domain.events.DTO;
 
 import com.desafio.codenation.domain.events.enums.TypeLevel;
 import com.desafio.codenation.domain.logs.Log;
-import io.swagger.annotations.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

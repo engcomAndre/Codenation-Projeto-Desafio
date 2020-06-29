@@ -19,7 +19,4 @@ public class OriginService {
         return originsRepositorie.findByIdAndOriginKeyAndActive(id, chave, true).orElse(null);
     }
 
-//    public Origins findById(Long id) {
-//        return originsRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Origem não encontrada para os parametros informados."));
-//    }
 }

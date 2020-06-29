@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Api(tags = {"Usuários"}, value = "Recursos de Usuários", hidden = false, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+@Api(tags = {"2 - Usuários"}, value = "Recursos de Usuários", hidden = false, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 public interface UserResourcesContract {
 
     @ApiOperation(value = "Buscar Usuário", notes = "Busca de Usuários por Id.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
