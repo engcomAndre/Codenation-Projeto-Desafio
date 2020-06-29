@@ -5,7 +5,6 @@ import com.desafio.codenation.services.exception.AuthorizationException;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,7 +16,6 @@ import javax.naming.OperationNotSupportedException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 
 
@@ -50,7 +48,7 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> validation(ConstraintViolationException e, HttpServletRequest request) {
         ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), "Erro de Validação");
         for (ConstraintViolation x : e.getConstraintViolations()) {
-            err.addError(x.getConstraintDescriptor().toString(),x.getMessageTemplate());
+            err.addError(x.getConstraintDescriptor().toString(), x.getMessageTemplate());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
@@ -72,6 +70,7 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), LocalDateTime.now(), e.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
+
     @ExceptionHandler(OperationNotSupportedException.class)
     public ResponseEntity<StandardError> authorization(OperationNotSupportedException e) {
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), e.getLocalizedMessage());

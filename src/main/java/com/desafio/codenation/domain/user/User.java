@@ -3,8 +3,6 @@ package com.desafio.codenation.domain.user;
 import com.desafio.codenation.domain.origin.Origins;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;

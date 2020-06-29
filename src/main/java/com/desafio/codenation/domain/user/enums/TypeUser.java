@@ -4,8 +4,8 @@ public enum TypeUser {
 
     UNDEFINED(0, "ROLE_UNDEFINED"), ADMIN(1, "ROLE_ADMIN"), COMMON_USER(2, "ROLE_COMMOM_USER");
 
-    private int cod;
-    private String desc;
+    private final int cod;
+    private final String desc;
 
     TypeUser(int cod, String desc) {
         this.cod = cod;

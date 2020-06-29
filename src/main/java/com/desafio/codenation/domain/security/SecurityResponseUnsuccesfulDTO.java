@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class SecurityResponseUnsuccesfulDTO implements Serializable {
     private static final long serialVersionUUID = 1L;
 
-    @ApiModelProperty(notes = "Mensagem com informações da ocorrência incorreta da autenticação.", example = "Authentication UNSUCCESFUL", required = true,position = 0)
+    @ApiModelProperty(notes = "Mensagem com informações da ocorrência incorreta da autenticação.", example = "Authentication UNSUCCESFUL", required = true)
     private String message;
 
 }

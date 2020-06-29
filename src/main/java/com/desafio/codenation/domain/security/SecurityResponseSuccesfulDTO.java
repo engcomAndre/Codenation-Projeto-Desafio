@@ -17,12 +17,12 @@ import java.io.Serializable;
 @ApiModel(description = "Classe que representa resposta da autenticação bem sucedida.")
 public class SecurityResponseSuccesfulDTO implements Serializable {
     private static final long serialVersionUUID = 1L;
-    @ApiModelProperty(notes = "Mensagem com informações da ocorrência da autenticação.", example = "Authentication SUSCCESFUL.", required = true,position = 0)
+    @ApiModelProperty(notes = "Mensagem com informações da ocorrência da autenticação.", example = "Authentication SUSCCESFUL.", required = true)
     private String message;
 
-    @ApiModelProperty(notes = "Identificador do tipo de token retornado.", example = "Bearer", required = true,position = 1)
+    @ApiModelProperty(notes = "Identificador do tipo de token retornado.", example = "Bearer", required = true, position = 1)
     private String tokenType;
 
-    @ApiModelProperty(notes = "Token retornado do tipo informado.", example = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE1OTM1MjQ3ODl9.uQE6Szzm91HhJUiau9nVjjE980gFeFs20n6S0Z_jhcXTJ9YpUZHyJiLLDxPOZIppGElm2mz3gnLoKZsCdq2EWA", required = true,position = 2)
+    @ApiModelProperty(notes = "Token retornado do tipo informado.", example = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE1OTM1MjQ3ODl9.uQE6Szzm91HhJUiau9nVjjE980gFeFs20n6S0Z_jhcXTJ9YpUZHyJiLLDxPOZIppGElm2mz3gnLoKZsCdq2EWA", required = true, position = 2)
     private String accessToken;
 }
