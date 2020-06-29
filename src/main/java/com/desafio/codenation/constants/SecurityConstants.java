@@ -8,7 +8,7 @@ public class SecurityConstants {
     }
 
     public static class Keys {
-        public static String TOKEN_PREFIX = "Bearer";
+        public static String TOKEN_PREFIX = "Bearer ";
         public static String HEADER_AUTHORIZATION = "Authorization";
     }
 

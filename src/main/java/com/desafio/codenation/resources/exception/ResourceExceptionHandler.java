@@ -31,7 +31,7 @@ public class ResourceExceptionHandler {
 
     }
 
-    @ExceptionHandler(DataIntegrityException.class)
+    @ExceptionHandler({DataIntegrityException.class})
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
@@ -57,6 +57,12 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<StandardError> validation(InvalidFormatException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), LocalDateTime.now(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<StandardError> validation(NumberFormatException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), LocalDateTime.now(), e.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }

@@ -15,7 +15,7 @@ public class OriginService {
         this.originsRepositorie = originsRepositorie;
     }
 
-    public Origins findByIdAndAndChaveAndAtivo(Long id, String chave) {
+    public Origins findByIdAndAndOriginKeyAndAtivo(Long id, String chave) {
         return originsRepositorie.findByIdAndOriginKeyAndActive(id, chave, true).orElse(null);
     }
 
