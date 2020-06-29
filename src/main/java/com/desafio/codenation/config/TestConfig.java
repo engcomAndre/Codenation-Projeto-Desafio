@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.text.ParseException;
+import static com.desafio.codenation.constants.EnvironmentConstants.TESTING;
 
 @Configuration
-@Profile("test")
+@Profile(TESTING)
 public class TestConfig {
 
     private final DBService dbService;
@@ -18,7 +18,7 @@ public class TestConfig {
     }
 
     @Bean
-    public boolean instantianteDatabase() throws ParseException {
+    public boolean instantianteDatabase() {
         dbService.instantiateTestDatabase();
         return true;
     }

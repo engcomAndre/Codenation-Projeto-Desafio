@@ -58,17 +58,17 @@ public class EventsService {
 
     public Events insertEvento(NewEventsDTO newEventsDTO) {
 
-        Origins origins = originService.findByIdAndAndChaveAndAtivo(
+        Origins origins = originService.findByIdAndAndOriginKeyAndAtivo(
                 Long.valueOf(newEventsDTO.getOriginId()),
                 SecurityEntityService.authenticatedUsername());
 
         if (origins == null && !SecurityEntityService.hasGrant(TypeUser.ADMIN)) {
-            throw new AuthorizationException("Acesso Negado");
+            throw new AuthorizationException("Acesso Negado ,Usuário ,sistema ou serviço não authenticado.");
         }
 
-        origins = originService.findByIdAndAndChaveAndAtivo(
+        origins = originService.findByIdAndAndOriginKeyAndAtivo(
                 Long.valueOf(newEventsDTO.getOriginId()),
-                newEventsDTO.getKey());
+                newEventsDTO.getOriginKey());
         if (origins == null) {
             throw new ObjectNotFoundException("Origem não encontrado para os parâmetros informados");
         }

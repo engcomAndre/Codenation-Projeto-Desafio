@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.desafio.codenation.config.SecurityConstants.*;
+import static com.desafio.codenation.constants.SecurityConstants.Keys.HEADER_AUTHORIZATION;
+import static com.desafio.codenation.constants.SecurityConstants.Keys.TOKEN_PREFIX;
+import static com.desafio.codenation.constants.SecurityConstants.Values.TOKEN_SECRET_KEY;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -28,7 +30,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String header = request.getHeader(HEADER_STRING);
+        String header = request.getHeader(HEADER_AUTHORIZATION);
         System.out.println("Header: " + header);
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(request, response);
@@ -41,10 +43,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
 
     private UsernamePasswordAuthenticationToken getAuthenticationToken(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
-        System.out.println("Token Header: " + token);
+        String token = request.getHeader(HEADER_AUTHORIZATION);
         if (token == null) return null;
-        String username = Jwts.parser().setSigningKey(SECRET)
+        String username = Jwts.parser().setSigningKey(TOKEN_SECRET_KEY)
                 .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                 .getBody()
                 .getSubject();

@@ -36,7 +36,7 @@ public class DBService {
     public void instantiateTestDatabase() {
         insertAdmin();
 
-        int quantity = 100;
+        int quantity = 10;
         Random rand = new Random();
 
         List<User> userList = new ArrayList<>();

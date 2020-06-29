@@ -38,9 +38,9 @@ public class SystemsService {
     }
 
     public Systems insert(Systems systems) {
-        systems.setPerfis(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)));
-        if (systems.getKey() == null || systems.getKey().isEmpty()) {
-            systems.setKey(UUID.randomUUID().toString().replace("-", ""));
+        systems.setGrants(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)));
+        if (systems.getOriginKey() == null || systems.getOriginKey().isEmpty()) {
+            systems.setOriginKey(UUID.randomUUID().toString().replace("-", ""));
         }
         return systemsRepositorie.save(systems);
     }

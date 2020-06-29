@@ -1,6 +1,8 @@
 package com.desafio.codenation.config;
 
 import com.desafio.codenation.domain.security.SecurityEntity;
+import com.desafio.codenation.domain.security.SecurityResponseSuccesfulDTO;
+import com.desafio.codenation.domain.security.SecurityResponseUnsuccesfulDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
@@ -16,10 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-import static com.desafio.codenation.config.SecurityConstants.*;
+import static com.desafio.codenation.constants.SecurityConstants.Keys.HEADER_AUTHORIZATION;
+import static com.desafio.codenation.constants.SecurityConstants.Keys.TOKEN_PREFIX;
+import static com.desafio.codenation.constants.SecurityConstants.Message.AUTHENTICATION_NOT_SUCCESSFUL;
+import static com.desafio.codenation.constants.SecurityConstants.Message.AUTHENTICATION_SUCCESSFUL;
+import static com.desafio.codenation.constants.SecurityConstants.Values.EXPIRATION_TIME;
+import static com.desafio.codenation.constants.SecurityConstants.Values.TOKEN_SECRET_KEY;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -50,7 +55,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
 
-
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
@@ -62,7 +66,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .signWith(SignatureAlgorithm.HS512, TOKEN_SECRET_KEY)
                 .compact();
         String bearerToken = TOKEN_PREFIX + token;
 
@@ -70,23 +74,25 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     private void makeUnsuccesfulAuthenticationResponseBody(HttpServletResponse response) throws IOException {
-        Map<String, String> responseMap = new HashMap<>();
-        responseMap.put("message", "Authentication UNSUCCESFUL.");
+        SecurityResponseUnsuccesfulDTO srud = SecurityResponseUnsuccesfulDTO.builder()
+                .message(AUTHENTICATION_NOT_SUCCESSFUL)
+                .build();
         response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-        response.getWriter().write(new Gson().toJson(responseMap));
+        response.getWriter().write(new Gson().toJson(srud));
 
     }
 
     private void makeSuccesfulAuthenticationResponseBody(HttpServletResponse response, String bearerToken) throws IOException {
-        Map<String, String> responseMap = new HashMap<>();
-        response.addHeader(HEADER_STRING, bearerToken);
-        responseMap.put("message", "Authentication SUCCESFUL.");
-        responseMap.put("token_type", TOKEN_PREFIX);
-        responseMap.put("access_token", bearerToken);
+        response.addHeader(HEADER_AUTHORIZATION, bearerToken);
+
+        SecurityResponseSuccesfulDTO srsd = SecurityResponseSuccesfulDTO.builder()
+                .message(AUTHENTICATION_SUCCESSFUL)
+                .tokenType(TOKEN_PREFIX)
+                .accessToken(bearerToken)
+                .build();
+
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
-        response.getWriter().write(new Gson().toJson(responseMap));
+        response.getWriter().write(new Gson().toJson(srsd));
 
     }
-
-
 }

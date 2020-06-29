@@ -29,7 +29,7 @@ import java.util.Set;
 public class Origins {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull(message = "Nome é um campo obrigatório.")
@@ -40,21 +40,19 @@ public class Origins {
     @Length(min = 10, max = 250, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     private String description;
 
-    @NotNull(message = "Chave é um campo obrigatório.")
-    @Length(min = 5, max = 60, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
+    @Length(max = 60, message = "Descrição possui tamanho mínimo de 10 e máximo de 250 caracteres.")
     @Column(unique = true)
-    private String key;
+    private String originKey;
 
     @NotEmpty(message = "Uma senha valida deve ser informada.")
     @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
     private String password;
 
-    @Column(columnDefinition = "default 'true'")
     private Boolean active = true;
 
     @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<TypeUser> perfis = new HashSet<>();
+    private Set<TypeUser> grants = new HashSet<>();
 
     @JsonIgnore
     @ManyToMany(mappedBy = "origins")

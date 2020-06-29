@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @ApiModel(description = "Classe que representa os atributos de login de usuários.")
 public class SecurityUserDto {
-    @ApiModelProperty(notes = "Unique identifier of the person. No two persons can have the same id.", example = "admin@admin.com", required = true, position = 0)
+    @ApiModelProperty(notes = "Identificador único de acesso dos usuários.", example = "admin@admin.com", required = true)
     private String username;
-    @ApiModelProperty(notes = "Unique identifier of the person. No two persons can have the same id.", example = "@admin", required = true, position = 1)
+    @ApiModelProperty(notes = "Identificador único de acesso dos usuários.", example = "@admin", required = true, position = 1)
     private String password;
 }
