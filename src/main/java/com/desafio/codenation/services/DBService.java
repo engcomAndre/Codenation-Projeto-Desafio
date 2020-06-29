@@ -44,11 +44,10 @@ public class DBService {
         List<Events> events = new ArrayList<>();
         List<Origins> origins = new ArrayList<>();
 
-        //Todo one
         for (int i = 0; i < quantity; i++) {
 
             User user = User.builder()
-                    .email("user_" + i + "@admin.com")
+                    .email("user_" + i + "@commomuser.com")
                     .password("@" + "user_" + i)
                     .grants(new HashSet<>(Collections.singletonList(TypeUser.COMMON_USER)))
                     .build();
