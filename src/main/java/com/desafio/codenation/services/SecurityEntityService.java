@@ -50,14 +50,14 @@ public class SecurityEntityService implements UserDetailsService {
                     .build();
 
         }
-        Origins origins = originsRepositorie.findByKeyAndActive(username, true)
+        Origins origins = originsRepositorie.findByOriginKeyAndActive(username, true)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encotrado para o parâmetros informados."));
 
         return SecurityEntity.builder()
                 .id(origins.getId())
-                .username(origins.getKey())
+                .username(origins.getOriginKey())
                 .password(origins.getPassword())
-                .perfis(origins.getPerfis())
+                .perfis(origins.getGrants())
                 .build();
 
     }

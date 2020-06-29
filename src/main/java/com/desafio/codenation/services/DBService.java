@@ -36,7 +36,7 @@ public class DBService {
     public void instantiateTestDatabase() {
         insertAdmin();
 
-        int quantity = 100;
+        int quantity = 10;
         Random rand = new Random();
 
         List<User> userList = new ArrayList<>();
@@ -44,12 +44,11 @@ public class DBService {
         List<Events> events = new ArrayList<>();
         List<Origins> origins = new ArrayList<>();
 
-        //Todo one
         for (int i = 0; i < quantity; i++) {
 
             User user = User.builder()
-                    .email("user_" + i + "@admin.com")
-                    .password("@" + "user_" + i)
+                    .email("user_" + i + "@user.com")
+                    .password("@" + "user" + i)
                     .grants(new HashSet<>(Collections.singletonList(TypeUser.COMMON_USER)))
                     .build();
 

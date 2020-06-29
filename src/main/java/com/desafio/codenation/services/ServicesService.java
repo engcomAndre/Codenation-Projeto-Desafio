@@ -40,9 +40,9 @@ public class ServicesService {
     }
 
     public Services insert(Services services) {
-        services.setPerfis(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)));
-        if (services.getKey() == null || services.getKey().isEmpty()) {
-            services.setKey(UUID.randomUUID().toString().replace("-", ""));
+        services.setGrants(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)));
+        if (services.getOriginKey() == null || services.getOriginKey().isEmpty()) {
+            services.setOriginKey(UUID.randomUUID().toString().replace("-", ""));
         }
         return servicesRepositorie.save(services);
     }

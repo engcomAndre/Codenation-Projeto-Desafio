@@ -47,7 +47,7 @@ public class User implements Serializable {
 
     @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "perfis")
+    @CollectionTable(name = "grants")
     private Set<TypeUser> grants = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)

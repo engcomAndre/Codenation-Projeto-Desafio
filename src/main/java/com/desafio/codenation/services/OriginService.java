@@ -16,7 +16,7 @@ public class OriginService {
     }
 
     public Origins findByIdAndAndChaveAndAtivo(Long id, String chave) {
-        return originsRepositorie.findByIdAndKeyAndActive(id, chave, true).orElse(null);
+        return originsRepositorie.findByIdAndOriginKeyAndActive(id, chave, true).orElse(null);
     }
 
 //    public Origins findById(Long id) {

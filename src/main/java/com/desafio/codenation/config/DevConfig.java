@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.text.ParseException;
+import static com.desafio.codenation.constants.EnvironmentConstants.DEVELOPMENT;
 
 @Configuration
-@Profile("dev")
+@Profile(DEVELOPMENT)
 public class DevConfig {
 
     private final DBService dbService;
@@ -22,7 +22,7 @@ public class DevConfig {
     }
 
     @Bean
-    public boolean instateateDatabase() throws ParseException {
+    public boolean instateateDatabase() {
         if (!"create".equals(stratetgy)) {
             return false;
         }

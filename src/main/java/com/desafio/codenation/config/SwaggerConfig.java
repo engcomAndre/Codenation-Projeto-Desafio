@@ -28,8 +28,8 @@ public class SwaggerConfig {
 
 
     private final ResponseMessage m201 = customMessage1();
-    private final ResponseMessage m204put = simpleMessage(204, "Atualização ocorreu com sucesso");
-    private final ResponseMessage m204del = simpleMessage(204, "Deleção ocorreu com sucesso");
+//    private final ResponseMessage m204put = simpleMessage(204, "Atualização ocorreu com sucesso");
+//    private final ResponseMessage m204del = simpleMessage(204, "Deleção ocorreu com sucesso");
     private final ResponseMessage m403 = simpleMessage(403, "Não autorizado.");
     private final ResponseMessage m404 = simpleMessage(404, "Recurso buscado não encontrado");
     private final ResponseMessage m422 = simpleMessage(422, "Erro de validação");
@@ -42,8 +42,8 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, Arrays.asList(m403, m404, m500))
                 .globalResponseMessage(RequestMethod.POST, Arrays.asList(m201, m403, m422, m500))
-                .globalResponseMessage(RequestMethod.PUT, Arrays.asList(m204put, m403, m404, m422, m500))
-                .globalResponseMessage(RequestMethod.DELETE, Arrays.asList(m204del, m403, m404, m500))
+                .globalResponseMessage(RequestMethod.PUT, Arrays.asList(/*m204put,*/ m403, m404, m422, m500))
+                .globalResponseMessage(RequestMethod.DELETE, Arrays.asList(/*m204del,*/ m403, m404, m500))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(RESOURCES_PACK))
                 .paths(PathSelectors.any())

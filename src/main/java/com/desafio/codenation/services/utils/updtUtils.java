@@ -16,8 +16,8 @@ public class updtUtils {
         if (!Objects.equals(actOrigin.getDescription(), newOrigin.getDescription())) {
             actOrigin.setDescription(newOrigin.getDescription());
         }
-        if (!Objects.equals(actOrigin.getKey(), newOrigin.getKey())) {
-            actOrigin.setKey(newOrigin.getKey());
+        if (!Objects.equals(actOrigin.getOriginKey(), newOrigin.getOriginKey())) {
+            actOrigin.setOriginKey(newOrigin.getOriginKey());
         }
 
     }
