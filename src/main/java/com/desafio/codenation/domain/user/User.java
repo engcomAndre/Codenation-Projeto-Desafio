@@ -1,5 +1,6 @@
 package com.desafio.codenation.domain.user;
 
+import com.desafio.codenation.domain.OriginUser;
 import com.desafio.codenation.domain.origin.Origins;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -46,16 +47,11 @@ public class User implements Serializable {
 
     @NotEmpty(message = "Pelo menos um perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "grants")
+    @CollectionTable(name = "user_grants")
     private Set<TypeUser> grants = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "ORIGIN_USER",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "origins_id")
-    )
-    private List<Origins> origins = new ArrayList<>();
+    @OneToMany(mappedBy="id.user")
+    private List<OriginUser> origins = new ArrayList<>();
 
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

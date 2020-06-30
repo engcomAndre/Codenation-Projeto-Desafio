@@ -1,6 +1,8 @@
 package com.desafio.codenation.services;
 
 
+import com.desafio.codenation.domain.OriginUser;
+import com.desafio.codenation.domain.OriginUserPk;
 import com.desafio.codenation.domain.events.Events;
 import com.desafio.codenation.domain.events.enums.TypeLevel;
 import com.desafio.codenation.domain.logs.Log;
@@ -10,7 +12,7 @@ import com.desafio.codenation.domain.origin.Systems;
 import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.repositories.EventsRepositorie;
-import com.desafio.codenation.repositories.LogsRepositorie;
+import com.desafio.codenation.repositories.OriginUserRepositorie;
 import com.desafio.codenation.repositories.OriginsRepositorie;
 import com.desafio.codenation.repositories.UserRepositorie;
 import org.springframework.stereotype.Service;
@@ -22,13 +24,13 @@ public class DBService {
 
     private final UserRepositorie userRepositorie;
     private final EventsRepositorie eventsRepositorie;
-    private final LogsRepositorie logsRepositorie;
+    private final OriginUserRepositorie originUserRepositorie;
     private final OriginsRepositorie originsRepositorie;
 
-    public DBService(UserRepositorie userRepositorie, EventsRepositorie eventsRepositorie, LogsRepositorie logsRepositorie, OriginsRepositorie originsRepositorie) {
+    public DBService(UserRepositorie userRepositorie, EventsRepositorie eventsRepositorie, OriginUserRepositorie originUserRepositorie, OriginsRepositorie originsRepositorie) {
         this.userRepositorie = userRepositorie;
         this.eventsRepositorie = eventsRepositorie;
-        this.logsRepositorie = logsRepositorie;
+        this.originUserRepositorie = originUserRepositorie;
         this.originsRepositorie = originsRepositorie;
     }
 
@@ -36,7 +38,7 @@ public class DBService {
     public void instantiateTestDatabase() {
         insertAdmin();
 
-        int quantity = 10;
+        int quantity = 200;
         Random rand = new Random();
 
         List<User> userList = new ArrayList<>();
@@ -44,18 +46,18 @@ public class DBService {
         List<Events> events = new ArrayList<>();
         List<Origins> origins = new ArrayList<>();
 
+
         for (int i = 0; i < quantity; i++) {
+            Events event;
+            Log log;
 
             User user = User.builder()
                     .email("user_" + i + "@commomuser.com")
                     .password("@" + "user_" + i)
+                    .origins(new ArrayList<>())
                     .grants(new HashSet<>(Collections.singletonList(TypeUser.COMMON_USER)))
                     .build();
 
-            userList.add(user);
-
-            int ranMin = rand.nextInt(userList.size());
-            int ranMax = rand.ints(ranMin, userList.size()).limit(1).findFirst().orElseThrow();
 
             Origins originsEnt;
 
@@ -67,7 +69,6 @@ public class DBService {
                         .active(true)
                         .originKey(UUID.randomUUID().toString().replace("-", ""))
                         .grants(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)))
-                        .users(userList.subList(ranMin, ranMax))
                         .build();
             } else {
                 originsEnt = Systems.builderSistema()
@@ -77,14 +78,11 @@ public class DBService {
                         .active(true)
                         .originKey(UUID.randomUUID().toString().replace("-", ""))
                         .grants(new HashSet<>(Collections.singletonList(TypeUser.UNDEFINED)))
-                        .users(userList.subList(ranMin, ranMax))
                         .build();
             }
 
-            origins.add(originsEnt);
-
-            Events event;
-            Log log;
+            userList.add(userRepositorie.save(user));
+            origins.add(originsRepositorie.save(originsEnt));
 
             if (origins.size() > 0) {
                 log = Log.builder()
@@ -104,12 +102,19 @@ public class DBService {
                 log.setEvents(event);
                 events.add(event);
                 logs.add(log);
-                userRepositorie.save(user);
-                originsRepositorie.save(originsEnt);
-                eventsRepositorie.save(event);
-                logsRepositorie.save(log);
+
+                events.add(eventsRepositorie.save(event));
+
             }
+            OriginUser originUser = OriginUser.builder()
+                    .id(OriginUserPk.builder()
+                            .user(userList.get(rand.nextInt(userList.size())))
+                            .origins(origins.get(rand.nextInt(origins.size())))
+                            .build())
+                    .build();
+            originUserRepositorie.save(originUser);
         }
+
 
     }
 
