@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -48,7 +49,7 @@ public class Origins {
     @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
     private String password;
 
-    private Boolean active = true;
+    private Boolean active;
 
     @NotEmpty(message = "Pelo menos umm perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)

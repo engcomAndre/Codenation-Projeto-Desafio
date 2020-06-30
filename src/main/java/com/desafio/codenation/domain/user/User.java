@@ -44,7 +44,6 @@ public class User implements Serializable {
     @Length(min = 5, max = 20, message = "Senha possui tamanho mínimo de 5 e máximo de 20 caracteres.")
     private String password;
 
-
     @NotEmpty(message = "Pelo menos um perfil de usuário deve ser informado.")
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "grants")

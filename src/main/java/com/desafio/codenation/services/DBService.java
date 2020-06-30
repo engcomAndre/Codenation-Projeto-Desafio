@@ -65,7 +65,7 @@ public class DBService {
                         .description("Descrição do Serviço " + i)
                         .password("123456")
                         .active(true)
-                        .key(UUID.randomUUID().toString().replace("-", ""))
+                        .originKey(UUID.randomUUID().toString().replace("-", ""))
                         .grants(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)))
                         .users(userList.subList(ranMin, ranMax))
                         .build();
@@ -75,7 +75,7 @@ public class DBService {
                         .description("Descrição do Sistema " + i)
                         .password("123456")
                         .active(true)
-                        .key(UUID.randomUUID().toString().replace("-", ""))
+                        .originKey(UUID.randomUUID().toString().replace("-", ""))
                         .grants(new HashSet<>(Collections.singletonList(TypeUser.UNDEFINED)))
                         .users(userList.subList(ranMin, ranMax))
                         .build();

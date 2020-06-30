@@ -28,10 +28,10 @@ public class UserInsertValidator implements ConstraintValidator<UserInsert, NewU
         List<FieldMessage> list = new ArrayList<>();
 
         if (newUserDTO.getGrants().isEmpty()) {
-            list.add(new FieldMessage("perfis", "É necessário informar ao menos um perfil de usuário."));
+            list.add(new FieldMessage("grants", "É necessário informar ao menos um perfil de usuário."));
         }
         if (newUserDTO.getGrants().contains(TypeUser.ADMIN) || newUserDTO.getGrants().contains(TypeUser.COMMON_USER)) {
-            list.add(new FieldMessage("perfis", "Usuário já possui algum dos perfis informados. "));
+            list.add(new FieldMessage("grants", "Usuário já possui algum dos perfis informados. "));
         }
         if (userRepositorie.findByEmail(newUserDTO.getEmail()).orElse(null) != null) {
             list.add(new FieldMessage("email", "Email já cadastrado."));
@@ -44,7 +44,7 @@ public class UserInsertValidator implements ConstraintValidator<UserInsert, NewU
                 }
             }
         } catch (Exception e) {
-            list.add(new FieldMessage("perfis", "Valores invaĺidos para perfis de usuário."));
+            list.add(new FieldMessage("grants", "Valores invaĺidos para perfis de usuário."));
         }
 
 

@@ -8,21 +8,17 @@ import com.desafio.codenation.domain.origin.mapper.SystemsMapper;
 import com.desafio.codenation.resources.interfaces.SystemsResourcesContract;
 import com.desafio.codenation.services.SystemsService;
 import com.querydsl.core.types.Predicate;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("sistema")
@@ -52,12 +48,8 @@ public class SystemsResources implements SystemsResourcesContract {
                                 .collect(Collectors.toList())));
     }
 
-
-    @ApiOperation(value = "Cadastrar Sistemas", notes = "Cadastro de um novo Sistema.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insertSistema(NewSystemsDTO newSystemsDTO) {
-        Systems systems = systemsMapper.map(newSystemsDTO);
-        systems = systemsService.insert(systems);
+        Systems systems = systemsService.insert(systemsMapper.map(newSystemsDTO));
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

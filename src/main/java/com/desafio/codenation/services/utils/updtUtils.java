@@ -19,7 +19,9 @@ public class updtUtils {
         if (!Objects.equals(actOrigin.getOriginKey(), newOrigin.getOriginKey())) {
             actOrigin.setOriginKey(newOrigin.getOriginKey());
         }
-
+        if (!Objects.equals(actOrigin.getActive(), newOrigin.getActive())) {
+            actOrigin.setActive(newOrigin.getActive());
+        }
     }
 
     public static void updtLog(Log actLog, Log newLog) {

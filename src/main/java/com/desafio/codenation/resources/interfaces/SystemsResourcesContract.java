@@ -41,7 +41,7 @@ public interface SystemsResourcesContract {
             Pageable pageable);
 
     @ApiOperation(value = "Cadastrar Sistemas", notes = "Cadastro de um novo Sistema.", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     ResponseEntity<Void> insertSistema(@Valid @RequestBody NewSystemsDTO newSystemsDTO);
 
     @ApiOperation(value = "Atualizar Sistemas", notes = "Atualizar um  Sistema existente por Id", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)

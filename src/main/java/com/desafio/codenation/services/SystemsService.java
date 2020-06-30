@@ -39,9 +39,11 @@ public class SystemsService {
 
     public Systems insert(Systems systems) {
         systems.setGrants(new HashSet<>(Collections.singleton(TypeUser.UNDEFINED)));
+
         if (systems.getOriginKey() == null || systems.getOriginKey().isEmpty()) {
             systems.setOriginKey(UUID.randomUUID().toString().replace("-", ""));
         }
+        systems.setActive(true);
         return systemsRepositorie.save(systems);
     }
 
