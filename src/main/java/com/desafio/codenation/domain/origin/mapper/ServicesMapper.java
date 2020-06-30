@@ -16,20 +16,14 @@ public interface ServicesMapper {
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "events", target = "events"),
+            @Mapping(source = "users", target = "users"),
             @Mapping(source = "description", target = "description"),
             @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
-
     })
     ServicesDTO map(Services services);
 
     ServicesListDto mapForFindAll(Services services);
-    @InheritConfiguration(name = "originDTO")
-    @Mappings({
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "key", target = "key"),
-            @Mapping(source = "description", target = "description"),
-            @Mapping(source = "password", target = "password")
-    })
+
     Services map(NewServiceDTO newServiceDTO);
 
 }

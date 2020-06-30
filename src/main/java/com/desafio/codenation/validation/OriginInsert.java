@@ -12,8 +12,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = UserInsertValidator.class)
-public @interface UserInsert {
+@Constraint(validatedBy = OriginInsertValidator.class)
+public @interface OriginInsert {
     String message() default "Erro de Validação";
 
     Class<?>[] groups() default {};
