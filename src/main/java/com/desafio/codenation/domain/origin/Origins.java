@@ -1,14 +1,12 @@
 package com.desafio.codenation.domain.origin;
 
+import com.desafio.codenation.domain.OriginUser;
 import com.desafio.codenation.domain.events.Events;
-import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -55,11 +53,9 @@ public class Origins {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<TypeUser> grants = new HashSet<>();
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "origins")
-    private List<User> users;
+    @OneToMany(mappedBy = "id.origins")
+    private List<OriginUser> users;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "origins")
     private List<Events> events;
 

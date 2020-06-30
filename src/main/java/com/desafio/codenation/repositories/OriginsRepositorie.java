@@ -1,7 +1,6 @@
 package com.desafio.codenation.repositories;
 
 import com.desafio.codenation.domain.origin.Origins;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
