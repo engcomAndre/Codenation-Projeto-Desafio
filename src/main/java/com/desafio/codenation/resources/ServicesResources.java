@@ -66,7 +66,7 @@ public class ServicesResources implements ServicesResourcesContract {
     }
 
     public ResponseEntity<Void> deleteUser(Long id) {
-        servicesService.deleteUser(id);
+        servicesService.deleteService(id);
         return ResponseEntity.noContent().build();
     }
 

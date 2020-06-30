@@ -47,7 +47,7 @@ public class ServicesService {
         return servicesRepositorie.save(services);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteService(Long id) {
         try {
             getServicoById(id);
             servicesRepositorie.deleteById(id);

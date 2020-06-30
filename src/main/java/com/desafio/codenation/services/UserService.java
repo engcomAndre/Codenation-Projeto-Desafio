@@ -36,10 +36,10 @@ public class UserService {
         return userRepositorie.save(user);
     }
 
-    public void updateUser(Long id, User newUser) {
+    public User updateUser(Long id, User newUser) {
         User user = getUser(id);
         updtUtils.updtUser(user, newUser);
-        userRepositorie.save(user);
+        return userRepositorie.save(user);
     }
 
     public void deleteUser(Long id) {
