@@ -1,6 +1,7 @@
 package com.desafio.codenation.domain.user.mapper;
 
 import com.desafio.codenation.domain.user.DTO.NewUserDTO;
+import com.desafio.codenation.domain.user.DTO.UserDTO;
 import com.desafio.codenation.domain.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,5 +16,11 @@ public interface NewUserMapper {
             @Mapping(source = "grants", target = "grants")
     })
     User map(NewUserDTO newUserDTO);
+
+
+    @Mappings({
+            @Mapping(source = "origins", target = "origins",ignore = true)
+    })
+    UserDTO map(User user);
 
 }

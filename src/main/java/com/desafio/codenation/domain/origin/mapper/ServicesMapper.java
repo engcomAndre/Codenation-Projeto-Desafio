@@ -12,15 +12,15 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "spring")
 public interface ServicesMapper {
     @InheritConfiguration(name = "originDTO")
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "events", target = "events"),
-            @Mapping(source = "users", target = "users"),
-            @Mapping(source = "description", target = "description"),
-            @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
-    })
-    ServicesDTO map(Services services);
+//    @Mappings({
+//            @Mapping(source = "id", target = "id"),
+//            @Mapping(source = "name", target = "name"),
+//            @Mapping(source = "events", target = "events"),
+//            @Mapping(source = "users", target = "users"),
+//            @Mapping(source = "description", target = "description"),
+//            @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
+//    })
+    ServicesDTO mapToDetails(Services services);
 
     ServicesListDto mapForFindAll(Services services);
 

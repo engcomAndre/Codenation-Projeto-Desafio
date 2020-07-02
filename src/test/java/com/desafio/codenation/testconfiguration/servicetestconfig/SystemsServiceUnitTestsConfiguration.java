@@ -1,6 +1,6 @@
-package com.desafio.codenation.testconfiguration;
+package com.desafio.codenation.testconfiguration.servicetestconfig;
 
-import com.desafio.codenation.services.ServicesService;
+import com.desafio.codenation.services.SystemsService;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +11,11 @@ import static com.desafio.codenation.constants.EnvironmentConstants.TESTING;
 
 @Profile(TESTING)
 @Configuration
-public class ServicesServiceUnitTestsConfiguration {
+public class SystemsServiceUnitTestsConfiguration {
 
     @Bean
     @Primary
-    public ServicesService servicesService() {
-        return Mockito.mock(ServicesService.class);
+    public SystemsService systemsService() {
+        return Mockito.mock(SystemsService.class);
     }
 }

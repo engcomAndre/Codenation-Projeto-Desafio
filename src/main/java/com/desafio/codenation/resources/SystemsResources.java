@@ -20,6 +20,8 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+import static com.desafio.codenation.resources.utils.MapDetailsForOrigins.mapAllDetails;
+
 @RestController
 @RequestMapping("sistema")
 public class SystemsResources implements SystemsResourcesContract {
@@ -34,9 +36,9 @@ public class SystemsResources implements SystemsResourcesContract {
     }
 
     public ResponseEntity<SystemsDTO> getSistemaById(Long id) {
-        return ResponseEntity.ok().body(systemsMapper.mapToDetails(systemsService.getSistema(id)));
+        return ResponseEntity.ok()
+                .body((SystemsDTO) mapAllDetails(systemsService.getSistemById(id), systemsMapper));
     }
-
 
     public ResponseEntity<Page<SistemaListDto>> getSistemas(Predicate predicate, Long id, String nome, String descricao, String chave, String password, LocalDateTime createdAt, String sort, String page, Pageable pageable) {
         return ResponseEntity

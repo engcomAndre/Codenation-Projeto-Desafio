@@ -1,7 +1,6 @@
 package com.desafio.codenation.unittests.servicestests;
 
 import com.desafio.codenation.domain.origin.Systems;
-import com.desafio.codenation.domain.user.User;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.services.SystemsService;
 import org.junit.Assert;
@@ -54,8 +53,8 @@ public class SystemServiceUnitTests {
 
     @Test
     public void whenIdIsProvided_thenRetrievalUserIsCorrect() {
-        when(systemsService.getSistema(1L)).thenReturn(TEST_SYSTEM);
-        Systems retrievaSystems = systemsService.getSistema(1L);
+        when(systemsService.getSistemById(1L)).thenReturn(TEST_SYSTEM);
+        Systems retrievaSystems = systemsService.getSistemById(1L);
 
         Assert.assertNotNull(retrievaSystems);
         Assert.assertEquals(retrievaSystems.getId(), TEST_SYSTEM.getId());

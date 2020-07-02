@@ -3,6 +3,7 @@ package com.desafio.codenation.services;
 import com.desafio.codenation.domain.origin.Services;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.repositories.ServicesRepositorie;
+import com.desafio.codenation.repositories.UserRepositorie;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import com.desafio.codenation.services.utils.updtUtils;

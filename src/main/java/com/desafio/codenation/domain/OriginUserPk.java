@@ -2,6 +2,7 @@ package com.desafio.codenation.domain;
 
 import com.desafio.codenation.domain.origin.Origins;
 import com.desafio.codenation.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +25,7 @@ public class OriginUserPk implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "origins_id")
+    @JsonIgnore
     private Origins origins;
 
     @ManyToOne

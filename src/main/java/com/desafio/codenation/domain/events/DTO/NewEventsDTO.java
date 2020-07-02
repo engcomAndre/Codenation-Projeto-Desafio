@@ -3,6 +3,7 @@ package com.desafio.codenation.domain.events.DTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "Classe que representa resposta de cadastro de evento bem sucedida.")
