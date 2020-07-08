@@ -25,7 +25,7 @@ public class SystemsService {
         this.systemsRepositorie = systemsRepositorie;
     }
 
-    public Systems getSistema(Long id) {
+    public Systems getSistemById(Long id) {
         return systemsRepositorie.findById(id).orElseThrow(() -> new ObjectNotFoundException("Serviço com identificador " + id + " não encontrado."));
     }
 
@@ -48,7 +48,7 @@ public class SystemsService {
     }
 
     public void deleteSistema(Long id) {
-        getSistema(id);
+        getSistemById(id);
         try {
             systemsRepositorie.deleteById(id);
         } catch (DataIntegrityException die) {
@@ -58,7 +58,7 @@ public class SystemsService {
 
     public void updateSistema(Long id, Systems newSystems) {
 
-        Systems systems = getSistema(id);
+        Systems systems = getSistemById(id);
 
         updtUtils.updtOrigins(systems, newSystems);
 

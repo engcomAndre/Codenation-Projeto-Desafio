@@ -20,6 +20,8 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+import static com.desafio.codenation.resources.utils.MapDetailsForOrigins.mapAllDetails;
+
 @RestController
 @RequestMapping("servico")
 public class ServicesResources implements ServicesResourcesContract {
@@ -34,9 +36,9 @@ public class ServicesResources implements ServicesResourcesContract {
     }
 
     public ResponseEntity<ServicesDTO> getServicoById(Long id) {
-        return ResponseEntity.ok().body(servicesMapper.map(servicesService.getServicoById(id)));
+        return ResponseEntity.ok()
+                .body((ServicesDTO) mapAllDetails(servicesService.getServicoById(id), servicesMapper));
     }
-
 
     public ResponseEntity<Page<ServicesListDto>> getServicos(Predicate predicate, Long id, String nome, String descricao, String chave, String password, LocalDateTime createdAt, String sort, String page, Pageable pageable) {
         return ResponseEntity
@@ -66,7 +68,7 @@ public class ServicesResources implements ServicesResourcesContract {
     }
 
     public ResponseEntity<Void> deleteUser(Long id) {
-        servicesService.deleteUser(id);
+        servicesService.deleteService(id);
         return ResponseEntity.noContent().build();
     }
 

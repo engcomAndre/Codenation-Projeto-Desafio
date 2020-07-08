@@ -5,6 +5,7 @@ import com.desafio.codenation.validation.UserInsert;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @UserInsert
 @ApiModel(description = "Classe que representa resposta de usuários.")
 public class NewUserDTO {

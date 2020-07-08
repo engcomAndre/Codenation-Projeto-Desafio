@@ -3,6 +3,7 @@ package com.desafio.codenation.domain.origin.DTO;
 import com.desafio.codenation.domain.events.DTO.EventsListDto;
 import com.desafio.codenation.domain.user.DTO.UserListDTO;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Data
 public class OriginsDTO implements Serializable {
     private static final long serialVersionUUID = 1L;

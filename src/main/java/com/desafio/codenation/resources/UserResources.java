@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.desafio.codenation.resources.utils.MapDetaisForUsers.mapDetails;
+
 @RestController
 @RequestMapping("user")
 public class UserResources implements UserResourcesContract {
@@ -45,8 +47,9 @@ public class UserResources implements UserResourcesContract {
 
 
     public ResponseEntity<UserDTO> getUser(Long id) {
-        return ResponseEntity.ok().body(userMapper.map(userService.getUser(id)));
+        return ResponseEntity.ok().body(mapDetails(userService.getUser(id), userMapper));
     }
+
 
     public ResponseEntity<Page<UserDTO>> getUsers(
             @QuerydslPredicate(root = User.class) Predicate predicate,

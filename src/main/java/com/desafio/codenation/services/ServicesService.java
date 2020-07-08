@@ -3,6 +3,7 @@ package com.desafio.codenation.services;
 import com.desafio.codenation.domain.origin.Services;
 import com.desafio.codenation.domain.user.enums.TypeUser;
 import com.desafio.codenation.repositories.ServicesRepositorie;
+import com.desafio.codenation.repositories.UserRepositorie;
 import com.desafio.codenation.services.exception.DataIntegrityException;
 import com.desafio.codenation.services.exception.ObjectNotFoundException;
 import com.desafio.codenation.services.utils.updtUtils;
@@ -47,7 +48,7 @@ public class ServicesService {
         return servicesRepositorie.save(services);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteService(Long id) {
         try {
             getServicoById(id);
             servicesRepositorie.deleteById(id);
